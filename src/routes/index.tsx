@@ -11,6 +11,7 @@ import { UpsellModal } from "@/components/UpsellModal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import heroImg from "@/assets/hero-padel.jpg";
 import courtImg from "@/assets/court-dark.jpg";
+import logoImg from "@/assets/logo.png";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -617,13 +618,7 @@ function Landing() {
         <div className="container-x grid gap-10 py-14 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-2">
-              <div
-                className="flex h-9 w-9 items-center justify-center rounded-md font-black text-white"
-                style={{ backgroundColor: "var(--color-primary)" }}
-              >
-                S
-              </div>
-              <span className="text-lg font-extrabold text-white">SMASH PADEL</span>
+              <img src={logoImg} alt="Smash Padel Logo" className="h-8 w-auto brightness-0 invert" />
             </div>
             <p className="mt-4 text-sm">Boulder, Colorado's first padel club.</p>
             <div className="mt-5 flex gap-3">
