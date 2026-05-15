@@ -172,6 +172,20 @@
     flex-shrink: 0;
   }
 
+  /* ── Marquee / Carousel ── */
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee 35s linear infinite;
+    display: flex;
+    width: max-content;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+
   /* ── Pulsing dot for urgency ── */
   @keyframes pulse-dot {
     0%, 100% { transform: scale(1); opacity: 1; }

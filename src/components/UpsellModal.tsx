@@ -12,10 +12,10 @@ export function UpsellModal({ open, onOpenChange }: { open: boolean; onOpenChang
           One-time offer
         </div>
         <DialogTitle className="text-3xl font-extrabold leading-tight">
-          Before you go — bring a friend for just <span style={{ color: "var(--color-primary)" }}>$5 more</span>
+          Before you go - bring a friend for just <span style={{ color: "var(--color-primary)" }}>$5 more</span>
         </DialogTitle>
         <DialogDescription className="mt-3 text-base text-muted-foreground">
-          Padel is more fun with someone you know. Add a friend to your session for only $5 — normally $10.
+          Padel is more fun with someone you know. Add a friend to your session for only $5 - normally $10.
           One-time offer, only available right now.
         </DialogDescription>
         <div className="mt-6 flex flex-col gap-3">

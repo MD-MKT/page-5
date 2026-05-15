@@ -16,13 +16,13 @@ export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
-      { title: "Smash Padel USA — Try Padel for $10 in Boulder, CO" },
+      { title: "Smash Padel USA - Try Padel for $10 in Boulder, CO" },
       {
         name: "description",
         content:
           "Claim your $125 discount. 60-minute beginner padel session in Boulder, Colorado for just $10. Coach, racket and court included. No experience needed.",
       },
-      { property: "og:title", content: "Smash Padel USA — $10 Beginner Padel Session" },
+      { property: "og:title", content: "Smash Padel USA - $10 Beginner Padel Session" },
       { property: "og:description", content: "60 min coached session + racket + court. $135 value for $10 in Boulder, CO." },
     ],
   }),
@@ -37,93 +37,68 @@ function Landing() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar onCTA={openUpsell} />
+      <Navbar />
 
       {/* ── HERO ── */}
       <section className="bg-background">
-        <div className="container-x grid items-center gap-12 py-16 md:grid-cols-2 md:py-24">
-          {/* Left col */}
-          <div className="order-2 md:order-1">
-            {/* Badge */}
-            <span
-              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white"
-              style={{ backgroundColor: "var(--color-dark)" }}
-            >
-              <span className="pulse-dot" />
-              Colorado's First Padel Club
-            </span>
-
-            <h1 className="mt-5 text-5xl font-extrabold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
-              Claim Your{" "}
-              <span style={{ color: "var(--color-primary)" }}>$125 Discount</span>{" "}
-              — Try Padel for Just{" "}
-              <span style={{ color: "var(--color-primary)" }}>$10</span>
+        <div className="container-x flex flex-col items-center pt-6 md:pt-10 pb-16 md:pb-20 text-center">
+            {/* Headline */}
+            <h1 className="mx-auto max-w-5xl text-3xl font-extrabold leading-[1.2] tracking-tight sm:text-4xl md:text-5xl lg:text-[54px]">
+              Claim Your <span style={{ color: "var(--color-primary)" }}>$125 Discount</span><br />
+              <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl opacity-90 font-bold mt-2 block">Try Padel for Just <span style={{ color: "var(--color-primary)" }}>$10</span></span>
             </h1>
 
-            <p className="mt-5 text-lg text-muted-foreground md:text-xl">
+            {/* Checklist */}
+            <div className="mt-8 mx-auto inline-block text-left">
+              <ul className="space-y-3">
+                {[
+                  "Professional coach included",
+                  "Racket & equipment provided",
+                  "Private court for your group",
+                  "Small beginner group - max 4 people, zero pressure",
+                ].map((t) => (
+                  <li key={t} className="flex items-center gap-3">
+                    <Check className="h-6 w-6 shrink-0" style={{ color: "var(--color-whatsapp)" }} strokeWidth={3} />
+                    <span className="font-medium text-lg">{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Photos (4 photos total) */}
+            <div className="mt-12 w-full flex justify-center py-6 overflow-hidden">
+               <div className="flex items-center gap-2 md:gap-4">
+                  {/* Card 1 */}
+                  <div className="w-[80px] h-[180px] md:w-[130px] md:h-[280px] rounded-[20px] overflow-hidden translate-y-6 shrink-0 relative">
+                    <img src={heroImg} className="w-full h-full object-cover" alt="Padel action" />
+                  </div>
+                  {/* Card 2 */}
+                  <div className="w-[90px] h-[200px] md:w-[140px] md:h-[300px] rounded-[20px] overflow-hidden -translate-y-4 shrink-0 relative z-10">
+                    <img src={courtImg} className="w-full h-full object-cover" alt="Padel court" />
+                  </div>
+                  {/* Card 3 */}
+                  <div className="w-[90px] h-[200px] md:w-[140px] md:h-[300px] rounded-[20px] overflow-hidden translate-y-4 shrink-0 relative z-10">
+                    <img src={heroImg} className="w-full h-full object-cover" alt="Padel players" />
+                  </div>
+                  {/* Card 4 */}
+                  <div className="w-[80px] h-[180px] md:w-[130px] md:h-[280px] rounded-[20px] overflow-hidden -translate-y-6 shrink-0 relative">
+                    <img src={courtImg} className="w-full h-full object-cover" alt="Padel action" />
+                  </div>
+               </div>
+            </div>
+
+            {/* Text */}
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
               60-minute coached session + racket + court time. Everything included. No experience needed.
             </p>
 
-            {/* Checklist */}
-            <ul className="mt-7 space-y-3">
-              {[
-                "Professional coach included — $80 value",
-                "Racket & equipment provided — $15 value",
-                "Private court for your group — $40 value",
-                "Small beginner group — max 4 people, zero pressure",
-              ].map((t) => (
-                <li key={t} className="flex items-start gap-3">
-                  <span
-                    className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-white"
-                    style={{ backgroundColor: "var(--color-primary)" }}
-                  >
-                    <Check className="h-4 w-4" strokeWidth={3} />
-                  </span>
-                  <span className="font-medium">{t}</span>
-                </li>
-              ))}
-            </ul>
-
-            {/* Trust pills */}
-            <div className="mt-6 flex flex-wrap gap-2">
-              {["No experience needed", "Racket included", "Max 4 per group", "60 min session"].map((t) => (
-                <span
-                  key={t}
-                  className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold"
-                  style={{ backgroundColor: "var(--color-soft)", borderColor: "var(--color-border)" }}
-                >
-                  <Check className="h-3 w-3 shrink-0" style={{ color: "var(--color-primary)" }} strokeWidth={3} />
-                  {t}
-                </span>
-              ))}
-            </div>
-
-            <div className="mt-6">
-              <CTAButton onClick={openUpsell}>Claim my $10 spot</CTAButton>
+            {/* Button */}
+            <div className="mt-4">
+              <CTAButton onClick={openUpsell}>Claim $125 Discount</CTAButton>
               <p className="mt-3 text-sm italic text-muted-foreground">
                 Limited spots available each week. No credit card required to reserve.
               </p>
             </div>
-          </div>
-
-          {/* Right col — photo */}
-          <div className="order-1 md:order-2">
-            <div
-              className="overflow-hidden rounded-2xl"
-              style={{
-                boxShadow:
-                  "0 0 0 4px color-mix(in oklab, var(--color-primary) 18%, transparent), 0 24px 64px rgba(0,0,0,0.15)",
-              }}
-            >
-              <img
-                src={heroImg}
-                alt="Players enjoying padel at Smash Padel USA"
-                width={1280}
-                height={1280}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </div>
         </div>
 
         {/* Stars bar */}
@@ -167,7 +142,7 @@ function Landing() {
         <div className="container-x py-20 text-center">
           <p className="section-label">See It In Action</p>
           <h2 className="mx-auto max-w-3xl text-4xl font-extrabold leading-tight md:text-5xl">
-            Never heard of padel? You're not alone — and you're about to love it.
+            Never heard of padel?
           </h2>
           <div
             className="mx-auto mt-10 aspect-video max-w-4xl overflow-hidden rounded-2xl relative"
@@ -196,51 +171,43 @@ function Landing() {
         <div className="container-x py-20">
           <p className="section-label block w-full text-center">Simple Process</p>
           <h2 className="text-center text-4xl font-extrabold md:text-5xl">How It Works</h2>
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
+          <div className="mt-14 flex flex-col gap-8 md:gap-12 relative mx-auto max-w-4xl">
             {[
               {
                 n: "1",
-                icon: Calendar,
                 t: "Reserve Your Spot",
                 d: "Takes 60 seconds. No experience or equipment needed.",
               },
               {
                 n: "2",
-                icon: Shirt,
                 t: "Show Up Ready to Play",
                 d: "We handle everything. Just arrive in sports clothes.",
               },
               {
                 n: "3",
-                icon: Zap,
                 t: "Play in 60 Minutes",
-                d: "Your coach teaches you the rules and technique — and you actually play. All in one session.",
+                d: "Your coach teaches you the rules and technique - and you actually play. All in one session.",
               },
-            ].map((s) => (
+            ].map((s, i) => (
               <div
                 key={s.n}
-                className="hover-lift flex flex-col items-center rounded-2xl border bg-background p-8 text-center shadow-sm"
-                style={{ borderTop: "4px solid var(--color-primary)" }}
+                className="sticky flex flex-col md:flex-row items-center gap-8 md:gap-12 rounded-2xl border bg-background p-8 shadow-xl transition-all duration-300 hover:shadow-2xl"
+                style={{ top: `calc(120px + ${i * 40}px)`, zIndex: i + 10 }}
               >
-                <div
-                  className="flex h-14 w-14 items-center justify-center rounded-full text-2xl font-extrabold text-white"
-                  style={{ backgroundColor: "var(--color-primary)" }}
-                >
-                  {s.n}
+                <div className="w-full md:w-1/2 aspect-video rounded-xl bg-muted relative overflow-hidden shrink-0">
+                  <img src={heroImg} alt="" className="w-full h-full object-cover opacity-80" />
+                  <div className="absolute inset-0 flex items-center justify-center font-bold text-white drop-shadow-md text-xl">Foto {s.n}</div>
                 </div>
-                <div
-                  className="mt-5 flex h-12 w-12 items-center justify-center rounded-xl"
-                  style={{ backgroundColor: "color-mix(in oklab, var(--color-primary) 10%, white)" }}
-                >
-                  <s.icon className="h-6 w-6" style={{ color: "var(--color-primary)" }} />
+                <div className="flex flex-col w-full md:w-1/2">
+                  <div className="text-8xl font-black opacity-10 leading-none mb-2" style={{ color: "var(--color-primary)" }}>{s.n}</div>
+                  <h3 className="text-3xl font-extrabold">{s.t}</h3>
+                  <p className="mt-4 text-lg text-muted-foreground">{s.d}</p>
                 </div>
-                <h3 className="mt-4 text-xl font-bold">{s.t}</h3>
-                <p className="mt-2 text-muted-foreground">{s.d}</p>
               </div>
             ))}
           </div>
           <div className="mt-12 text-center">
-            <CTAButton onClick={openUpsell}>Claim my $10 spot</CTAButton>
+            <CTAButton onClick={openUpsell}>Claim $125 Discount</CTAButton>
           </div>
         </div>
       </section>
@@ -254,8 +221,8 @@ function Landing() {
             {[
               ["60-min session with certified coach", "$80"],
               ["Racket & equipment rental", "$15"],
-              ["Full court time — private group", "$40"],
-              ["Small group — max 4 beginners", "No pressure"],
+              ["Full court time - private group", "$40"],
+              ["Small group - max 4 beginners", "No pressure"],
               ["Part of Boulder's #1 sports community", "Priceless"],
             ].map(([l, v], i) => (
               <div
@@ -291,20 +258,19 @@ function Landing() {
           {/* You pay callout */}
           <div className="mt-12 text-center">
             <div
-              className="mx-auto inline-block rounded-2xl border px-10 py-8 shadow-sm"
+              className="mx-auto inline-flex flex-col items-center rounded-3xl border border-border/50 px-12 py-10 shadow-2xl relative overflow-hidden"
               style={{ backgroundColor: "var(--color-background)" }}
             >
-              <p className="text-base font-medium text-muted-foreground">You pay:</p>
-              <div
-                className="mt-1 text-8xl font-extrabold leading-none"
-                style={{ color: "var(--color-primary)" }}
-              >
-                $10
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500" />
+              <p className="text-xl font-bold uppercase tracking-widest text-muted-foreground mb-4">Your Price Today</p>
+              <div className="flex flex-col items-center gap-2">
+                 <span className="text-7xl font-black text-red-500 line-through decoration-4 opacity-80">$135</span>
+                 <span className="text-8xl font-black" style={{ color: "var(--color-whatsapp)" }}>$10</span>
               </div>
-              <p className="mt-2 text-xl font-bold">You save $125</p>
+              <p className="mt-6 text-xl font-bold rounded-full px-6 py-2" style={{ backgroundColor: "color-mix(in oklab, var(--color-whatsapp) 15%, transparent)", color: "var(--color-whatsapp)" }}>You save $125 (92% OFF)</p>
             </div>
             <div className="mt-8">
-              <CTAButton onClick={openUpsell}>Claim my $125 discount</CTAButton>
+              <CTAButton onClick={openUpsell}>Claim $125 Discount</CTAButton>
             </div>
           </div>
         </div>
@@ -314,28 +280,29 @@ function Landing() {
       <section className="bg-background">
         <div className="container-x py-20">
           <p className="section-label block w-full text-center">Free Bonuses</p>
-          <h2 className="text-center text-4xl font-extrabold md:text-5xl">But Wait — You Also Get These Bonuses</h2>
+          <h2 className="text-center text-4xl font-extrabold md:text-5xl">You Also Get These Bonuses</h2>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {[
               {
                 icon: Shirt,
-                t: "Racket Included — Zero Equipment Needed",
+                t: "Racket Included - Zero Equipment Needed",
                 d: "Show up in sports clothes. We handle the rest. No gear? No problem.",
               },
               {
                 icon: Gift,
                 t: "$100 Off Your Starter Pack",
-                d: "After your intro session, unlock an exclusive $100 discount on our Starter Pack — your gateway to regular play. Valid for 7 days after your session.",
+                d: "After your intro session, unlock an exclusive $100 discount on our Starter Pack - your gateway to regular play. Valid for 7 days after your session.",
               },
               {
                 icon: Users,
-                t: "Beginner Community Access",
-                d: "Join our beginner group — find players at your level, get tips from the coach, and never show up alone.",
+                t: "Access Boulder's #1 Sports Community",
+                d: "Connect with hundreds of active players, find matches at your skill level, and experience the most vibrant sports scene in Colorado.",
               },
             ].map((c) => (
               <div key={c.t} className="hover-lift rounded-2xl border bg-background p-8 shadow-sm">
-                <div className="icon-wrap">
-                  <c.icon className="h-6 w-6" style={{ color: "var(--color-primary)" }} />
+                <div className="w-full aspect-video rounded-xl bg-muted relative mb-6 overflow-hidden">
+                  <img src={heroImg} alt="" className="w-full h-full object-cover opacity-80" />
+                  <div className="absolute inset-0 flex items-center justify-center font-bold text-white drop-shadow-md">Foto</div>
                 </div>
                 <h3 className="text-lg font-bold leading-tight">{c.t}</h3>
                 <p className="mt-2 text-muted-foreground">{c.d}</p>
@@ -350,94 +317,110 @@ function Landing() {
         <div className="container-x py-20">
           <p className="section-label block w-full text-center">Real Players, Real Results</p>
           <h2 className="text-center text-4xl font-extrabold md:text-5xl">
-            What Players Are Saying — Straight From the Court
+            What Players Are Saying
           </h2>
 
-          {/* Community video */}
-          <div
-            className="mx-auto mt-10 aspect-video max-w-4xl overflow-hidden rounded-2xl relative"
-            style={{ backgroundColor: "var(--color-dark)", boxShadow: "0 24px 64px rgba(0,0,0,0.18)" }}
-          >
-            <img src={heroImg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-40" />
-            <button
-              aria-label="Play video"
-              className="absolute inset-0 m-auto flex h-20 w-20 items-center justify-center rounded-full text-white transition-transform hover:scale-110 active:scale-95"
-              style={{ backgroundColor: "var(--color-primary)", boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}
-            >
-              <Play className="ml-1 h-8 w-8 fill-current" />
-            </button>
+          <div className="mx-auto mt-10 w-full max-w-xs overflow-hidden rounded-2xl shadow-xl border relative aspect-[9/16]">
+            <iframe
+              src="https://www.youtube.com/embed/9NsHGpTT0sM?autoplay=0&loop=1&playlist=9NsHGpTT0sM"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full border-0"
+            ></iframe>
           </div>
 
-          {/* Photo strip */}
-          <div className="mt-10 flex gap-4 overflow-x-auto pb-4">
-            {[...Array(7)].map((_, i) => (
-              <div key={i} className="h-44 w-44 shrink-0 overflow-hidden rounded-xl shadow-sm">
-                <img src={heroImg} loading="lazy" alt="Player photo" className="h-full w-full object-cover" />
-              </div>
-            ))}
-          </div>
-
-          <p className="mt-8 text-center text-xl font-bold">
+          <p className="mt-10 text-center text-xl font-bold">
             Over 400 people have taken their first padel lesson here.
           </p>
 
-          {/* Review cards */}
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                n: "Vera P.",
-                q: "A casual padel club with a very welcoming atmosphere and an active community. It's easy to find people to play with most days.",
-              },
-              {
-                n: "Michael S.",
-                q: "Hands down the most fun you'll have in Boulder. The facility is new, staff is friendly, and the community is awesome. If you're looking for a fun activity, this is the spot to go!",
-              },
-              {
-                n: "Kay M.",
-                q: "Loving learning a new sport at Smash Padel! Great exercise, fun people, open play, clinics — they have it all!",
-              },
-            ].map((r) => (
-              <div
-                key={r.n}
-                className="hover-lift relative overflow-hidden rounded-2xl border p-8 shadow-sm"
-                style={{ backgroundColor: "var(--color-soft)" }}
-              >
-                {/* Decorative quote mark */}
-                <div
-                  className="pointer-events-none absolute -top-3 right-5 select-none font-serif text-9xl leading-none"
-                  style={{ color: "color-mix(in oklab, var(--color-primary) 12%, white)" }}
-                >
-                  "
-                </div>
-                <div className="flex" style={{ color: "var(--color-primary)" }}>
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-current" />
+          {/* Review Carousel */}
+          <div className="mt-12 overflow-hidden w-full relative">
+            {/* Fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+            
+            <div className="animate-marquee gap-6">
+              {[...Array(2)].map((_, i) => (
+                <div key={i} className="flex gap-6 shrink-0">
+                  {[
+                    {
+                      n: "Vera P.",
+                      q: "A casual padel club with a very welcoming atmosphere and an active community. It's easy to find people to play with most days.",
+                    },
+                    {
+                      n: "Michael S.",
+                      q: "Hands down the most fun you'll have in Boulder. The facility is new, staff is friendly, and the community is awesome. If you're looking for a fun activity, this is the spot to go!",
+                    },
+                    {
+                      n: "Kay M.",
+                      q: "Loving learning a new sport at Smash Padel! Great exercise, fun people, open play, clinics - they have it all!",
+                    },
+                    {
+                      n: "John D.",
+                      q: "Never played before but the coach was amazing. I was rallying by the end of the hour! Highly recommended for anyone wanting to try.",
+                    },
+                  ].map((r, j) => (
+                    <div
+                      key={j}
+                      className="w-80 shrink-0 overflow-hidden rounded-2xl border bg-background shadow-sm flex flex-col hover-lift"
+                    >
+                      <div className="h-48 w-full bg-muted relative">
+                        <img src={heroImg} loading="lazy" alt="Player photo" className="h-full w-full object-cover opacity-80" />
+                        <div className="absolute inset-0 flex items-center justify-center font-bold text-white drop-shadow-md">Foto do Aluno</div>
+                      </div>
+                      <div className="p-6 flex flex-col grow">
+                        <p className="text-foreground flex-grow leading-relaxed">"{r.q}"</p>
+                        <div className="mt-6 flex items-center gap-3">
+                          <div
+                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
+                            style={{ backgroundColor: "var(--color-primary)" }}
+                          >
+                            {r.n.split(" ").map((w) => w[0]).join("")}
+                          </div>
+                          <p className="text-sm font-bold">{r.n}</p>
+                        </div>
+                      </div>
+                    </div>
                   ))}
                 </div>
-                <p className="relative mt-3 leading-relaxed text-foreground">"{r.q}"</p>
-                <div className="mt-5 flex items-center gap-3">
-                  <div
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
-                    style={{ backgroundColor: "var(--color-primary)" }}
-                  >
-                    {r.n.split(" ").map((w) => w[0]).join("")}
-                  </div>
-                  <p className="text-sm font-bold">{r.n}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── WHY SMASH PADEL — DARK ── */}
+      {/* ── LOCATION / MAP ── */}
+      <section className="bg-background border-t">
+        <div className="container-x py-20 text-center">
+          <p className="section-label block w-full text-center">Our Location</p>
+          <h2 className="text-center text-4xl font-extrabold md:text-5xl">Where To Find Us</h2>
+          <p className="mt-4 text-lg text-muted-foreground">Conveniently located at 6455 Spine Rd Unit A, Boulder, CO 80301. Free parking available.</p>
+          <div className="mx-auto mt-10 w-full max-w-4xl aspect-video md:aspect-[21/9] rounded-2xl bg-muted overflow-hidden flex items-center justify-center relative border shadow-sm">
+            <iframe
+              src="https://maps.google.com/maps?q=6455%20Spine%20Rd%20Unit%20A,%20Boulder,%20CO%2080301&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              style={{ border: 0 }}
+              allowFullScreen
+              aria-hidden="false"
+              tabIndex={0}
+              className="absolute inset-0"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHY SMASH PADEL - DARK ── */}
       <section style={{ backgroundColor: "var(--color-dark)" }} className="text-white">
         <div className="container-x py-20">
           <p className="section-label block w-full text-center" style={{ color: "var(--color-primary)" }}>
             Why Choose Us
           </p>
           <h2 className="text-center text-4xl font-extrabold text-white md:text-5xl">
-            Why Smash Padel —{" "}
+            Why Smash Padel -{" "}
             <span style={{ color: "var(--color-primary)" }}>Not Just Any Court</span>
           </h2>
           <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-2">
@@ -520,7 +503,7 @@ function Landing() {
           </p>
           <p className="mt-3 italic">If you leave this page without booking, you lose your discount.</p>
           <div className="mt-8">
-            <CTAButton onClick={openUpsell}>Claim my $10 spot before it's gone</CTAButton>
+            <CTAButton onClick={openUpsell}>Claim $125 Discount</CTAButton>
           </div>
           <p className="mt-3 text-sm italic text-muted-foreground">
             No experience needed. Racket included. 60 minutes. $10.
@@ -536,7 +519,7 @@ function Landing() {
             Worst case: you had $10 worth of fun, learned a new sport, and met great people in Boulder.
             Best case: you find your new favorite activity and a community you didn't know you needed.
           </p>
-          <p className="mt-4 text-lg font-medium">Chat with us on WhatsApp — we answer in minutes.</p>
+          <p className="mt-4 text-lg font-medium">Chat with us on WhatsApp - we answer in minutes.</p>
           <div className="mt-8">
             <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="btn-wa">
               <MessageCircle className="h-5 w-5" /> Chat with us on WhatsApp
@@ -558,7 +541,7 @@ function Landing() {
               ],
               [
                 "What if I've never held a racket?",
-                "Perfect — that's exactly who this class is for. The coach starts from zero. By the end of the 60 minutes, you'll be playing real rallies.",
+                "Perfect - that's exactly who this class is for. The coach starts from zero. By the end of the 60 minutes, you'll be playing real rallies.",
               ],
               [
                 "Is equipment provided?",
@@ -578,7 +561,7 @@ function Landing() {
               ],
               [
                 "What happens after the intro session?",
-                "You'll receive an exclusive $100 discount on our Starter Pack — valid for 7 days. No pressure. Most people just want to keep playing.",
+                "You'll receive an exclusive $100 discount on our Starter Pack - valid for 7 days. No pressure. Most people just want to keep playing.",
               ],
               [
                 "Is the $10 a recurring charge?",
@@ -586,7 +569,7 @@ function Landing() {
               ],
               [
                 "How do I book?",
-                'Click any "Claim My $10 Spot" button on this page. The process takes about 60 seconds.',
+                'Click any "Claim $125 Discount" button on this page. The process takes about 60 seconds.',
               ],
             ].map(([q, a], i) => (
               <AccordionItem key={i} value={`item-${i}`} className="border-b">
@@ -600,7 +583,7 @@ function Landing() {
             ))}
           </Accordion>
           <div className="mt-10 text-center">
-            <CTAButton onClick={openUpsell}>Claim my $10 spot</CTAButton>
+            <CTAButton onClick={openUpsell}>Claim $125 Discount</CTAButton>
           </div>
         </div>
       </section>
@@ -624,7 +607,7 @@ function Landing() {
             expires when spots fill up.
           </p>
           <div className="mt-8">
-            <CTAButton onClick={openUpsell}>Book my session now</CTAButton>
+            <CTAButton onClick={openUpsell}>Claim $125 Discount</CTAButton>
           </div>
         </div>
       </section>

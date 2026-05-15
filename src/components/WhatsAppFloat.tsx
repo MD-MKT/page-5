@@ -16,7 +16,8 @@ export function WhatsAppFloat() {
         boxShadow: "0 4px 20px -4px color-mix(in oklab, var(--color-whatsapp) 70%, transparent), 0 2px 8px rgba(0,0,0,0.15)",
       }}
     >
-      <MessageCircle className="h-7 w-7" />
+      {/* Coloque o logo do WhatsApp no src abaixo */}
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" className="h-8 w-8" />
     </a>
   );
 }
