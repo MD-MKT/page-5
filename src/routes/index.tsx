@@ -490,7 +490,8 @@ function Landing() {
           </div>
 
           <h2 className="mx-auto max-w-3xl text-4xl font-extrabold leading-tight md:text-5xl">
-            Why We Cap Our Intro Sessions To <span style={{ color: "var(--color-primary)" }}>12 Players</span> Weekly
+            Why Our Intro Sessions Have{" "}
+            <span style={{ color: "var(--color-primary)" }}>Limited Weekly Spots</span>
           </h2>
 
           <div className="mx-auto mt-10 mb-8 max-w-4xl aspect-[4/3] md:aspect-[3/2] overflow-hidden rounded-2xl shadow-xl border border-border/50 relative">
@@ -498,10 +499,10 @@ function Landing() {
           </div>
 
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed">
-            We refuse to pack the courts. To guarantee a premium experience, every beginner session is strictly limited to 4 players per coach. This ensures you actually learn the game, get personalized feedback, and have a great time doing it.
+            We refuse to pack the courts. Every beginner session is kept intentionally small — max 4 players per coach — so you actually learn the game, get personalized feedback, and leave wanting more.
           </p>
           <p className="mt-4 text-lg font-medium text-foreground">
-            Because of this, our $10 intro slots in Boulder book out days in advance.
+            Because of that, our $10 intro spots in Boulder fill up fast every week.
           </p>
           <div className="mt-10">
             <CTAButton onClick={openUpsell}>Secure Your $10 Spot Now</CTAButton>
