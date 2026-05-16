@@ -1,4 +1,4 @@
-import logoImg from "@/assets/logo.png";
+import logoImg from "@/assets/logo.png"; // PNG mantido para suporte a transparência no logo
 
 export function Navbar() {
   return (

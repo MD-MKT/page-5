@@ -9,27 +9,27 @@ import { CTAButton } from "@/components/CTAButton";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { UpsellModal } from "@/components/UpsellModal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import heroImg from "@/assets/hero-padel.jpg";
-import courtImg from "@/assets/court-dark.jpg";
-import logoImg from "@/assets/logo-topo.png"; // Replacing with logo-topo.png
+import heroImg from "@/assets/hero-padel.webp";
+import courtImg from "@/assets/court-dark.webp";
+import logoImg from "@/assets/logo-topo.png";
 
 // New imported photos
-import heroWoman1 from "@/assets/hero-woman-1.jpg";
-import heroWoman2 from "@/assets/hero-woman-2.jpg";
-import heroMan1 from "@/assets/hero-man-1.jpg";
-import heroMan2 from "@/assets/hero-man-2.jpg";
+import heroWoman1 from "@/assets/hero-woman-1.webp";
+import heroWoman2 from "@/assets/hero-woman-2.webp";
+import heroMan1 from "@/assets/hero-man-1.webp";
+import heroMan2 from "@/assets/hero-man-2.webp";
 
-import starterPackCoupon from "@/assets/starter-pack-coupon.png";
-import boulderCommunity from "@/assets/boulder-community.jpg";
-import certificatedCoach from "@/assets/certificated-coach.jpg";
-import equipmentIncluded from "@/assets/equipment-included.jpg";
-import smallGroup from "@/assets/small-group.jpg";
-import racketInclude from "@/assets/racket-include.jpg";
-import racketBonus from "@/assets/racket-bonus.jpg";
+import starterPackCoupon from "@/assets/starter-pack-coupon.webp";
+import boulderCommunity from "@/assets/boulder-community.webp";
+import certificatedCoach from "@/assets/certificated-coach.webp";
+import equipmentIncluded from "@/assets/equipment-included.webp";
+import smallGroup from "@/assets/small-group.webp";
+import racketInclude from "@/assets/racket-include.webp";
+import racketBonus from "@/assets/racket-bonus.webp";
 
-import accessCommunity from "@/assets/access-community.jpg";
-import beginnerGroup from "@/assets/beginner-group.jpg";
-import limitedSpots from "@/assets/limited-spots.jpg";
+import accessCommunity from "@/assets/access-community.webp";
+import beginnerGroup from "@/assets/beginner-group.webp";
+import limitedSpots from "@/assets/limited-spots.webp";
 
 export const Route = createFileRoute("/")({
   component: Landing,
