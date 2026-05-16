@@ -23,6 +23,18 @@ const SOCIAL_PROOFS = [
     action: "just reserved their $10 intro session",
     spots: 3,
   },
+  {
+    name: "Sarah Williams",
+    initials: "SW",
+    action: "just booked her beginner padel session",
+    spots: 3,
+  },
+  {
+    name: "Jake Thompson",
+    initials: "JT",
+    action: "just claimed the $125 discount offer",
+    spots: 3,
+  },
 ];
 
 const EMBED_BASE_URL =
@@ -67,15 +79,20 @@ function CheckoutPage() {
   };
 
   const intervalProofRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const secondTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    // First popup at 8s, then cycle every 45s
+    // First popup at 8s, second at 22s, then every 30s
     const first = setTimeout(() => {
       showNextProof();
-      intervalProofRef.current = setInterval(showNextProof, 45000);
+      secondTimeoutRef.current = setTimeout(() => {
+        showNextProof();
+        intervalProofRef.current = setInterval(showNextProof, 30000);
+      }, 14000);
     }, 8000);
     return () => {
       clearTimeout(first);
+      if (secondTimeoutRef.current) clearTimeout(secondTimeoutRef.current);
       if (intervalProofRef.current) clearInterval(intervalProofRef.current);
     };
   }, []);
