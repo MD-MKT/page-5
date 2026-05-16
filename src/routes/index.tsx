@@ -302,8 +302,8 @@ function Landing() {
               },
               {
                 img: starterPackCoupon,
-                t: "$100 Off Your Starter Pack",
-                d: "After your intro session, unlock an exclusive $100 discount on our Starter Pack - your gateway to regular play. Valid for 7 days after your session.",
+                t: "$195 Off Your Starter Pack",
+                d: "After your intro session, unlock an exclusive $195 discount on our Starter Pack - your gateway to regular play. Valid for 7 days after your session.",
               },
               {
                 img: accessCommunity,
@@ -562,7 +562,7 @@ function Landing() {
               ],
               [
                 "What happens after the intro session?",
-                "You'll receive an exclusive $100 discount on our Starter Pack - valid for 7 days. No pressure. Most people just want to keep playing.",
+                "You'll receive an exclusive $195 discount on our Starter Pack - valid for 7 days. No pressure. Most people just want to keep playing.",
               ],
               [
                 "Is the $10 a recurring charge?",
