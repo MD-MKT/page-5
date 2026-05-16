@@ -82,8 +82,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Lovable App" },
       { name: "twitter:description", content: "Build a high-converting landing page for Smash Padel USA, promoting a $10 intro offer for a 60-minute beginner session." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c0e4fb88-3285-4c7d-9dea-cc0a60a0c699/id-preview-fda26a42--4cbb4205-5eaf-4799-83fe-f0995b434d53.lovable.app-1778592026903.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c0e4fb88-3285-4c7d-9dea-cc0a60a0c699/id-preview-fda26a42--4cbb4205-5eaf-4799-83fe-f0995b434d53.lovable.app-1778592026903.png" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/SkYqRBylH6fPXPX8zvN4RgArkPh1/social-images/social-1778963719085-Screenshot_2026-05-16_at_10.35.03_pm.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/SkYqRBylH6fPXPX8zvN4RgArkPh1/social-images/social-1778963719085-Screenshot_2026-05-16_at_10.35.03_pm.webp" },
     ],
     links: [
       {
