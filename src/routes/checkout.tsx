@@ -224,8 +224,8 @@ function CheckoutPage() {
       {/* ── Footer minimal ── */}
       <footer className="mt-10 border-t py-5 text-center text-xs text-muted-foreground">
         © 2026 Smash Padel USA · 6455 Spine Rd Unit A, Boulder, CO 80301 ·{" "}
-        <a href="mailto:hello@smashpadel.us" className="hover:underline">
-          hello@smashpadel.us
+        <a href="mailto:info@smashpadelusa.com" className="hover:underline">
+          info@smashpadelusa.com
         </a>
       </footer>
 

@@ -629,11 +629,10 @@ function Landing() {
           <div className="md:text-center">
             <h4 className="font-bold text-white">Visit</h4>
             <ul className="mt-4 space-y-2 text-sm">
-              <li>Mon–Fri: 9:00 AM – 11:00 PM</li>
-              <li>Sat–Sun: 8:00 AM – 11:00 PM</li>
+              <li>Open 7 Days: 9:00 AM – 11:00 PM</li>
               <li>Location: Boulder, CO</li>
               <li>Phone: +1 720-340-5110</li>
-              <li>Contact: hello@smashpadel.us</li>
+              <li>Contact: info@smashpadelusa.com</li>
             </ul>
           </div>
           <div className="md:text-right">
