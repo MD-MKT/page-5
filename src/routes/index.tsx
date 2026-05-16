@@ -159,7 +159,7 @@ function Landing() {
       {/* ── VIDEO ── */}
       <section id="what" className="bg-background">
         <div className="container-x py-20 text-center">
-          <p className="section-label">See It In Action</p>
+          <p className="section-label">See it in action</p>
           <h2 className="mx-auto max-w-3xl text-4xl font-extrabold leading-tight md:text-5xl">
             Never heard of padel?
           </h2>
@@ -188,23 +188,23 @@ function Landing() {
       {/* ── HOW IT WORKS ── */}
       <section className="bg-background" style={{ borderTop: "1px solid var(--color-border)" }}>
         <div className="container-x py-20">
-          <p className="section-label block w-full text-center">Simple Process</p>
-          <h2 className="text-center text-4xl font-extrabold md:text-5xl">How It Works</h2>
+          <p className="section-label block w-full text-center">Simple process</p>
+          <h2 className="text-center text-4xl font-extrabold md:text-5xl">How it works</h2>
           <div className="mt-14 flex flex-col gap-8 md:gap-12 relative mx-auto max-w-4xl">
             {[
               {
                 n: "1",
-                t: "Reserve Your Spot",
+                t: "Reserve your spot",
                 d: "Takes 60 seconds. No experience or equipment needed.",
               },
               {
                 n: "2",
-                t: "Show Up Ready to Play",
+                t: "Show up ready to play",
                 d: "We handle everything. Just arrive in sports clothes.",
               },
               {
                 n: "3",
-                t: "Play in 60 Minutes",
+                t: "Play in 60 minutes",
                 d: "Your coach teaches you the rules and technique - and you actually play. All in one session.",
               },
             ].map((s, i) => (
@@ -228,8 +228,8 @@ function Landing() {
       {/* ── VALUE STACK ── */}
       <section style={{ backgroundColor: "var(--color-soft)" }}>
         <div className="container-x py-20">
-          <p className="section-label block w-full text-center">Everything Included</p>
-          <h2 className="text-center text-4xl font-extrabold md:text-5xl">Here's Everything You Get for $10</h2>
+          <p className="section-label block w-full text-center">Everything included</p>
+          <h2 className="text-center text-4xl font-extrabold md:text-5xl">Here's everything you get for $10</h2>
           <div className="mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border bg-background shadow-sm">
             {[
               ["60-min session with certified coach", "$80"],
@@ -274,7 +274,7 @@ function Landing() {
               className="mx-auto inline-flex flex-col items-center rounded-3xl border border-border/50 px-12 py-10 shadow-2xl relative overflow-hidden"
               style={{ backgroundColor: "var(--color-background)" }}
             >
-              <p className="text-xl font-bold uppercase tracking-widest text-muted-foreground mb-4">Your Price Today</p>
+              <p className="text-xl font-bold uppercase tracking-widest text-muted-foreground mb-4">Your price today</p>
               <div className="flex flex-col items-center gap-2">
                  <span className="text-7xl font-black text-red-500 line-through decoration-4 opacity-80">$135</span>
                  <span className="text-8xl font-black" style={{ color: "var(--color-whatsapp)" }}>$10</span>
@@ -291,13 +291,13 @@ function Landing() {
       {/* ── BONUSES ── */}
       <section className="bg-background">
         <div className="container-x py-20">
-          <p className="section-label block w-full text-center">Free Bonuses</p>
-          <h2 className="text-center text-4xl font-extrabold md:text-5xl">You Also Get These Bonuses</h2>
+          <p className="section-label block w-full text-center">Free bonuses</p>
+          <h2 className="text-center text-4xl font-extrabold md:text-5xl">You also get these bonuses</h2>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {[
               {
                 img: racketInclude,
-                t: "Racket Included - Zero Equipment Needed",
+                t: "Racket included — zero equipment needed",
                 d: "Show up in sports clothes. We handle the rest. No gear? No problem.",
               },
               {
@@ -307,7 +307,7 @@ function Landing() {
               },
               {
                 img: accessCommunity,
-                t: "Access Boulder's #1 Sports Community",
+                t: "Access Boulder's #1 sports community",
                 d: "Connect with hundreds of active players, find matches at your skill level, and experience the most vibrant sports scene in Colorado.",
                 imgPos: "center 20%",
               },
@@ -327,9 +327,9 @@ function Landing() {
       {/* ── SOCIAL PROOF ── */}
       <section id="about" className="border-t bg-background">
         <div className="container-x py-20">
-          <p className="section-label block w-full text-center">Real Players, Real Results</p>
+          <p className="section-label block w-full text-center">Real players, real results</p>
           <h2 className="text-center text-4xl font-extrabold md:text-5xl">
-            What Players Are Saying
+            What players are saying
           </h2>
 
           <div className="mx-auto mt-10 w-full max-w-xs overflow-hidden rounded-2xl shadow-xl border relative aspect-[9/16]">
@@ -406,8 +406,8 @@ function Landing() {
       {/* ── LOCATION / MAP ── */}
       <section className="bg-background border-t">
         <div className="container-x py-20 text-center">
-          <p className="section-label block w-full text-center">Our Location</p>
-          <h2 className="text-center text-4xl font-extrabold md:text-5xl">Where To Find Us</h2>
+          <p className="section-label block w-full text-center">Our location</p>
+          <h2 className="text-center text-4xl font-extrabold md:text-5xl">Where to find us</h2>
           <p className="mt-4 text-lg text-muted-foreground">Conveniently located at 6455 Spine Rd Unit A, Boulder, CO 80301. Free parking available.</p>
           <div className="mx-auto mt-10 w-full max-w-4xl aspect-video md:aspect-[21/9] rounded-2xl bg-muted overflow-hidden flex items-center justify-center relative border shadow-sm">
             <iframe
@@ -436,22 +436,22 @@ function Landing() {
             {[
               {
                 img: certificatedCoach,
-                t: "Certified Coach Included",
+                t: "Certified coach included",
                 d: "Not just an open court rental. You learn correctly from day one.",
               },
               {
                 img: smallGroup,
-                t: "Small Group of 4 Max",
+                t: "Small group of 4 max",
                 d: "No crowded classes. Personal attention at your pace.",
               },
               {
                 img: equipmentIncluded,
-                t: "All Equipment Provided",
+                t: "All equipment provided",
                 d: "Show up in sports clothes. That's it.",
               },
               {
                 img: beginnerGroup,
-                t: "Beginner-Only Group",
+                t: "Beginner-only group",
                 d: "Everyone's a first-timer. Zero judgment, 100% fun.",
               },
             ].map((c) => (
@@ -516,12 +516,11 @@ function Landing() {
       {/* ── STILL ON FENCE ── */}
       <section className="bg-background">
         <div className="container-x mx-auto max-w-2xl py-20 text-center">
-          <h2 className="text-4xl font-extrabold md:text-5xl">Still have questions? We're here.</h2>
+          <h2 className="text-4xl font-extrabold md:text-5xl">Still curious? Let's talk.</h2>
           <p className="mt-6 text-lg text-muted-foreground">
-            Worst case: you had $10 worth of fun, learned a new sport, and met great people in Boulder.
-            Best case: you find your new favorite activity and a community you didn't know you needed.
+            This is your chance to discover Boulder's fastest-growing sport — with a certified coach, all equipment, and an incredible community included. All for $10. Don't let this week's spots go to someone else.
           </p>
-          <p className="mt-4 text-lg font-medium">Chat with us on WhatsApp - we answer in minutes.</p>
+          <p className="mt-4 text-lg font-medium">We're on WhatsApp and answer in minutes.</p>
           <div className="mt-8">
             <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="btn-wa">
               <MessageCircle className="h-5 w-5" /> Chat with us on WhatsApp
@@ -534,7 +533,7 @@ function Landing() {
       <section id="memberships" style={{ backgroundColor: "var(--color-soft)" }}>
         <div className="container-x mx-auto max-w-3xl py-20">
           <p className="section-label block w-full text-center">FAQ</p>
-          <h2 className="text-center text-4xl font-extrabold md:text-5xl">Your Questions, Answered</h2>
+          <h2 className="text-center text-4xl font-extrabold md:text-5xl">Your questions, answered</h2>
           <Accordion type="single" collapsible className="mt-10">
             {[
               [
@@ -596,10 +595,10 @@ function Landing() {
         <div className="absolute inset-0" style={{ backgroundColor: "rgba(10,10,10,0.80)" }} />
         <div className="container-x relative py-28 text-center text-white">
           <p className="section-label" style={{ color: "var(--color-primary)" }}>
-            Limited Spots
+            Limited spots
           </p>
           <h2 className="mx-auto max-w-3xl text-4xl font-extrabold leading-tight md:text-6xl">
-            Your First Step Onto the Court Is Waiting.
+            Your first step onto the court is waiting.
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-white/80">
             $10. 60 minutes. Everything included. Your{" "}
