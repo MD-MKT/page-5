@@ -48,7 +48,7 @@ export const Route = createFileRoute("/")({
 });
 
 const WA_LINK =
-  "https://wa.me/13035550100?text=Hi!%20I%20have%20a%20question%20about%20the%20%2410%20intro%20offer%20at%20Smash%20Padel.";
+  "https://wa.me/17203405110?text=Hi!%20I%20have%20a%20question%20about%20the%20%2410%20intro%20offer%20at%20Smash%20Padel.";
 
 function Landing() {
   const [upsellOpen, setUpsellOpen] = useState(false);
@@ -629,8 +629,10 @@ function Landing() {
           <div className="md:text-center">
             <h4 className="font-bold text-white">Visit</h4>
             <ul className="mt-4 space-y-2 text-sm">
-              <li>Hours: Mon–Sun 7am–10pm</li>
+              <li>Mon–Fri: 9:00 AM – 11:00 PM</li>
+              <li>Sat–Sun: 8:00 AM – 11:00 PM</li>
               <li>Location: Boulder, CO</li>
+              <li>Phone: +1 720-340-5110</li>
               <li>Contact: hello@smashpadel.us</li>
             </ul>
           </div>
