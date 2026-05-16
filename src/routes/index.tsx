@@ -11,7 +11,25 @@ import { UpsellModal } from "@/components/UpsellModal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import heroImg from "@/assets/hero-padel.jpg";
 import courtImg from "@/assets/court-dark.jpg";
-import logoImg from "@/assets/logo.png";
+import logoImg from "@/assets/logo-topo.png"; // Replacing with logo-topo.png
+
+// New imported photos
+import heroWoman1 from "@/assets/hero-woman-1.jpg";
+import heroWoman2 from "@/assets/hero-woman-2.jpg";
+import heroMan1 from "@/assets/hero-man-1.jpg";
+import heroMan2 from "@/assets/hero-man-2.jpg";
+
+import starterPackCoupon from "@/assets/starter-pack-coupon.png";
+import boulderCommunity from "@/assets/boulder-community.jpg";
+import certificatedCoach from "@/assets/certificated-coach.jpg";
+import equipmentIncluded from "@/assets/equipment-included.jpg";
+import smallGroup from "@/assets/small-group.jpg";
+import racketInclude from "@/assets/racket-include.jpg";
+import racketBonus from "@/assets/racket-bonus.jpg";
+
+import accessCommunity from "@/assets/access-community.jpg";
+import beginnerGroup from "@/assets/beginner-group.jpg";
+import limitedSpots from "@/assets/limited-spots.jpg";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -71,19 +89,19 @@ function Landing() {
                <div className="flex items-center gap-2 md:gap-4">
                   {/* Card 1 */}
                   <div className="w-[80px] h-[180px] md:w-[130px] md:h-[280px] rounded-[20px] overflow-hidden translate-y-6 shrink-0 relative">
-                    <img src={heroImg} className="w-full h-full object-cover" alt="Padel action" />
+                    <img src={heroMan1} className="w-full h-full object-cover" style={{ objectPosition: "60% center" }} alt="Padel player man" />
                   </div>
                   {/* Card 2 */}
                   <div className="w-[90px] h-[200px] md:w-[140px] md:h-[300px] rounded-[20px] overflow-hidden -translate-y-4 shrink-0 relative z-10">
-                    <img src={courtImg} className="w-full h-full object-cover" alt="Padel court" />
+                    <img src={heroWoman1} className="w-full h-full object-cover" alt="Padel player woman" />
                   </div>
                   {/* Card 3 */}
                   <div className="w-[90px] h-[200px] md:w-[140px] md:h-[300px] rounded-[20px] overflow-hidden translate-y-4 shrink-0 relative z-10">
-                    <img src={heroImg} className="w-full h-full object-cover" alt="Padel players" />
+                    <img src={heroMan2} className="w-full h-full object-cover" style={{ objectPosition: "20% center" }} alt="Padel player man" />
                   </div>
                   {/* Card 4 */}
                   <div className="w-[80px] h-[180px] md:w-[130px] md:h-[280px] rounded-[20px] overflow-hidden -translate-y-6 shrink-0 relative">
-                    <img src={courtImg} className="w-full h-full object-cover" alt="Padel action" />
+                    <img src={heroWoman2} className="w-full h-full object-cover" alt="Padel player woman" />
                   </div>
                </div>
             </div>
@@ -97,7 +115,7 @@ function Landing() {
             <div className="mt-4">
               <CTAButton onClick={openUpsell}>Claim $125 Discount</CTAButton>
               <p className="mt-3 text-sm italic text-muted-foreground">
-                Limited spots available each week. No credit card required to reserve.
+                Limited spots available each week.
               </p>
             </div>
         </div>
@@ -109,7 +127,7 @@ function Landing() {
               <Star key={i} className="h-5 w-5 fill-current" />
             ))}
           </div>
-          <span className="text-sm font-semibold">Rated 4.9 by 400+ players in Boulder</span>
+          <span className="text-sm font-semibold">Rated 4.9 by 2,800+ players in Boulder</span>
         </div>
       </section>
 
@@ -118,7 +136,7 @@ function Landing() {
         <div className="container-x py-4">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {[
-              { n: "400+", l: "First-timers through our doors" },
+              { n: "2,800+", l: "Active community players" },
               { n: "★ 4.9", l: "Average player rating" },
               { n: "60 min", l: "From zero to playing" },
               { n: "#1", l: "Padel Club in Colorado" },
@@ -192,18 +210,12 @@ function Landing() {
             ].map((s, i) => (
               <div
                 key={s.n}
-                className="sticky flex flex-col md:flex-row items-center gap-8 md:gap-12 rounded-2xl border bg-background p-8 shadow-xl transition-all duration-300 hover:shadow-2xl"
+                className="sticky flex flex-col items-center text-center gap-4 rounded-2xl border bg-background p-10 shadow-xl transition-all duration-300 hover:shadow-2xl"
                 style={{ top: `calc(120px + ${i * 40}px)`, zIndex: i + 10 }}
               >
-                <div className="w-full md:w-1/2 aspect-video rounded-xl bg-muted relative overflow-hidden shrink-0">
-                  <img src={heroImg} alt="" className="w-full h-full object-cover opacity-80" />
-                  <div className="absolute inset-0 flex items-center justify-center font-bold text-white drop-shadow-md text-xl">Foto {s.n}</div>
-                </div>
-                <div className="flex flex-col w-full md:w-1/2">
-                  <div className="text-8xl font-black opacity-10 leading-none mb-2" style={{ color: "var(--color-primary)" }}>{s.n}</div>
-                  <h3 className="text-3xl font-extrabold">{s.t}</h3>
-                  <p className="mt-4 text-lg text-muted-foreground">{s.d}</p>
-                </div>
+                <div className="text-8xl font-black opacity-10 leading-none mb-2" style={{ color: "var(--color-primary)" }}>{s.n}</div>
+                <h3 className="text-3xl font-extrabold">{s.t}</h3>
+                <p className="mt-2 text-lg text-muted-foreground">{s.d}</p>
               </div>
             ))}
           </div>
@@ -262,13 +274,12 @@ function Landing() {
               className="mx-auto inline-flex flex-col items-center rounded-3xl border border-border/50 px-12 py-10 shadow-2xl relative overflow-hidden"
               style={{ backgroundColor: "var(--color-background)" }}
             >
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500" />
               <p className="text-xl font-bold uppercase tracking-widest text-muted-foreground mb-4">Your Price Today</p>
               <div className="flex flex-col items-center gap-2">
                  <span className="text-7xl font-black text-red-500 line-through decoration-4 opacity-80">$135</span>
                  <span className="text-8xl font-black" style={{ color: "var(--color-whatsapp)" }}>$10</span>
               </div>
-              <p className="mt-6 text-xl font-bold rounded-full px-6 py-2" style={{ backgroundColor: "color-mix(in oklab, var(--color-whatsapp) 15%, transparent)", color: "var(--color-whatsapp)" }}>You save $125 (92% OFF)</p>
+              <p className="mt-6 text-xl font-bold rounded-full px-6 py-2 whitespace-nowrap" style={{ backgroundColor: "color-mix(in oklab, var(--color-whatsapp) 15%, transparent)", color: "var(--color-whatsapp)" }}>You save $125 (92% OFF)</p>
             </div>
             <div className="mt-8">
               <CTAButton onClick={openUpsell}>Claim $125 Discount</CTAButton>
@@ -285,25 +296,25 @@ function Landing() {
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {[
               {
-                icon: Shirt,
+                img: racketInclude,
                 t: "Racket Included - Zero Equipment Needed",
                 d: "Show up in sports clothes. We handle the rest. No gear? No problem.",
               },
               {
-                icon: Gift,
+                img: starterPackCoupon,
                 t: "$100 Off Your Starter Pack",
                 d: "After your intro session, unlock an exclusive $100 discount on our Starter Pack - your gateway to regular play. Valid for 7 days after your session.",
               },
               {
-                icon: Users,
+                img: accessCommunity,
                 t: "Access Boulder's #1 Sports Community",
                 d: "Connect with hundreds of active players, find matches at your skill level, and experience the most vibrant sports scene in Colorado.",
+                imgPos: "center 20%",
               },
             ].map((c) => (
               <div key={c.t} className="hover-lift rounded-2xl border bg-background p-8 shadow-sm">
                 <div className="w-full aspect-video rounded-xl bg-muted relative mb-6 overflow-hidden">
-                  <img src={heroImg} alt="" className="w-full h-full object-cover opacity-80" />
-                  <div className="absolute inset-0 flex items-center justify-center font-bold text-white drop-shadow-md">Foto</div>
+                  <img src={c.img} alt="" className="w-full h-full object-cover" style={c.imgPos ? { objectPosition: c.imgPos } : {}} />
                 </div>
                 <h3 className="text-lg font-bold leading-tight">{c.t}</h3>
                 <p className="mt-2 text-muted-foreground">{c.d}</p>
@@ -333,7 +344,7 @@ function Landing() {
           </div>
 
           <p className="mt-10 text-center text-xl font-bold">
-            Over 400 people have taken their first padel lesson here.
+            Over 2,800 players are part of our community.
           </p>
 
           {/* Review Carousel */}
@@ -417,97 +428,86 @@ function Landing() {
       {/* ── WHY SMASH PADEL - DARK ── */}
       <section style={{ backgroundColor: "var(--color-dark)" }} className="text-white">
         <div className="container-x py-20">
-          <p className="section-label block w-full text-center" style={{ color: "var(--color-primary)" }}>
-            Why Choose Us
-          </p>
           <h2 className="text-center text-4xl font-extrabold text-white md:text-5xl">
-            Why Smash Padel -{" "}
+            Why Smash Padel{" "}
             <span style={{ color: "var(--color-primary)" }}>Not Just Any Court</span>
           </h2>
           <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-2">
             {[
               {
-                icon: GraduationCap,
+                img: certificatedCoach,
                 t: "Certified Coach Included",
                 d: "Not just an open court rental. You learn correctly from day one.",
               },
               {
-                icon: Users,
+                img: smallGroup,
                 t: "Small Group of 4 Max",
                 d: "No crowded classes. Personal attention at your pace.",
               },
               {
-                icon: Shirt,
+                img: equipmentIncluded,
                 t: "All Equipment Provided",
                 d: "Show up in sports clothes. That's it.",
               },
               {
-                icon: Sparkles,
+                img: beginnerGroup,
                 t: "Beginner-Only Group",
                 d: "Everyone's a first-timer. Zero judgment, 100% fun.",
               },
             ].map((c) => (
               <div
                 key={c.t}
-                className="rounded-2xl border border-white/10 p-7 transition duration-200 hover:border-white/20 hover:bg-white/5"
+                className="rounded-2xl border border-white/10 p-7 transition duration-200 hover:border-white/20 hover:bg-white/5 flex flex-col text-center items-center"
               >
-                <div
-                  className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
-                  style={{
-                    backgroundColor: "color-mix(in oklab, var(--color-primary) 18%, transparent)",
-                  }}
-                >
-                  <c.icon className="h-6 w-6" style={{ color: "var(--color-primary)" }} />
+                <div className="mb-6 w-full aspect-video rounded-xl overflow-hidden border border-white/10 relative">
+                  <img src={c.img} alt={c.t} className="w-full h-full object-cover" />
                 </div>
-                <h3 className="text-lg font-bold text-white">{c.t}</h3>
+                <h3 className="text-xl font-bold text-white">{c.t}</h3>
                 <p className="mt-2 text-white/60">{c.d}</p>
               </div>
             ))}
           </div>
           <div className="mx-auto mt-6 max-w-2xl">
-            <div className="rounded-2xl border border-white/10 p-7 text-center transition duration-200 hover:border-white/20 hover:bg-white/5">
-              <div
-                className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
-                style={{ backgroundColor: "color-mix(in oklab, var(--color-primary) 18%, transparent)" }}
-              >
-                <Trophy className="h-6 w-6" style={{ color: "var(--color-primary)" }} />
+            <div className="rounded-2xl border border-white/10 p-7 text-center transition duration-200 hover:border-white/20 hover:bg-white/5 flex flex-col items-center">
+              <div className="mb-6 w-full aspect-[21/9] rounded-xl overflow-hidden border border-white/10 relative">
+                <img src={boulderCommunity} alt="Boulder's #1 Padel Community" className="w-full h-full object-cover" />
               </div>
-              <h3 className="text-lg font-bold text-white">Boulder's #1 Padel Community</h3>
-              <p className="mt-2 text-white/60">400+ players. Find your people on and off the court.</p>
+              <h3 className="text-xl font-bold text-white">Boulder's #1 Padel Community</h3>
+              <p className="mt-2 text-white/60">2,800+ players. Find your people on and off the court.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── URGENCY ── */}
-      <section style={{ backgroundColor: "var(--color-soft)", borderTop: "4px solid var(--color-primary)" }}>
-        <div className="container-x py-20 text-center">
-          {/* Pulsing availability indicator */}
-          <div className="mb-5 flex items-center justify-center gap-2">
-            <span className="pulse-dot" />
-            <span
-              className="text-xs font-bold uppercase tracking-widest"
-              style={{ color: "var(--color-primary)" }}
-            >
-              Limited availability
-            </span>
-            <span className="pulse-dot" />
+      {/* ── EXCLUSIVITY / URGENCY ── */}
+      <section style={{ backgroundColor: "var(--color-soft)" }} className="relative border-y border-border/50">
+        <div className="container-x py-24 text-center">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background px-4 py-2 shadow-sm">
+             <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+             <span className="text-xs font-bold uppercase tracking-wider text-foreground/80">
+               Boulder, CO • High Demand
+             </span>
           </div>
 
-          <h2 className="mx-auto max-w-3xl text-4xl font-extrabold md:text-5xl">
-            We Only Accept{" "}
-            <span style={{ color: "var(--color-primary)" }}>12 New Players</span> Per Week
+          <h2 className="mx-auto max-w-3xl text-4xl font-extrabold leading-tight md:text-5xl">
+            Why We Cap Our Intro Sessions To <span style={{ color: "var(--color-primary)" }}>12 Players</span> Weekly
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground">
-            To keep groups small and coaching personal, we limit new players every week. Once spots are
-            filled, the $10 offer is gone until the following week.
-          </p>
-          <p className="mt-3 italic">If you leave this page without booking, you lose your discount.</p>
-          <div className="mt-8">
-            <CTAButton onClick={openUpsell}>Claim $125 Discount</CTAButton>
+
+          <div className="mx-auto mt-10 mb-8 max-w-4xl aspect-[4/3] md:aspect-[3/2] overflow-hidden rounded-2xl shadow-xl border border-border/50 relative">
+            <img src={limitedSpots} alt="Limited spots" className="w-full h-full object-cover" style={{ objectPosition: "center 30%" }} />
           </div>
-          <p className="mt-3 text-sm italic text-muted-foreground">
-            No experience needed. Racket included. 60 minutes. $10.
+
+          <p className="mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed">
+            We refuse to pack the courts. To guarantee a premium experience, every beginner session is strictly limited to 4 players per coach. This ensures you actually learn the game, get personalized feedback, and have a great time doing it.
+          </p>
+          <p className="mt-4 text-lg font-medium text-foreground">
+            Because of this, our $10 intro slots in Boulder book out days in advance.
+          </p>
+          <div className="mt-10">
+            <CTAButton onClick={openUpsell}>Secure Your $10 Spot Now</CTAButton>
+          </div>
+          <p className="mt-4 text-sm font-medium text-muted-foreground">
+            Takes 60 seconds.
           </p>
         </div>
       </section>
