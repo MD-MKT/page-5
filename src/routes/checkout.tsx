@@ -198,7 +198,7 @@ function CheckoutPage() {
             <p className="section-label">Almost there!</p>
             <h1 className="text-2xl font-extrabold leading-tight md:text-4xl">
               Claim Your{" "}
-              <span style={{ color: "var(--color-primary)" }}>$195 Discount</span>
+              <span style={{ color: "var(--color-primary)" }}>$125 Discount</span>
             </h1>
           </div>
 

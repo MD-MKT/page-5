@@ -168,7 +168,7 @@ function Landing() {
         <div className="container-x py-20 text-center">
           <p className="section-label">See it in action</p>
           <h2 className="mx-auto max-w-3xl text-4xl font-extrabold leading-tight md:text-5xl">
-            Never heard of padel?
+            Never heard of Padel?
           </h2>
           <div
             className="mx-auto mt-10 aspect-video max-w-4xl overflow-hidden rounded-2xl relative"
@@ -440,7 +440,7 @@ function Landing() {
         <div className="container-x py-20">
           <h2 className="text-center text-4xl font-extrabold text-white md:text-5xl">
             Why Smash Padel{" "}
-            <span style={{ color: "var(--color-primary)" }}>Not Just Any Court</span>
+            <span style={{ color: "var(--color-primary)" }}>is not just any court</span>
           </h2>
           <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-2">
             {[
@@ -500,8 +500,8 @@ function Landing() {
           </div>
 
           <h2 className="mx-auto max-w-3xl text-4xl font-extrabold leading-tight md:text-5xl">
-            Why Our Intro Sessions Have{" "}
-            <span style={{ color: "var(--color-primary)" }}>Limited Weekly Spots</span>
+            Why our intro sessions have{" "}
+            <span style={{ color: "var(--color-primary)" }}>limited weekly spots</span>
           </h2>
 
           <div className="mx-auto mt-10 mb-8 max-w-4xl aspect-[4/3] md:aspect-[3/2] overflow-hidden rounded-2xl shadow-xl border border-border/50 relative">
@@ -509,7 +509,7 @@ function Landing() {
           </div>
 
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed">
-            We refuse to pack the courts. Every beginner session is kept intentionally small — max 4 players per coach — so you actually learn the game, get personalized feedback, and leave wanting more.
+            Every beginner session is kept intentionally small — max 4 players per coach — so you actually learn the game, get personalized feedback, and leave wanting more.
           </p>
           <p className="mt-4 text-lg font-medium text-foreground">
             Because of that, our $10 intro spots in Boulder fill up fast every week.
