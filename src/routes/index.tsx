@@ -146,7 +146,7 @@ function Landing() {
               { n: "2,800+", l: "Active community players" },
               { n: "★ 4.9", l: "Average player rating" },
               { n: "60 min", l: "From zero to playing" },
-              { n: "#1", l: "Padel Club in Colorado" },
+              { n: "#1", l: "Padel Club in Boulder" },
             ].map((s, i) => (
               <div
                 key={s.l}
@@ -458,11 +458,6 @@ function Landing() {
                 img: equipmentIncluded,
                 t: "All equipment provided",
                 d: "Show up in sports clothes. That's it.",
-              },
-              {
-                img: beginnerGroup,
-                t: "Beginner-only group",
-                d: "Everyone's a first-timer. Zero judgment, 100% fun.",
               },
             ].map((c) => (
               <div
