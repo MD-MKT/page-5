@@ -15,8 +15,18 @@ export function UpsellModal({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
+  const SHEET_WEBHOOK =
+    "https://script.google.com/macros/s/AKfycbxUtaI6fNHVULQTveIcnikkLndS52BBUt_RId-n6IXPlZj5XQDwWT7QN0QJ3XFfqVUx/exec";
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Fire-and-forget: send lead to Google Sheets (no-cors because Apps Script doesn't return CORS headers)
+    fetch(SHEET_WEBHOOK, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, phone }),
+    }).catch(() => {});
     onOpenChange(false);
     navigate({ to: "/checkout", search: { name, email, phone } });
   };
