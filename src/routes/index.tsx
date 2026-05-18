@@ -11,6 +11,7 @@ import { UpsellModal } from "@/components/UpsellModal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import heroImg from "@/assets/hero-padel.webp";
 import courtImg from "@/assets/court-dark.webp";
+import ctaBackground from "@/assets/cta-background.jpg";
 import logoImg from "@/assets/logo-topo.png";
 
 // New imported photos
@@ -600,8 +601,8 @@ function Landing() {
 
       {/* ── FINAL CTA ── */}
       <section className="relative overflow-hidden">
-        <img src={courtImg} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0" style={{ backgroundColor: "rgba(10,10,10,0.80)" }} />
+        <img src={ctaBackground} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0" style={{ backgroundColor: "rgba(10,10,10,0.88)" }} />
         <div className="container-x relative py-28 text-center text-white">
           <p className="section-label" style={{ color: "var(--color-primary)" }}>
             Limited spots
