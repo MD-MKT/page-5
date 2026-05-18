@@ -390,7 +390,7 @@ function Landing() {
                       className="w-80 shrink-0 overflow-hidden rounded-2xl border bg-background shadow-sm flex flex-col hover-lift"
                     >
                       <div className="h-48 w-full bg-muted relative">
-                        <img src={r.photo} loading="lazy" alt={r.n} className="h-full w-full object-cover object-top" />
+                        <img src={r.photo} loading="lazy" alt={r.n} className="h-full w-full object-cover" style={{ objectPosition: "center 25%" }} />
                       </div>
                       <div className="p-6 flex flex-col grow">
                         <p className="text-foreground flex-grow leading-relaxed">"{r.q}"</p>

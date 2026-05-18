@@ -36,7 +36,7 @@ export function Navbar() {
 
         <a href="/" className="flex flex-col items-center">
           <img src={logoImg} alt="Smash Padel Logo" className="h-9 w-auto" />
-          <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase mt-0.5">Colorado's First Padel Club</span>
+          <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase mt-0.5">Boulder's First Padel Club</span>
         </a>
 
         {/* Spacer para manter logo centralizado */}
