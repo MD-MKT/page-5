@@ -11,7 +11,7 @@ import { UpsellModal } from "@/components/UpsellModal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import heroImg from "@/assets/hero-padel.webp";
 import courtImg from "@/assets/court-dark.webp";
-import ctaBackground from "@/assets/cta-background.jpg";
+import ctaBackground from "@/assets/cta-background.webp";
 import logoImg from "@/assets/logo-topo.png";
 
 // New imported photos
@@ -19,10 +19,10 @@ import heroWoman1 from "@/assets/hero-woman-1.webp";
 import heroWoman2 from "@/assets/hero-woman-2.webp";
 import heroMan1 from "@/assets/hero-man-1.webp";
 import heroMan2 from "@/assets/hero-man-2.webp";
-import reviewMan1 from "@/assets/review-man-1.jpg";
-import reviewMan2 from "@/assets/review-man-2.jpg";
-import reviewWoman1 from "@/assets/review-woman-1.jpg";
-import reviewWoman2 from "@/assets/review-woman-2.jpg";
+import reviewMan1 from "@/assets/review-man-1.webp";
+import reviewMan2 from "@/assets/review-man-2.webp";
+import reviewWoman1 from "@/assets/review-woman-1.webp";
+import reviewWoman2 from "@/assets/review-woman-2.webp";
 import badgeAppStore from "@/assets/badge-appstore.png";
 import badgeGooglePlay from "@/assets/badge-googleplay.png";
 
@@ -390,7 +390,7 @@ function Landing() {
                       className="w-80 shrink-0 overflow-hidden rounded-2xl border bg-background shadow-sm flex flex-col hover-lift"
                     >
                       <div className="h-48 w-full bg-muted relative">
-                        <img src={r.photo} loading="lazy" alt={r.n} className="h-full w-full object-cover" />
+                        <img src={r.photo} loading="lazy" alt={r.n} className="h-full w-full object-cover object-bottom" />
                       </div>
                       <div className="p-6 flex flex-col grow">
                         <p className="text-foreground flex-grow leading-relaxed">"{r.q}"</p>
