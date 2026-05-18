@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   Check, Play, Star, Users, GraduationCap, Shirt, Trophy, Sparkles,
-  Calendar, Zap, Gift, MessageCircle, Instagram, Linkedin,
+  Calendar, Zap, Gift, MessageCircle, Instagram,
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { CTAButton } from "@/components/CTAButton";
@@ -638,16 +638,13 @@ function Landing() {
           <div className="md:text-right">
             <h4 className="font-bold text-white">Follow</h4>
             <div className="mt-4 flex gap-4 md:justify-end">
-              <a href="#" aria-label="Instagram" className="transition-colors hover:text-white">
+              <a href="https://www.instagram.com/smashpadelusa/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="transition-colors hover:text-white">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" aria-label="TikTok" className="transition-colors hover:text-white">
+              <a href="https://www.tiktok.com/@smashpadelusa" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="transition-colors hover:text-white">
                 <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
                   <path d="M19.5 6.2c-1.5 0-2.9-.6-3.9-1.6V15a5.5 5.5 0 1 1-5.5-5.5v3a2.5 2.5 0 1 0 2.5 2.5V2h3a4.5 4.5 0 0 0 3.9 4.2z" />
                 </svg>
-              </a>
-              <a href="#" aria-label="LinkedIn" className="transition-colors hover:text-white">
-                <Linkedin className="h-5 w-5" />
               </a>
             </div>
           </div>
