@@ -242,8 +242,8 @@ function Landing() {
               ["60-min session with certified coach", "$80"],
               ["Racket & equipment rental", "$15"],
               ["Full court time - private group", "$40"],
-              ["Small group - max 4 beginners", "No pressure"],
-              ["Part of Boulder's #1 sports community", "Priceless"],
+              ["A Full-Body Workout That Doesn't Feel Like Work", "Invaluable"],
+              ["Something Fun to Do With Friends Every Week", "Invaluable"],
             ].map(([l, v], i) => (
               <div
                 key={l}
