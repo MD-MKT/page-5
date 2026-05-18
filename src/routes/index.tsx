@@ -622,8 +622,8 @@ function Landing() {
             </div>
             <p className="mt-4 text-sm">Boulder, Colorado's first padel club.</p>
             <div className="mt-5 flex gap-3">
-              <div className="rounded-md border border-white/20 px-4 py-2 text-xs">App Store</div>
-              <div className="rounded-md border border-white/20 px-4 py-2 text-xs">Google Play</div>
+              <a href="https://apps.apple.com/us/app/smash-padel-usa/id6740839621" target="_blank" rel="noopener noreferrer" className="rounded-md border border-white/20 px-4 py-2 text-xs transition-colors hover:bg-white/10">App Store</a>
+              <a href="https://play.google.com/store/apps/details?id=com.court.smashpadelusx&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" className="rounded-md border border-white/20 px-4 py-2 text-xs transition-colors hover:bg-white/10">Google Play</a>
             </div>
           </div>
           <div className="md:text-center">
