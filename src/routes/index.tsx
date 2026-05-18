@@ -18,6 +18,12 @@ import heroWoman1 from "@/assets/hero-woman-1.webp";
 import heroWoman2 from "@/assets/hero-woman-2.webp";
 import heroMan1 from "@/assets/hero-man-1.webp";
 import heroMan2 from "@/assets/hero-man-2.webp";
+import reviewMan1 from "@/assets/review-man-1.jpg";
+import reviewMan2 from "@/assets/review-man-2.jpg";
+import reviewWoman1 from "@/assets/review-woman-1.jpg";
+import reviewWoman2 from "@/assets/review-woman-2.jpg";
+import badgeAppStore from "@/assets/badge-appstore.png";
+import badgeGooglePlay from "@/assets/badge-googleplay.png";
 
 import starterPackCoupon from "@/assets/starter-pack-coupon.webp";
 import boulderCommunity from "@/assets/boulder-community.webp";
@@ -360,18 +366,22 @@ function Landing() {
                     {
                       n: "Vera P.",
                       q: "A casual padel club with a very welcoming atmosphere and an active community. It's easy to find people to play with most days.",
+                      photo: reviewWoman1,
                     },
                     {
                       n: "Michael S.",
                       q: "Hands down the most fun you'll have in Boulder. The facility is new, staff is friendly, and the community is awesome. If you're looking for a fun activity, this is the spot to go!",
+                      photo: reviewMan1,
                     },
                     {
                       n: "Kay M.",
                       q: "Loving learning a new sport at Smash Padel! Great exercise, fun people, open play, clinics - they have it all!",
+                      photo: reviewWoman2,
                     },
                     {
                       n: "John D.",
                       q: "Never played before but the coach was amazing. I was rallying by the end of the hour! Highly recommended for anyone wanting to try.",
+                      photo: reviewMan2,
                     },
                   ].map((r, j) => (
                     <div
@@ -379,8 +389,7 @@ function Landing() {
                       className="w-80 shrink-0 overflow-hidden rounded-2xl border bg-background shadow-sm flex flex-col hover-lift"
                     >
                       <div className="h-48 w-full bg-muted relative">
-                        <img src={heroImg} loading="lazy" alt="Player photo" className="h-full w-full object-cover opacity-80" />
-                        <div className="absolute inset-0 flex items-center justify-center font-bold text-white drop-shadow-md">Foto do Aluno</div>
+                        <img src={r.photo} loading="lazy" alt={r.n} className="h-full w-full object-cover" />
                       </div>
                       <div className="p-6 flex flex-col grow">
                         <p className="text-foreground flex-grow leading-relaxed">"{r.q}"</p>
@@ -622,8 +631,12 @@ function Landing() {
             </div>
             <p className="mt-4 text-sm">Boulder, Colorado's first padel club.</p>
             <div className="mt-5 flex gap-3">
-              <a href="https://apps.apple.com/us/app/smash-padel-usa/id6740839621" target="_blank" rel="noopener noreferrer" className="rounded-md border border-white/20 px-4 py-2 text-xs transition-colors hover:bg-white/10">App Store</a>
-              <a href="https://play.google.com/store/apps/details?id=com.court.smashpadelusx&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" className="rounded-md border border-white/20 px-4 py-2 text-xs transition-colors hover:bg-white/10">Google Play</a>
+              <a href="https://apps.apple.com/us/app/smash-padel-usa/id6740839621" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-80">
+                <img src={badgeAppStore} alt="Download on the App Store" className="h-9 w-auto" />
+              </a>
+              <a href="https://play.google.com/store/apps/details?id=com.court.smashpadelusx&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-80">
+                <img src={badgeGooglePlay} alt="Get it on Google Play" className="h-9 w-auto" />
+              </a>
             </div>
           </div>
           <div className="md:text-center">
