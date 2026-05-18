@@ -1,7 +1,7 @@
 import { MessageCircle } from "lucide-react";
 
 const WA_LINK =
-  "https://wa.me/17203405110?text=Hi!%20I%20have%20a%20question%20about%20the%20%2410%20intro%20offer%20at%20Smash%20Padel.";
+  "https://wa.me/16463736549?text=Hi!%20I%20came%20from%20the%20website%20and%20I%20have%20a%20question%20about%20the%20Intro%20to%20Padel%20class.";
 
 export function WhatsAppFloat() {
   return (
