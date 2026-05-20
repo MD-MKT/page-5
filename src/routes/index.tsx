@@ -26,7 +26,7 @@ import reviewWoman2 from "@/assets/review-woman-2.webp";
 import badgeAppStore from "@/assets/badge-appstore.png";
 import badgeGooglePlay from "@/assets/badge-googleplay.png";
 
-import starterPackCoupon from "@/assets/starter-pack-coupon.webp";
+import starterPackCoupon from "@/assets/starter-pack-coupon-new.webp";
 import boulderCommunity from "@/assets/boulder-community.webp";
 import certificatedCoach from "@/assets/certificated-coach.webp";
 import equipmentIncluded from "@/assets/equipment-included.webp";
@@ -37,6 +37,13 @@ import racketBonus from "@/assets/racket-bonus.webp";
 import accessCommunity from "@/assets/access-community.webp";
 import beginnerGroup from "@/assets/beginner-group.webp";
 import limitedSpots from "@/assets/limited-spots.webp";
+
+// Why Smash Padel section images
+import whyCoach from "@/assets/why-coach.webp";
+import whyProgram from "@/assets/why-program.webp";
+import whyLeagues from "@/assets/why-leagues.webp";
+import whyCommunity from "@/assets/why-community.webp";
+import whyOriginalClub from "@/assets/why-original-club.webp";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -344,21 +351,25 @@ function Landing() {
                       n: "Vera P.",
                       q: "A casual padel club with a very welcoming atmosphere and an active community. It's easy to find people to play with most days.",
                       photo: reviewWoman1,
+                      pos: "center 25%",
                     },
                     {
                       n: "Michael S.",
                       q: "Hands down the most fun you'll have in Boulder. The facility is new, staff is friendly, and the community is awesome. If you're looking for a fun activity, this is the spot to go!",
                       photo: reviewMan1,
+                      pos: "center 5%",
                     },
                     {
                       n: "Sarah Frutal",
                       q: "Loving learning a new sport at Smash Padel! Great exercise, fun people, open play, clinics - they have it all!",
                       photo: reviewWoman2,
+                      pos: "center 12%",
                     },
                     {
                       n: "John D.",
                       q: "Never played before but the coach was amazing. I was rallying by the end of the hour! Highly recommended for anyone wanting to try.",
                       photo: reviewMan2,
+                      pos: "center 12%",
                     },
                   ].map((r, j) => (
                     <div
@@ -366,7 +377,7 @@ function Landing() {
                       className="w-80 shrink-0 overflow-hidden rounded-2xl border bg-background shadow-sm flex flex-col hover-lift"
                     >
                       <div className="h-48 w-full bg-muted relative">
-                        <img src={r.photo} loading="lazy" alt={r.n} className="h-full w-full object-cover" style={{ objectPosition: "center 25%" }} />
+                        <img src={r.photo} loading="lazy" alt={r.n} className="h-full w-full object-cover" style={{ objectPosition: r.pos || "center 25%" }} />
                       </div>
                       <div className="p-6 flex flex-col grow">
                         <p className="text-foreground flex-grow leading-relaxed">"{r.q}"</p>
@@ -423,33 +434,47 @@ function Landing() {
               {
                 t: "Certified Coach Included",
                 d: "Not just an open court rental. Every session comes with a certified coach who actually teaches you — from your very first point.",
+                img: whyCoach,
               },
               {
                 t: "A Program for Every Level",
                 d: "Intro classes, open play, clinics, private lessons, academies. Whatever your level, there's a structured next step waiting for you at Smash.",
+                img: whyProgram,
               },
               {
                 t: "Leagues That Keep You Coming Back",
                 d: "Weekly competitive leagues for beginners, intermediate, and advanced players. Real games, real scores, real progression — not just casual hitting.",
+                img: whyLeagues,
               },
               {
                 t: "Always Someone to Play With",
                 d: "Over 400 active members. Open play sessions running every week. You'll never show up and wonder who to hit with.",
+                img: whyCommunity,
               },
             ].map((c) => (
               <div
                 key={c.t}
-                className="rounded-2xl border border-white/10 p-7 transition duration-200 hover:border-white/20 hover:bg-white/5 flex flex-col text-center items-center"
+                className="hover-lift rounded-2xl border border-white/10 bg-white/5 transition duration-200 hover:border-white/20 flex flex-col overflow-hidden text-left"
               >
-                <h3 className="text-xl font-bold text-white">{c.t}</h3>
-                <p className="mt-2 text-white/60">{c.d}</p>
+                <div className="w-full aspect-video bg-muted relative overflow-hidden">
+                  <img src={c.img} alt={c.t} className="w-full h-full object-cover" />
+                </div>
+                <div className="p-7 flex flex-col justify-center">
+                  <h3 className="text-xl font-bold text-white">{c.t}</h3>
+                  <p className="mt-2 text-white/60">{c.d}</p>
+                </div>
               </div>
             ))}
           </div>
           <div className="mx-auto mt-6 max-w-2xl">
-            <div className="rounded-2xl border border-white/10 p-7 text-center transition duration-200 hover:border-white/20 hover:bg-white/5 flex flex-col items-center">
-              <h3 className="text-xl font-bold text-white">Colorado's Original Padel Club</h3>
-              <p className="mt-2 text-white/60">We were here before anyone else. We built the courts, trained the coaches, and grew the community from zero. Everything you see in Colorado's padel scene started here.</p>
+            <div className="hover-lift rounded-2xl border border-white/10 bg-white/5 transition duration-200 hover:border-white/20 flex flex-col overflow-hidden text-left">
+              <div className="w-full aspect-video bg-muted relative overflow-hidden">
+                <img src={whyOriginalClub} alt="Colorado's Original Padel Club" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-7 flex flex-col justify-center">
+                <h3 className="text-xl font-bold text-white">Colorado's Original Padel Club</h3>
+                <p className="mt-2 text-white/60">We were here before anyone else. We built the courts, trained the coaches, and grew the community from zero. Everything you see in Colorado's padel scene started here.</p>
+              </div>
             </div>
           </div>
         </div>
