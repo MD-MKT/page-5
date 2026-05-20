@@ -292,7 +292,7 @@ function Landing() {
               {
                 img: starterPackCoupon,
                 t: "$105 Off Your Starter Pack",
-                d: "After your intro session, unlock an exclusive $105 discount on our Starter Pack — your gateway to regular play. Includes 1 skill clinic + 3 open play sessions + 20% off your first racket purchase. Valid for 7 days after your session.",
+                d: "After your intro session, unlock an exclusive $105 discount on our Starter Pack — your gateway to regular play. Includes 1 skills clinic + 3 open play sessions.",
               },
               {
                 img: accessCommunity,
@@ -562,7 +562,7 @@ function Landing() {
               ],
               [
                 "What happens after the intro session?",
-                "You'll receive an exclusive $105 discount on our Starter Pack — includes 1 skill clinic + 3 open play sessions + 20% off your first racket purchase. Valid for 7 days. No pressure. Most people just want to keep playing.",
+                "You'll receive an exclusive $105 discount on our Starter Pack — includes 1 skills clinic + 3 open play sessions + 20% off your first racket purchase. No pressure. Most people just want to keep playing.",
               ],
             ].map(([q, a], i) => (
               <AccordionItem key={i} value={`item-${i}`} className="border-b">
