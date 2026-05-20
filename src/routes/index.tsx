@@ -166,7 +166,7 @@ function Landing() {
         <div className="container-x py-20 text-center">
           <p className="section-label">See it in action</p>
           <h2 className="mx-auto max-w-2xl text-3xl font-extrabold leading-tight md:text-4xl">
-            New to Padel? Here's Everything You Need to Know in 60 Seconds
+            New to Padel? Here's Everything You Need to Know
           </h2>
           <div
             className="mx-auto mt-10 aspect-video max-w-4xl overflow-hidden rounded-2xl relative"
@@ -174,7 +174,7 @@ function Landing() {
           >
             <iframe
               src="https://www.youtube.com/embed/y7IO2jaqf58"
-              title="New to Padel? Here's Everything You Need to Know in 60 Seconds"
+              title="New to Padel? Here's Everything You Need to Know"
               className="absolute inset-0 h-full w-full"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
