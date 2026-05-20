@@ -271,9 +271,6 @@ function CheckoutPage() {
                 <span style={{ color: "var(--color-primary)" }}>{popup.name}</span>{" "}
                 {popup.action}
               </p>
-              <p className="mt-1 text-xs font-bold text-red-600">
-                🔴 Only {popup.spots} spots left this week
-              </p>
               <p className="mt-0.5 text-[10px] text-muted-foreground">Just now · Boulder, CO</p>
             </div>
 
