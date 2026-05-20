@@ -489,7 +489,7 @@ function Landing() {
              </span>
           </div>
 
-          <h2 className="mx-auto max-w-3xl text-4xl font-extrabold leading-tight md:text-5xl">
+          <h2 className="mx-auto max-w-2xl text-3xl font-extrabold leading-tight md:text-4xl">
             Why our intro sessions have{" "}
             <span style={{ color: "var(--color-primary)" }}>limited weekly spots</span>
           </h2>
