@@ -357,26 +357,26 @@ function Landing() {
                       n: "Michael S.",
                       q: "Hands down the most fun you'll have in Boulder. The facility is new, staff is friendly, and the community is awesome. If you're looking for a fun activity, this is the spot to go!",
                       photo: reviewMan1,
-                      pos: "center 78%",
+                      pos: "center 35%",
                     },
                     {
                       n: "Sarah Frutal",
                       q: "Loving learning a new sport at Smash Padel! Great exercise, fun people, open play, clinics - they have it all!",
                       photo: reviewWoman2,
-                      pos: "center 40%",
+                      pos: "center 10%",
                     },
                     {
                       n: "John D.",
                       q: "Never played before but the coach was amazing. I was rallying by the end of the hour! Highly recommended for anyone wanting to try.",
                       photo: reviewMan2,
-                      pos: "center 28%",
+                      pos: "center 25%",
                     },
                   ].map((r, j) => (
                     <div
                       key={j}
                       className="w-80 shrink-0 overflow-hidden rounded-2xl border bg-background shadow-sm flex flex-col hover-lift"
                     >
-                      <div className="h-48 w-full bg-muted relative">
+                      <div className="h-64 w-full bg-muted relative">
                         <img src={r.photo} loading="lazy" alt={r.n} className="h-full w-full object-cover" style={{ objectPosition: r.pos || "center 25%" }} />
                       </div>
                       <div className="p-6 flex flex-col grow">
