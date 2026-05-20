@@ -165,7 +165,7 @@ function Landing() {
       <section id="what" className="bg-background">
         <div className="container-x py-20 text-center">
           <p className="section-label">See it in action</p>
-          <h2 className="mx-auto max-w-2xl text-3xl font-extrabold leading-tight md:text-4xl">
+          <h2 className="mx-auto max-w-lg text-2xl font-extrabold leading-tight md:text-3xl">
             New to Padel? Here's Everything You Need to Know
           </h2>
           <div
