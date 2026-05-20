@@ -468,11 +468,11 @@ function Landing() {
           <div className="mx-auto mt-6 max-w-2xl">
             <div className="hover-lift rounded-2xl border border-white/10 bg-white/5 transition duration-200 hover:border-white/20 flex flex-col overflow-hidden text-left">
               <div className="w-full aspect-video bg-muted relative overflow-hidden">
-                <img src={whyOriginalClub} alt="The First Padel Club in Colorado" className="w-full h-full object-cover" />
+                <img src={whyOriginalClub} alt="The Original Padel Club in Colorado" className="w-full h-full object-cover" />
               </div>
               <div className="p-7 flex flex-col justify-center">
-                <h3 className="text-xl font-bold text-white">The First Padel Club in Colorado</h3>
-                <p className="mt-2 text-white/60">We were here before anyone else. We built the courts, trained the coaches, and grew the community from zero. Everything you see in Colorado's padel scene started here.</p>
+                <h3 className="text-xl font-bold text-white">The Original Padel Club in Colorado</h3>
+                <p className="mt-2 text-white/60">Colorado's first dedicated indoor padel facility. Five courts, year-round play, and the community that put padel on the map in Colorado.</p>
               </div>
             </div>
           </div>
