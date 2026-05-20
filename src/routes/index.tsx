@@ -362,7 +362,7 @@ function Landing() {
                       n: "Sarah Frutal",
                       q: "Loving learning a new sport at Smash Padel! Great exercise, fun people, open play, clinics - they have it all!",
                       photo: reviewWoman2,
-                      pos: "center 68%",
+                      pos: "center 52%",
                     },
                     {
                       n: "John D.",
