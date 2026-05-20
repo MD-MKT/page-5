@@ -49,7 +49,7 @@ export const Route = createFileRoute("/")({
           "Claim your $125 discount. 60-minute beginner padel session in Boulder, Colorado for just $10. Coach, racket and court included. No experience needed.",
       },
       { property: "og:title", content: "Smash Padel USA - $10 Beginner Padel Session" },
-      { property: "og:description", content: "60 min coached session + racket + court. $135 value for $10 in Boulder, CO." },
+      { property: "og:description", content: "60 min coached session + racket + court. $40 value for $10 in Boulder, CO." },
     ],
   }),
 });
@@ -70,7 +70,7 @@ function Landing() {
         <div className="container-x flex flex-col items-center pt-6 md:pt-10 pb-16 md:pb-20 text-center">
             {/* Headline */}
             <h1 className="mx-auto max-w-5xl text-3xl font-extrabold leading-[1.2] tracking-tight sm:text-4xl md:text-5xl lg:text-[54px]">
-              Claim Your <span style={{ color: "var(--color-primary)" }}>$125 Discount</span><br />
+              Claim Your <span style={{ color: "var(--color-primary)" }}>80% Discount</span><br />
               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl opacity-90 font-bold mt-2 block">Try Padel for Just <span style={{ color: "var(--color-primary)" }}>$10</span></span>
             </h1>
 
@@ -120,22 +120,13 @@ function Landing() {
 
             {/* Button */}
             <div className="mt-4">
-              <CTAButton onClick={openUpsell}>Claim $125 Discount</CTAButton>
+              <CTAButton onClick={openUpsell}>Claim Your $40 Discount</CTAButton>
               <p className="mt-3 text-sm italic text-muted-foreground">
                 Limited spots available each week.
               </p>
             </div>
         </div>
 
-        {/* Stars bar */}
-        <div className="container-x flex items-center justify-center gap-2 pb-12">
-          <div className="flex" style={{ color: "var(--color-primary)" }}>
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="h-5 w-5 fill-current" />
-            ))}
-          </div>
-          <span className="text-sm font-semibold">Rated 4.9 by 2,800+ players in Boulder</span>
-        </div>
       </section>
 
       {/* ── STATS ── */}
@@ -146,7 +137,7 @@ function Landing() {
               { n: "2,800+", l: "Active community players" },
               { n: "★ 4.9", l: "Average player rating" },
               { n: "60 min", l: "From zero to playing" },
-              { n: "#1", l: "Padel Club in Boulder" },
+              { n: "#1", l: "Padel Club in Colorado" },
             ].map((s, i) => (
               <div
                 key={s.l}
@@ -168,23 +159,19 @@ function Landing() {
         <div className="container-x py-20 text-center">
           <p className="section-label">See it in action</p>
           <h2 className="mx-auto max-w-3xl text-4xl font-extrabold leading-tight md:text-5xl">
-            Never heard of Padel?
+            Curious about Padel?
           </h2>
           <div
             className="mx-auto mt-10 aspect-video max-w-4xl overflow-hidden rounded-2xl relative"
-            style={{ backgroundColor: "var(--color-dark)", boxShadow: "0 24px 64px rgba(0,0,0,0.18)" }}
+            style={{ boxShadow: "0 24px 64px rgba(0,0,0,0.18)" }}
           >
-            <img src={heroImg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-40" />
-            <button
-              aria-label="Play video"
-              className="absolute inset-0 m-auto flex h-20 w-20 items-center justify-center rounded-full text-white transition-transform hover:scale-110 active:scale-95"
-              style={{
-                backgroundColor: "var(--color-primary)",
-                boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
-              }}
-            >
-              <Play className="ml-1 h-8 w-8 fill-current" />
-            </button>
+            <iframe
+              src="https://www.youtube.com/embed/y7IO2jaqf58"
+              title="Curious about Padel?"
+              className="absolute inset-0 h-full w-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
           </div>
           <p className="mt-6 italic text-muted-foreground">
             The fastest growing sport in the world. Now right here in Boulder, Colorado.
@@ -227,7 +214,7 @@ function Landing() {
             ))}
           </div>
           <div className="mt-12 text-center">
-            <CTAButton onClick={openUpsell}>Claim $125 Discount</CTAButton>
+            <CTAButton onClick={openUpsell}>Claim Your 80% Discount</CTAButton>
           </div>
         </div>
       </section>
@@ -239,15 +226,16 @@ function Landing() {
           <h2 className="text-center text-4xl font-extrabold md:text-5xl">Here's everything you get for $10</h2>
           <div className="mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border bg-background shadow-sm">
             {[
-              ["60-min session with certified coach", "$80"],
-              ["Racket & equipment rental", "$15"],
-              ["Full court time - private group", "$40"],
-              ["A Full-Body Workout That Doesn't Feel Like Work", "Invaluable"],
-              ["Something Fun to Do With Friends Every Week", "Invaluable"],
-            ].map(([l, v], i) => (
+              "60-min session with certified coach",
+              "Racket & equipment rental",
+              "Full court time with a small group",
+              "A full-body workout that doesn't feel like a workout",
+              "Learn a fun new sport you can play every week",
+              "Access Colorado's #1 padel community",
+            ].map((l, i) => (
               <div
                 key={l}
-                className="flex items-center justify-between border-b px-6 py-5 last:border-b-0"
+                className="flex items-center border-b px-6 py-5 last:border-b-0"
                 style={i % 2 === 1 ? { backgroundColor: "var(--color-soft)" } : {}}
               >
                 <span className="flex items-center gap-3 font-medium">
@@ -259,20 +247,8 @@ function Landing() {
                   </span>
                   {l}
                 </span>
-                <span className="ml-4 shrink-0 font-extrabold" style={{ color: "var(--color-primary)" }}>
-                  {v}
-                </span>
               </div>
             ))}
-            <div
-              className="flex items-center justify-between px-6 py-6"
-              style={{ backgroundColor: "var(--color-dark)" }}
-            >
-              <span className="text-lg font-bold text-white">Total value</span>
-              <span className="text-2xl font-extrabold" style={{ color: "var(--color-primary)" }}>
-                $135+
-              </span>
-            </div>
           </div>
 
           {/* You pay callout */}
@@ -283,13 +259,13 @@ function Landing() {
             >
               <p className="text-xl font-bold uppercase tracking-widest text-muted-foreground mb-4">Your price today</p>
               <div className="flex flex-col items-center gap-2">
-                 <span className="text-7xl font-black text-red-500 line-through decoration-4 opacity-80">$135</span>
-                 <span className="text-8xl font-black" style={{ color: "var(--color-whatsapp)" }}>$10</span>
+                <span className="text-7xl font-black text-red-500 line-through decoration-4 opacity-80">$50</span>
+                <span className="text-8xl font-black" style={{ color: "var(--color-whatsapp)" }}>$10</span>
               </div>
-              <p className="mt-6 text-xl font-bold rounded-full px-6 py-2 whitespace-nowrap" style={{ backgroundColor: "color-mix(in oklab, var(--color-whatsapp) 15%, transparent)", color: "var(--color-whatsapp)" }}>You save $125 (92% OFF)</p>
+              <p className="mt-6 text-xl font-bold rounded-full px-6 py-2 whitespace-nowrap" style={{ backgroundColor: "color-mix(in oklab, var(--color-whatsapp) 15%, transparent)", color: "var(--color-whatsapp)" }}>You save $40</p>
             </div>
             <div className="mt-8">
-              <CTAButton onClick={openUpsell}>Claim $125 Discount</CTAButton>
+              <CTAButton onClick={openUpsell}>Claim Your $40 Discount</CTAButton>
             </div>
           </div>
         </div>
@@ -309,12 +285,12 @@ function Landing() {
               },
               {
                 img: starterPackCoupon,
-                t: "$195 Off Your Starter Pack",
-                d: "After your intro session, unlock an exclusive $195 discount on our Starter Pack - your gateway to regular play. Valid for 7 days after your session.",
+                t: "$105 Off Your Starter Pack",
+                d: "After your intro session, unlock an exclusive $105 discount on our Starter Pack — your gateway to regular play. Includes 1 skill clinic + 3 open play sessions + 20% off your first racket purchase. Valid for 7 days after your session.",
               },
               {
                 img: accessCommunity,
-                t: "Access Boulder's #1 sports community",
+                t: "Colorado's #1 & Largest Padel Community",
                 d: "Connect with hundreds of active players, find matches at your skill level, and experience the most vibrant sports scene in Colorado.",
                 imgPos: "center 20%",
               },
@@ -440,33 +416,31 @@ function Landing() {
         <div className="container-x py-20">
           <h2 className="text-center text-4xl font-extrabold text-white md:text-5xl">
             Why Smash Padel{" "}
-            <span style={{ color: "var(--color-primary)" }}>is not just any court</span>
+            <span style={{ color: "var(--color-primary)" }}>is not just any Padel Club</span>
           </h2>
           <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-2">
             {[
               {
-                img: certificatedCoach,
-                t: "Certified coach included",
+                t: "Certified Coach Included",
                 d: "Not just an open court rental. You learn correctly from day one.",
               },
               {
-                img: smallGroup,
-                t: "Small group of 4 max",
-                d: "No crowded classes. Personal attention at your pace.",
+                t: "All Levels Welcome",
+                d: "Started as a beginner? Good. We have a place for you here long after your first session. From intro players to competitive athletes — everyone has a court, a coach, and a program built for where they are.",
               },
               {
-                img: equipmentIncluded,
-                t: "All equipment provided",
-                d: "Show up in sports clothes. That's it.",
+                t: "A Real Coaching Team",
+                d: "Clinics, private lessons, and structured programs designed to actually improve your game. Whether you want to play for fun or compete, our coaches build a path forward for you.",
+              },
+              {
+                t: "Leagues at Every Level",
+                d: "Beginner, intermediate, competitive — there's a league for where you are right now and one waiting for where you're going. Your intro session is just the first step.",
               },
             ].map((c) => (
               <div
                 key={c.t}
                 className="rounded-2xl border border-white/10 p-7 transition duration-200 hover:border-white/20 hover:bg-white/5 flex flex-col text-center items-center"
               >
-                <div className="mb-6 w-full aspect-video rounded-xl overflow-hidden border border-white/10 relative">
-                  <img src={c.img} alt={c.t} className="w-full h-full object-cover" />
-                </div>
                 <h3 className="text-xl font-bold text-white">{c.t}</h3>
                 <p className="mt-2 text-white/60">{c.d}</p>
               </div>
@@ -474,11 +448,8 @@ function Landing() {
           </div>
           <div className="mx-auto mt-6 max-w-2xl">
             <div className="rounded-2xl border border-white/10 p-7 text-center transition duration-200 hover:border-white/20 hover:bg-white/5 flex flex-col items-center">
-              <div className="mb-6 w-full aspect-[21/9] rounded-xl overflow-hidden border border-white/10 relative">
-                <img src={boulderCommunity} alt="Boulder's #1 Padel Community" className="w-full h-full object-cover" />
-              </div>
-              <h3 className="text-xl font-bold text-white">Boulder's #1 Padel Community</h3>
-              <p className="mt-2 text-white/60">2,800+ players. Find your people on and off the court.</p>
+              <h3 className="text-xl font-bold text-white">Colorado's Most Active Padel Community</h3>
+              <p className="mt-2 text-white/60">Hundreds of active players. Weekly events. Social nights. Tournaments. Someone to play with every single day. We didn't just build a padel club — we built Colorado's padel scene.</p>
             </div>
           </div>
         </div>
@@ -507,7 +478,7 @@ function Landing() {
             Every beginner session is kept intentionally small — max 4 players per coach — so you actually learn the game, get personalized feedback, and leave wanting more.
           </p>
           <p className="mt-4 text-lg font-medium text-foreground">
-            Because of that, our $10 intro spots in Boulder fill up fast every week.
+            Because of that, our $10 intro spots fill up fast every week.
           </p>
           <div className="mt-10">
             <CTAButton onClick={openUpsell}>Secure Your $10 Spot Now</CTAButton>
@@ -523,7 +494,7 @@ function Landing() {
         <div className="container-x mx-auto max-w-2xl py-20 text-center">
           <h2 className="text-4xl font-extrabold md:text-5xl">Still curious? Let's talk.</h2>
           <p className="mt-6 text-lg text-muted-foreground">
-            This is your chance to discover Boulder's fastest-growing sport — with a certified coach, all equipment, and an incredible community included. All for $10. Don't let this week's spots go to someone else.
+            This is your chance to discover Colorado's fastest-growing sport — with a certified coach, all equipment, and an incredible community included. All for $10. Don't let this week's spots go to someone else.
           </p>
           <p className="mt-4 text-lg font-medium">We're on WhatsApp and answer in minutes.</p>
           <div className="mt-8">
@@ -543,7 +514,7 @@ function Landing() {
             {[
               [
                 "Do I need any experience?",
-                "None at all. This class is designed specifically for people who have never played padel. Your coach teaches everything from scratch.",
+                "None at all. Whether you've never picked up a racket, tried padel once or twice, or come from tennis, pickleball, or squash — this session is designed to meet you where you are. Your coach tailors everything to the group from the very first minute.",
               ],
               [
                 "What if I've never held a racket?",
@@ -563,19 +534,11 @@ function Landing() {
               ],
               [
                 "Can I bring a friend?",
-                "Yes! You'll see an option to add a friend during checkout at a special price. Padel is way more fun with someone you know.",
+                "Absolutely! After completing your purchase, just send us a message on WhatsApp and we'll book a spot for your friend right away. Padel is way more fun with someone you know.",
               ],
               [
                 "What happens after the intro session?",
-                "You'll receive an exclusive $195 discount on our Starter Pack - valid for 7 days. No pressure. Most people just want to keep playing.",
-              ],
-              [
-                "Is the $10 a recurring charge?",
-                "No. It's a one-time session fee. No subscriptions, no hidden charges.",
-              ],
-              [
-                "How do I book?",
-                'Click any "Claim $125 Discount" button on this page. The process takes about 60 seconds.',
+                "You'll receive an exclusive $105 discount on our Starter Pack — includes 1 skill clinic + 3 open play sessions + 20% off your first racket purchase. Valid for 7 days. No pressure. Most people just want to keep playing.",
               ],
             ].map(([q, a], i) => (
               <AccordionItem key={i} value={`item-${i}`} className="border-b">
@@ -589,7 +552,7 @@ function Landing() {
             ))}
           </Accordion>
           <div className="mt-10 text-center">
-            <CTAButton onClick={openUpsell}>Claim $125 Discount</CTAButton>
+            <CTAButton onClick={openUpsell}>Claim Your $40 Discount</CTAButton>
           </div>
         </div>
       </section>
@@ -606,14 +569,10 @@ function Landing() {
             Your first step onto the court is waiting.
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-white/80">
-            $10. 60 minutes. Everything included. Your{" "}
-            <span style={{ color: "var(--color-primary)" }} className="font-bold">
-              $125 discount
-            </span>{" "}
-            expires when spots fill up.
+            You're one session away from finding your new favorite thing to do in Boulder. Coach, racket, and court — all included. Reserve your spot for $10 before this week fills up.
           </p>
           <div className="mt-8">
-            <CTAButton onClick={openUpsell}>Claim $125 Discount</CTAButton>
+            <CTAButton onClick={openUpsell}>Claim Your 80% Discount</CTAButton>
           </div>
         </div>
       </section>
@@ -625,7 +584,7 @@ function Landing() {
             <div className="flex items-center gap-2">
               <img src={logoImg} alt="Smash Padel Logo" className="h-8 w-auto brightness-0 invert" />
             </div>
-            <p className="mt-4 text-sm">Boulder, Colorado's first padel club.</p>
+            <p className="mt-4 text-sm">Colorado's #1 padel club.</p>
             <div className="mt-5 flex gap-3">
               <a href="https://apps.apple.com/us/app/smash-padel-usa/id6740839621" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-80">
                 <img src={badgeAppStore} alt="Download on the App Store" className="h-9 w-auto" />
