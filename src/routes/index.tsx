@@ -236,7 +236,6 @@ function Landing() {
               "60-min session with certified coach",
               "Racket & equipment rental",
               "Full court time with a small group",
-              "A full-body workout that doesn't feel like a workout",
               "Learn a fun new sport you can play every week",
               "Access Colorado's #1 padel community",
             ].map((l, i) => (
@@ -357,7 +356,7 @@ function Landing() {
                       n: "Michael S.",
                       q: "Hands down the most fun you'll have in Boulder. The facility is new, staff is friendly, and the community is awesome. If you're looking for a fun activity, this is the spot to go!",
                       photo: reviewMan1,
-                      pos: "center 35%",
+                      pos: "center 48%",
                     },
                     {
                       n: "Sarah Frutal",
