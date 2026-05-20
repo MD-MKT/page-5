@@ -297,7 +297,7 @@ function Landing() {
               {
                 img: accessCommunity,
                 t: "Instant Access to Colorado's #1 Padel Community",
-                d: "The moment you walk through our doors, you're part of something bigger. 400+ active players, matches at your level, weekly events, and a social scene that keeps people coming back every single week.",
+                d: "The moment you walk through our doors, you're part of something bigger. Hundreds of active players, matches at your level, weekly events, and a social scene that keeps people coming back every single week.",
                 imgPos: "center 20%",
               },
             ].map((c) => (
