@@ -356,7 +356,7 @@ function Landing() {
                       n: "Michael S.",
                       q: "Hands down the most fun you'll have in Boulder. The facility is new, staff is friendly, and the community is awesome. If you're looking for a fun activity, this is the spot to go!",
                       photo: reviewMan1,
-                      pos: "center 50%",
+                      pos: "center 53%",
                     },
                     {
                       n: "Sarah Frutal",
