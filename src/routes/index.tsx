@@ -290,8 +290,8 @@ function Landing() {
               },
               {
                 img: accessCommunity,
-                t: "Colorado's #1 & Largest Padel Community",
-                d: "Connect with hundreds of active players, find matches at your skill level, and experience the most vibrant sports scene in Colorado.",
+                t: "Instant Access to Colorado's #1 Padel Community",
+                d: "The moment you walk through our doors, you're part of something bigger. 400+ active players, matches at your level, weekly events, and a social scene that keeps people coming back every single week.",
                 imgPos: "center 20%",
               },
             ].map((c) => (
