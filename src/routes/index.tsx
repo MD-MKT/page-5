@@ -447,7 +447,7 @@ function Landing() {
               },
               {
                 t: "Always Someone to Play With",
-                d: "Over 400 active members. Open play sessions running every week. You'll never show up and wonder who to hit with.",
+                d: "We have hundreds of regular players with open play sessions running every week. You'll always be able to find a fun and competitive match.",
                 img: whyCommunity,
               },
             ].map((c) => (
