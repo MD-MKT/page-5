@@ -422,19 +422,19 @@ function Landing() {
             {[
               {
                 t: "Certified Coach Included",
-                d: "Not just an open court rental. You learn correctly from day one.",
+                d: "Not just an open court rental. Every session comes with a certified coach who actually teaches you — from your very first point.",
               },
               {
-                t: "All Levels Welcome",
-                d: "Started as a beginner? Good. We have a place for you here long after your first session. From intro players to competitive athletes — everyone has a court, a coach, and a program built for where they are.",
+                t: "A Program for Every Level",
+                d: "Intro classes, open play, clinics, private lessons, academies. Whatever your level, there's a structured next step waiting for you at Smash.",
               },
               {
-                t: "A Real Coaching Team",
-                d: "Clinics, private lessons, and structured programs designed to actually improve your game. Whether you want to play for fun or compete, our coaches build a path forward for you.",
+                t: "Leagues That Keep You Coming Back",
+                d: "Weekly competitive leagues for beginners, intermediate, and advanced players. Real games, real scores, real progression — not just casual hitting.",
               },
               {
-                t: "Leagues at Every Level",
-                d: "Beginner, intermediate, competitive — there's a league for where you are right now and one waiting for where you're going. Your intro session is just the first step.",
+                t: "Always Someone to Play With",
+                d: "Over 400 active members. Open play sessions running every week. You'll never show up and wonder who to hit with.",
               },
             ].map((c) => (
               <div
@@ -448,8 +448,8 @@ function Landing() {
           </div>
           <div className="mx-auto mt-6 max-w-2xl">
             <div className="rounded-2xl border border-white/10 p-7 text-center transition duration-200 hover:border-white/20 hover:bg-white/5 flex flex-col items-center">
-              <h3 className="text-xl font-bold text-white">Colorado's Most Active Padel Community</h3>
-              <p className="mt-2 text-white/60">Hundreds of active players. Weekly events. Social nights. Tournaments. Someone to play with every single day. We didn't just build a padel club — we built Colorado's padel scene.</p>
+              <h3 className="text-xl font-bold text-white">Colorado's Original Padel Club</h3>
+              <p className="mt-2 text-white/60">We were here before anyone else. We built the courts, trained the coaches, and grew the community from zero. Everything you see in Colorado's padel scene started here.</p>
             </div>
           </div>
         </div>
