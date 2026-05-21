@@ -75,26 +75,9 @@ function Landing() {
               Claim Your <span style={{ color: "var(--color-primary)" }}>80% Discount</span><br />
               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl opacity-90 font-bold mt-2 block">Try Padel for Just <span style={{ color: "var(--color-primary)" }}>$10</span></span>
             </h1>
-
-            {/* Checklist */}
-            <div className="mt-8 mx-auto inline-block text-left">
-              <ul className="space-y-3">
-                {[
-                  "Professional coach included",
-                  "Racket & equipment provided",
-                  "Private court for your group",
-                  "Small beginner group - max 4 people, zero pressure",
-                ].map((t) => (
-                  <li key={t} className="flex items-center gap-3">
-                    <Check className="h-6 w-6 shrink-0" style={{ color: "var(--color-whatsapp)" }} strokeWidth={3} />
-                    <span className="font-medium text-lg">{t}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
         </div>
 
-        {/* Video Full-Bleed Container */}
+        {/* Video Full-Bleed Container (Sem fade e acima do checklist) */}
         <div className="w-full mt-10 overflow-hidden relative aspect-video md:max-h-[500px]">
           <video
             className="w-full h-full object-cover"
@@ -117,12 +100,26 @@ function Landing() {
             */}
             Seu navegador não suporta a tag de vídeo.
           </video>
-          {/* Suave degradê para as bordas superior/inferior para parecer integrado */}
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent pointer-events-none" />
-          <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background to-transparent pointer-events-none" />
         </div>
 
         <div className="container-x flex flex-col items-center pb-16 md:pb-20 text-center">
+            {/* Checklist */}
+            <div className="mt-10 mx-auto inline-block text-left">
+              <ul className="space-y-3">
+                {[
+                  "Professional coach included",
+                  "Racket & equipment provided",
+                  "Private court for your group",
+                  "Small beginner group - max 4 people, zero pressure",
+                ].map((t) => (
+                  <li key={t} className="flex items-center gap-3">
+                    <Check className="h-6 w-6 shrink-0" style={{ color: "var(--color-whatsapp)" }} strokeWidth={3} />
+                    <span className="font-medium text-lg">{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             {/* Text */}
             <p className="mx-auto mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
               60-minute coached session + racket + court time. Everything included. No experience needed.
