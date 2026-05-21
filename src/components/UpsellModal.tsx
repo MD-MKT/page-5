@@ -20,6 +20,9 @@ export function UpsellModal({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("track", "ViewContent");
+    }
     // Fire-and-forget: send lead to Google Sheets (no-cors because Apps Script doesn't return CORS headers)
     fetch(SHEET_WEBHOOK, {
       method: "POST",

@@ -61,7 +61,12 @@ const WA_LINK =
 
 function Landing() {
   const [upsellOpen, setUpsellOpen] = useState(false);
-  const openUpsell = () => setUpsellOpen(true);
+  const openUpsell = () => {
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("track", "ViewContent");
+    }
+    setUpsellOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
