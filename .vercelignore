@@ -1,0 +1,17 @@
+# Ignore large video files
+*.mp4
+*.webm
+
+# Ignore dependencies and build outputs
+node_modules
+dist
+dist-ssr
+.output
+.vinxi
+.tanstack
+.nitro
+.wrangler
+.git
+.git-temp
+.git-backup
+.lovable
