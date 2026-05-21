@@ -61,6 +61,13 @@ export const Route = createFileRoute("/checkout")({
 
 function CheckoutPage() {
   const { name, email, phone } = Route.useSearch();
+
+  // Track InitiateCheckout via Facebook Pixel
+  useEffect(() => {
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("track", "InitiateCheckout");
+    }
+  }, []);
   const [secondsLeft, setSecondsLeft] = useState(TIMER_SECONDS);
   const [expired, setExpired] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
