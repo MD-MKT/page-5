@@ -38,7 +38,7 @@ const SOCIAL_PROOFS = [
 ];
 
 const EMBED_BASE_URL =
-  "https://app.acuityscheduling.com/schedule.php?owner=35143956&ref=embedded_csp";
+  "https://app.acuityscheduling.com/schedule.php?owner=35143956&ref=page_3";
 
 const TIMER_SECONDS = 10 * 60;
 
