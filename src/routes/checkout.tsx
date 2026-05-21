@@ -32,7 +32,7 @@ const SOCIAL_PROOFS = [
   {
     name: "Jake Thompson",
     initials: "JT",
-    action: "just claimed the 80% discount offer",
+    action: "just claimed the $40 discount offer",
     spots: 3,
   },
 ];
@@ -205,7 +205,7 @@ function CheckoutPage() {
             <p className="section-label">Almost there!</p>
             <h1 className="text-2xl font-extrabold leading-tight md:text-4xl">
               Claim Your{" "}
-              <span style={{ color: "var(--color-primary)" }}>80% Discount</span>
+              <span style={{ color: "var(--color-primary)" }}>$40 Discount</span>
             </h1>
           </div>
 

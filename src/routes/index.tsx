@@ -77,7 +77,7 @@ function Landing() {
         <div className="container-x flex flex-col items-center pt-6 md:pt-10 text-center">
             {/* Headline */}
             <h1 className="mx-auto max-w-5xl text-3xl font-extrabold leading-[1.2] tracking-tight sm:text-4xl md:text-5xl lg:text-[54px]">
-              Claim Your <span style={{ color: "var(--color-primary)" }}>80% Discount</span><br />
+              Claim Your <span style={{ color: "var(--color-primary)" }}>$40 Discount</span><br />
               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl opacity-90 font-bold mt-2 block">Try Padel for Just <span style={{ color: "var(--color-primary)" }}>$10</span></span>
             </h1>
         </div>
@@ -225,7 +225,7 @@ function Landing() {
             ))}
           </div>
           <div className="mt-12 text-center">
-            <CTAButton onClick={openUpsell}>Claim Your 80% Discount</CTAButton>
+            <CTAButton onClick={openUpsell}>Claim Your $40 Discount</CTAButton>
           </div>
         </div>
       </section>
@@ -567,7 +567,7 @@ function Landing() {
             You're one session away from finding your new favorite thing to do in Boulder. Coach, racket, and court — all included. Reserve your spot for $10 before this week fills up.
           </p>
           <div className="mt-8">
-            <CTAButton onClick={openUpsell}>Claim Your 80% Discount</CTAButton>
+            <CTAButton onClick={openUpsell}>Claim Your $40 Discount</CTAButton>
           </div>
         </div>
       </section>
