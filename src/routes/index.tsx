@@ -15,10 +15,6 @@ import ctaBackground from "@/assets/cta-background.webp";
 import logoImg from "@/assets/logo-topo.png";
 
 // New imported photos
-import heroWoman1 from "@/assets/hero-woman-1.webp";
-import heroWoman2 from "@/assets/hero-woman-2.webp";
-import heroMan1 from "@/assets/hero-man-1.webp";
-import heroMan2 from "@/assets/hero-man-2.webp";
 import reviewMan1 from "@/assets/review-man-1.webp";
 import reviewMan2 from "@/assets/review-man-2.webp";
 import reviewWoman1 from "@/assets/review-woman-1.webp";
@@ -36,7 +32,6 @@ import racketBonus from "@/assets/racket-bonus.webp";
 
 import accessCommunity from "@/assets/access-community.webp";
 import beginnerGroup from "@/assets/beginner-group.webp";
-import limitedSpots from "@/assets/limited-spots.webp";
 
 // Why Smash Padel section images
 import whyCoach from "@/assets/why-coach.webp";
@@ -74,7 +69,7 @@ function Landing() {
 
       {/* ── HERO ── */}
       <section className="bg-background">
-        <div className="container-x flex flex-col items-center pt-6 md:pt-10 pb-16 md:pb-20 text-center">
+        <div className="container-x flex flex-col items-center pt-6 md:pt-10 text-center">
             {/* Headline */}
             <h1 className="mx-auto max-w-5xl text-3xl font-extrabold leading-[1.2] tracking-tight sm:text-4xl md:text-5xl lg:text-[54px]">
               Claim Your <span style={{ color: "var(--color-primary)" }}>80% Discount</span><br />
@@ -97,31 +92,39 @@ function Landing() {
                 ))}
               </ul>
             </div>
+        </div>
 
-            {/* Photos (4 photos total) */}
-            <div className="mt-12 w-full flex justify-center py-6 overflow-hidden">
-               <div className="flex items-center gap-2 md:gap-4">
-                  {/* Card 1 */}
-                  <div className="w-[80px] h-[180px] md:w-[130px] md:h-[280px] rounded-[20px] overflow-hidden translate-y-6 shrink-0 relative">
-                    <img src={heroMan1} className="w-full h-full object-cover" style={{ objectPosition: "60% center" }} alt="Padel player man" />
-                  </div>
-                  {/* Card 2 */}
-                  <div className="w-[90px] h-[200px] md:w-[140px] md:h-[300px] rounded-[20px] overflow-hidden -translate-y-4 shrink-0 relative z-10">
-                    <img src={heroWoman1} className="w-full h-full object-cover" alt="Padel player woman" />
-                  </div>
-                  {/* Card 3 */}
-                  <div className="w-[90px] h-[200px] md:w-[140px] md:h-[300px] rounded-[20px] overflow-hidden translate-y-4 shrink-0 relative z-10">
-                    <img src={heroMan2} className="w-full h-full object-cover" style={{ objectPosition: "20% center" }} alt="Padel player man" />
-                  </div>
-                  {/* Card 4 */}
-                  <div className="w-[80px] h-[180px] md:w-[130px] md:h-[280px] rounded-[20px] overflow-hidden -translate-y-6 shrink-0 relative">
-                    <img src={heroWoman2} className="w-full h-full object-cover" alt="Padel player woman" />
-                  </div>
-               </div>
-            </div>
+        {/* Video Full-Bleed Container */}
+        <div className="w-full mt-10 overflow-hidden relative aspect-video md:max-h-[500px]">
+          <video
+            className="w-full h-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster={courtImg}
+          >
+            <source src="/hero-loop.mp4" type="video/mp4" />
+            {/* Caso prefira usar iframe (YouTube/Vimeo/etc), descomente o código abaixo e comente a tag <video>: */}
+            {/* 
+            <iframe
+              src="https://www.youtube.com/embed/SEU_VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=SEU_VIDEO_ID"
+              title="Smash Padel Video"
+              className="absolute inset-0 h-full w-full border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+            */}
+            Seu navegador não suporta a tag de vídeo.
+          </video>
+          {/* Suave degradê para as bordas superior/inferior para parecer integrado */}
+          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background to-transparent pointer-events-none" />
+        </div>
 
+        <div className="container-x flex flex-col items-center pb-16 md:pb-20 text-center">
             {/* Text */}
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
+            <p className="mx-auto mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
               60-minute coached session + racket + court time. Everything included. No experience needed.
             </p>
 
@@ -133,7 +136,6 @@ function Landing() {
               </p>
             </div>
         </div>
-
       </section>
 
       {/* ── STATS ── */}
@@ -479,39 +481,6 @@ function Landing() {
         </div>
       </section>
 
-      {/* ── EXCLUSIVITY / URGENCY ── */}
-      <section style={{ backgroundColor: "var(--color-soft)" }} className="relative border-y border-border/50">
-        <div className="container-x py-24 text-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background px-4 py-2 shadow-sm">
-             <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-             <span className="text-xs font-bold uppercase tracking-wider text-foreground/80">
-               Boulder, CO • High Demand
-             </span>
-          </div>
-
-          <h2 className="mx-auto max-w-2xl text-3xl font-extrabold leading-tight md:text-4xl">
-            Why our intro sessions have{" "}
-            <span style={{ color: "var(--color-primary)" }}>limited weekly spots</span>
-          </h2>
-
-          <div className="mx-auto mt-10 mb-8 max-w-4xl aspect-[4/3] md:aspect-[3/2] overflow-hidden rounded-2xl shadow-xl border border-border/50 relative">
-            <img src={limitedSpots} alt="Limited spots" className="w-full h-full object-cover" style={{ objectPosition: "center 30%" }} />
-          </div>
-
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed">
-            Every beginner session is kept intentionally small — max 4 players per coach — so you actually learn the game, get personalized feedback, and leave wanting more.
-          </p>
-          <p className="mt-4 text-lg font-medium text-foreground">
-            Because of that, our $10 intro spots fill up fast every week.
-          </p>
-          <div className="mt-10">
-            <CTAButton onClick={openUpsell}>Secure Your $10 Spot Now</CTAButton>
-          </div>
-          <p className="mt-4 text-sm font-medium text-muted-foreground">
-            Takes 60 seconds.
-          </p>
-        </div>
-      </section>
 
       {/* ── STILL ON FENCE ── */}
       <section className="bg-background">
