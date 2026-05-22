@@ -29,6 +29,7 @@ export function UpsellModal({
       mode: "no-cors",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        timestamp: new Date().toLocaleString("en-US"),
         name,
         email,
         phone,
