@@ -28,7 +28,7 @@ export function UpsellModal({
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: `${name} (Página 3)`, email, phone }),
+      body: JSON.stringify({ name, email, phone, source: "page 3", page: "page 3" }),
     }).catch(() => {});
     onOpenChange(false);
     navigate({ to: "/checkout", search: { name, email, phone } });
