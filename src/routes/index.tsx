@@ -341,65 +341,67 @@ function Landing() {
           </p>
 
           {/* Review Carousel */}
-          <div className="mt-12 overflow-hidden w-full relative">
-            {/* Fade edges */}
-            <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-            
-            <div className="animate-marquee gap-6">
-              {[...Array(2)].map((_, i) => (
-                <div key={i} className="flex gap-6 shrink-0">
-                  {[
-                    {
-                      n: "Vera P.",
-                      q: "A casual padel club with a very welcoming atmosphere and an active community. It's easy to find people to play with most days.",
-                      photo: reviewWoman1,
-                      pos: "center 25%",
-                    },
-                    {
-                      n: "Michael S.",
-                      q: "Hands down the most fun you'll have in Boulder. The facility is new, staff is friendly, and the community is awesome. If you're looking for a fun activity, this is the spot to go!",
-                      photo: reviewMan1,
-                      pos: "center 53%",
-                    },
-                    {
-                      n: "Sarah Frutal",
-                      q: "Loving learning a new sport at Smash Padel! Great exercise, fun people, open play, clinics - they have it all!",
-                      photo: reviewWoman2,
-                      pos: "center 52%",
-                    },
-                    {
-                      n: "John D.",
-                      q: "Never played before but the coach was amazing. I was rallying by the end of the hour! Highly recommended for anyone wanting to try.",
-                      photo: reviewMan2,
-                      pos: "center 20%",
-                    },
-                  ].map((r, j) => (
-                    <div
-                      key={j}
-                      className="w-80 shrink-0 overflow-hidden rounded-2xl border bg-background shadow-sm flex flex-col hover-lift"
-                    >
-                      <div className="h-72 w-full bg-muted relative">
-                        <img src={r.photo} loading="lazy" alt={r.n} className="h-full w-full object-cover" style={{ objectPosition: r.pos || "center 25%" }} />
-                      </div>
-                      <div className="p-6 flex flex-col grow">
-                        <p className="text-foreground flex-grow leading-relaxed">"{r.q}"</p>
-                        <div className="mt-6 flex items-center gap-3">
-                          <div
-                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
-                            style={{ backgroundColor: "var(--color-primary)" }}
-                          >
-                            {r.n.split(" ").map((w) => w[0]).join("")}
+          {false && (
+            <div className="mt-12 overflow-hidden w-full relative">
+              {/* Fade edges */}
+              <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+              
+              <div className="animate-marquee gap-6">
+                {[...Array(2)].map((_, i) => (
+                  <div key={i} className="flex gap-6 shrink-0">
+                    {[
+                      {
+                        n: "Vera P.",
+                        q: "A casual padel club with a very welcoming atmosphere and an active community. It's easy to find people to play with most days.",
+                        photo: reviewWoman1,
+                        pos: "center 25%",
+                      },
+                      {
+                        n: "Michael S.",
+                        q: "Hands down the most fun you'll have in Boulder. The facility is new, staff is friendly, and the community is awesome. If you're looking for a fun activity, this is the spot to go!",
+                        photo: reviewMan1,
+                        pos: "center 53%",
+                      },
+                      {
+                        n: "Sarah Frutal",
+                        q: "Loving learning a new sport at Smash Padel! Great exercise, fun people, open play, clinics - they have it all!",
+                        photo: reviewWoman2,
+                        pos: "center 52%",
+                      },
+                      {
+                        n: "John D.",
+                        q: "Never played before but the coach was amazing. I was rallying by the end of the hour! Highly recommended for anyone wanting to try.",
+                        photo: reviewMan2,
+                        pos: "center 20%",
+                      },
+                    ].map((r, j) => (
+                      <div
+                        key={j}
+                        className="w-80 shrink-0 overflow-hidden rounded-2xl border bg-background shadow-sm flex flex-col hover-lift"
+                      >
+                        <div className="h-72 w-full bg-muted relative">
+                          <img src={r.photo} loading="lazy" alt={r.n} className="h-full w-full object-cover" style={{ objectPosition: r.pos || "center 25%" }} />
+                        </div>
+                        <div className="p-6 flex flex-col grow">
+                          <p className="text-foreground flex-grow leading-relaxed">"{r.q}"</p>
+                          <div className="mt-6 flex items-center gap-3">
+                            <div
+                              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
+                              style={{ backgroundColor: "var(--color-primary)" }}
+                            >
+                              {r.n.split(" ").map((w) => w[0]).join("")}
+                            </div>
+                            <p className="text-sm font-bold">{r.n}</p>
                           </div>
-                          <p className="text-sm font-bold">{r.n}</p>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              ))}
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
