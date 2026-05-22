@@ -16,7 +16,7 @@ export function UpsellModal({
   const [phone, setPhone] = useState("");
 
   const SHEET_WEBHOOK =
-    "https://script.google.com/macros/s/AKfycbzEGwM37bBN2ilcUGCLJ3gAMrZ7ulaVtbEXgaVWFNGIX3bnkneqB2D49R_PSpHbstEk5g/exec";
+    "https://script.google.com/macros/s/AKfycbwZD5fLxjprKGddFcT6NRQFmFndiOa7sXZc64mPzNoTD9lzIkLAwE3AQaMhXHwugnkKoA/exec";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
