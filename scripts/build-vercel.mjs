@@ -22,7 +22,7 @@ execSync("npx vite build", { stdio: "inherit" });
 
 // 3. Set up .vercel/output directory tree
 const staticDir = ".vercel/output/static";
-const funcDir = ".vercel/output/functions/ssr.func";
+const funcDir = ".vercel/output/functions/index.func";
 
 mkdirSync(staticDir, { recursive: true });
 mkdirSync(funcDir, { recursive: true });
@@ -107,7 +107,7 @@ writeFileSync(
       version: 3,
       routes: [
         { handle: "filesystem" },
-        { src: "/(.*)", dest: "/ssr" },
+        { src: "/(.*)", dest: "/" },
       ],
     },
     null,
