@@ -31,12 +31,40 @@ cpSync("dist/client", staticDir, { recursive: true });
 // 5. Copy server bundle into the function directory
 cpSync("dist/server", `${funcDir}/server`, { recursive: true });
 
-// 6. Function entry point — wraps the Web Fetch API handler for Vercel Node.js runtime
+// 6. Function entry point — converts Node.js HTTP req/res to Web Fetch API
+//    Vercel Node.js runtime expects (req, res) handler, not Web Fetch API.
 writeFileSync(
   `${funcDir}/index.mjs`,
   `import server from "./server/server.js";
-export default async function handler(request) {
-  return server.fetch(request, {}, {});
+
+export default async function handler(req, res) {
+  const proto = req.headers["x-forwarded-proto"] ?? "https";
+  const host = req.headers["x-forwarded-host"] ?? req.headers["host"] ?? "localhost";
+  const url = new URL(req.url ?? "/", proto + "://" + host);
+
+  // Buffer request body for non-GET/HEAD
+  let body = undefined;
+  if (req.method !== "GET" && req.method !== "HEAD") {
+    const chunks = [];
+    for await (const chunk of req) chunks.push(chunk);
+    const buf = Buffer.concat(chunks);
+    if (buf.length > 0) body = buf;
+  }
+
+  const headers = {};
+  for (const [k, v] of Object.entries(req.headers)) {
+    if (v != null) headers[k] = Array.isArray(v) ? v.join(", ") : v;
+  }
+
+  const request = new Request(url, { method: req.method, headers, body });
+  const response = await server.fetch(request, {}, {});
+
+  res.statusCode = response.status;
+  for (const [key, value] of response.headers) {
+    res.setHeader(key, value);
+  }
+  const bytes = await response.arrayBuffer();
+  res.end(Buffer.from(bytes));
 }
 `
 );
