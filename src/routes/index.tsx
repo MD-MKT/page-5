@@ -9,29 +9,17 @@ import { CTAButton } from "@/components/CTAButton";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { UpsellModal } from "@/components/UpsellModal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import heroImg from "@/assets/hero-padel.webp";
 import courtImg from "@/assets/court-dark.webp";
 import ctaBackground from "@/assets/cta-background.webp";
 import logoImg from "@/assets/logo-topo.png";
 
-// New imported photos
-import reviewMan1 from "@/assets/review-man-1.webp";
-import reviewMan2 from "@/assets/review-man-2.webp";
-import reviewWoman1 from "@/assets/review-woman-1.webp";
-import reviewWoman2 from "@/assets/review-woman-2.webp";
 import badgeAppStore from "@/assets/badge-appstore.png";
 import badgeGooglePlay from "@/assets/badge-googleplay.png";
 
 import starterPackCoupon from "@/assets/starter-pack-coupon-new.webp";
-import boulderCommunity from "@/assets/boulder-community.webp";
-import certificatedCoach from "@/assets/certificated-coach.webp";
-import equipmentIncluded from "@/assets/equipment-included.webp";
-import smallGroup from "@/assets/small-group.webp";
 import racketInclude from "@/assets/racket-include.webp";
-import racketBonus from "@/assets/racket-bonus.webp";
 
 import accessCommunity from "@/assets/access-community.webp";
-import beginnerGroup from "@/assets/beginner-group.webp";
 
 // Why Smash Padel section images
 import whyCoach from "@/assets/why-coach.webp";
@@ -58,6 +46,42 @@ export const Route = createFileRoute("/")({
 
 const WA_LINK =
   "https://wa.me/16463736549?text=Hi!%20I%20came%20from%20the%20website%20and%20I%20have%20a%20question%20about%20the%20Intro%20to%20Padel%20class.";
+
+// YouTube facade — loads iframe only on click, avoiding ~500KB of YouTube JS on page load
+function LazyYouTube({ videoId, title }: { videoId: string; title: string }) {
+  const [playing, setPlaying] = useState(false);
+  if (playing) {
+    return (
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+        title={title}
+        className="absolute inset-0 h-full w-full border-0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+    );
+  }
+  return (
+    <button
+      onClick={() => setPlaying(true)}
+      className="absolute inset-0 w-full h-full group cursor-pointer bg-black border-0"
+      aria-label={`Play: ${title}`}
+    >
+      <img
+        src={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
+        alt={title}
+        className="w-full h-full object-cover opacity-90"
+        loading="lazy"
+        decoding="async"
+      />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-xl group-hover:bg-white group-hover:scale-110 transition-all duration-200">
+          <Play className="h-7 w-7 text-gray-900 ml-0.5" fill="currentColor" />
+        </div>
+      </div>
+    </button>
+  );
+}
 
 function Landing() {
   const [upsellOpen, setUpsellOpen] = useState(false);
@@ -90,6 +114,7 @@ function Landing() {
             loop
             muted
             playsInline
+            preload="metadata"
             poster={courtImg}
           >
             <source src="/hero-loop.mp4" type="video/mp4" />
@@ -176,13 +201,10 @@ function Landing() {
             className="mx-auto mt-10 aspect-video max-w-4xl overflow-hidden rounded-2xl relative"
             style={{ boxShadow: "0 24px 64px rgba(0,0,0,0.18)" }}
           >
-            <iframe
-              src="https://www.youtube.com/embed/y7IO2jaqf58"
+            <LazyYouTube
+              videoId="y7IO2jaqf58"
               title="New to Padel? Here's Everything You Need to Know"
-              className="absolute inset-0 h-full w-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+            />
           </div>
           <p className="mt-6 italic text-muted-foreground">
             The fastest growing sport in the world. Now right here in Boulder, Colorado.
@@ -307,7 +329,7 @@ function Landing() {
             ].map((c) => (
               <div key={c.t} className="hover-lift rounded-2xl border bg-background p-8 shadow-sm">
                 <div className="w-full aspect-video rounded-xl bg-muted relative mb-6 overflow-hidden">
-                  <img src={c.img} alt="" className="w-full h-full object-cover" style={c.imgPos ? { objectPosition: c.imgPos } : {}} />
+                  <img src={c.img} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" style={c.imgPos ? { objectPosition: c.imgPos } : {}} />
                 </div>
                 <h3 className="text-lg font-bold leading-tight">{c.t}</h3>
                 <p className="mt-2 text-muted-foreground">{c.d}</p>
@@ -326,82 +348,16 @@ function Landing() {
           </h2>
 
           <div className="mx-auto mt-10 w-full max-w-xs overflow-hidden rounded-2xl shadow-xl border relative aspect-[9/16]">
-            <iframe
-              src="https://www.youtube.com/embed/9NsHGpTT0sM?autoplay=0&loop=1&playlist=9NsHGpTT0sM"
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-              className="absolute inset-0 h-full w-full border-0"
-            ></iframe>
+            <LazyYouTube
+              videoId="9NsHGpTT0sM"
+              title="Smash Padel USA - Player Testimonial"
+            />
           </div>
 
           <p className="mt-10 text-center text-xl font-bold">
             Over 2,800 players are part of our community.
           </p>
 
-          {/* Review Carousel */}
-          {false && (
-            <div className="mt-12 overflow-hidden w-full relative">
-              {/* Fade edges */}
-              <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-              
-              <div className="animate-marquee gap-6">
-                {[...Array(2)].map((_, i) => (
-                  <div key={i} className="flex gap-6 shrink-0">
-                    {[
-                      {
-                        n: "Vera P.",
-                        q: "A casual padel club with a very welcoming atmosphere and an active community. It's easy to find people to play with most days.",
-                        photo: reviewWoman1,
-                        pos: "center 25%",
-                      },
-                      {
-                        n: "Michael S.",
-                        q: "Hands down the most fun you'll have in Boulder. The facility is new, staff is friendly, and the community is awesome. If you're looking for a fun activity, this is the spot to go!",
-                        photo: reviewMan1,
-                        pos: "center 53%",
-                      },
-                      {
-                        n: "Sarah Frutal",
-                        q: "Loving learning a new sport at Smash Padel! Great exercise, fun people, open play, clinics - they have it all!",
-                        photo: reviewWoman2,
-                        pos: "center 52%",
-                      },
-                      {
-                        n: "John D.",
-                        q: "Never played before but the coach was amazing. I was rallying by the end of the hour! Highly recommended for anyone wanting to try.",
-                        photo: reviewMan2,
-                        pos: "center 20%",
-                      },
-                    ].map((r, j) => (
-                      <div
-                        key={j}
-                        className="w-80 shrink-0 overflow-hidden rounded-2xl border bg-background shadow-sm flex flex-col hover-lift"
-                      >
-                        <div className="h-72 w-full bg-muted relative">
-                          <img src={r.photo} loading="lazy" alt={r.n} className="h-full w-full object-cover" style={{ objectPosition: r.pos || "center 25%" }} />
-                        </div>
-                        <div className="p-6 flex flex-col grow">
-                          <p className="text-foreground flex-grow leading-relaxed">"{r.q}"</p>
-                          <div className="mt-6 flex items-center gap-3">
-                            <div
-                              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
-                              style={{ backgroundColor: "var(--color-primary)" }}
-                            >
-                              {r.n.split(" ").map((w) => w[0]).join("")}
-                            </div>
-                            <p className="text-sm font-bold">{r.n}</p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
@@ -419,6 +375,7 @@ function Landing() {
               frameBorder="0"
               style={{ border: 0 }}
               allowFullScreen
+              loading="lazy"
               aria-hidden="false"
               tabIndex={0}
               className="absolute inset-0"
@@ -462,7 +419,7 @@ function Landing() {
                 className="hover-lift rounded-2xl border border-white/10 bg-white/5 transition duration-200 hover:border-white/20 flex flex-col overflow-hidden text-left"
               >
                 <div className="w-full aspect-video bg-muted relative overflow-hidden">
-                  <img src={c.img} alt={c.t} className="w-full h-full object-cover" />
+                  <img src={c.img} alt={c.t} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                 </div>
                 <div className="p-7 flex flex-col justify-center">
                   <h3 className="text-xl font-bold text-white">{c.t}</h3>
@@ -474,7 +431,7 @@ function Landing() {
           <div className="mx-auto mt-6 max-w-2xl">
             <div className="hover-lift rounded-2xl border border-white/10 bg-white/5 transition duration-200 hover:border-white/20 flex flex-col overflow-hidden text-left">
               <div className="w-full aspect-video bg-muted relative overflow-hidden">
-                <img src={whyOriginalClub} alt="The Original Padel Club in Colorado" className="w-full h-full object-cover" />
+                <img src={whyOriginalClub} alt="The Original Padel Club in Colorado" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
               <div className="p-7 flex flex-col justify-center">
                 <h3 className="text-xl font-bold text-white">The Original Padel Club in Colorado</h3>
@@ -579,15 +536,15 @@ function Landing() {
         <div className="container-x grid gap-10 py-14 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-2">
-              <img src={logoImg} alt="Smash Padel Logo" className="h-8 w-auto brightness-0 invert" />
+              <img src={logoImg} alt="Smash Padel Logo" className="h-8 w-auto brightness-0 invert" loading="lazy" decoding="async" />
             </div>
             <p className="mt-4 text-sm">Colorado's #1 padel club.</p>
             <div className="mt-5 flex gap-3">
               <a href="https://apps.apple.com/us/app/smash-padel-usa/id6740839621" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-80">
-                <img src={badgeAppStore} alt="Download on the App Store" className="h-9 w-auto" />
+                <img src={badgeAppStore} alt="Download on the App Store" className="h-9 w-auto" loading="lazy" decoding="async" />
               </a>
               <a href="https://play.google.com/store/apps/details?id=com.court.smashpadelusx&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-80">
-                <img src={badgeGooglePlay} alt="Get it on Google Play" className="h-9 w-auto" />
+                <img src={badgeGooglePlay} alt="Get it on Google Play" className="h-9 w-auto" loading="lazy" decoding="async" />
               </a>
             </div>
           </div>
