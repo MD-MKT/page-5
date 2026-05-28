@@ -79,7 +79,13 @@ await esbuild({
   target: "node20",
   format: "esm",
   outfile: `${funcDir}/index.mjs`,
+  // Node.js built-ins stay external (always available at runtime)
   external: ["node:*"],
+  // react-dom/cjs and other CommonJS packages use require() internally.
+  // When bundled into ESM, dynamic require() fails unless we provide a shim.
+  banner: {
+    js: `import { createRequire } from "module";\nconst require = createRequire(import.meta.url);`,
+  },
   allowOverwrite: true,
   logLevel: "warning",
 });
