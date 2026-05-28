@@ -6,18 +6,18 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-const isVercel = !!process.env.VERCEL || !!process.env.NOW_BUILDER;
-
-if (isVercel) {
-  process.env.SERVER_PRESET = "vercel";
-  process.env.NITRO_PRESET = "vercel";
-}
+// This app is deployed exclusively on Vercel.
+// NITRO_PRESET must also be set as a Build Environment Variable in the Vercel dashboard
+// (Settings → Environment Variables → Build) to guarantee Nitro picks it up before any
+// subprocess spawns. The assignments below act as an in-process fallback.
+process.env.SERVER_PRESET = "vercel";
+process.env.NITRO_PRESET = "vercel";
 
 // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-// @cloudflare/vite-plugin builds from this — wrangler.jsonc main alone is insufficient.
+// Cloudflare plugin is disabled — this project targets Vercel only.
 export default defineConfig({
-  cloudflare: isVercel ? false : undefined,
+  cloudflare: false,
   tanstackStart: {
-    server: { entry: "server" },
+    server: { preset: "vercel", entry: "server" },
   },
 });
