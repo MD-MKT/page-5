@@ -1,16 +1,18 @@
 /**
  * Vercel Build Output API v3
  *
- * This script runs after `vite build` and converts the standard Vite output
- * (dist/client + dist/server) into the .vercel/output/ structure that Vercel
- * auto-detects and deploys correctly.
+ * This script builds the app and converts the output into the .vercel/output/
+ * structure that Vercel auto-detects and deploys correctly.
  *
- * Why: This TanStack Start version uses native Vite environments (no Nitro),
- * so NITRO_PRESET has no effect. We generate the output structure ourselves.
+ * Why: This TanStack Start version uses native Vite environments (not Nitro).
+ * The server bundle has unbundled external imports (h3-v2, @tanstack/*, etc.)
+ * that won't exist in Vercel's function environment. We use esbuild to create
+ * a fully self-contained bundle with all dependencies inlined.
  */
 
 import { execSync } from "child_process";
 import { cpSync, mkdirSync, writeFileSync, rmSync } from "fs";
+import { build as esbuild } from "esbuild";
 
 // 1. Clean previous output
 rmSync(".vercel/output", { recursive: true, force: true });
@@ -28,13 +30,9 @@ mkdirSync(funcDir, { recursive: true });
 // 4. Copy client (static) assets — served directly by Vercel CDN
 cpSync("dist/client", staticDir, { recursive: true });
 
-// 5. Copy server bundle into the function directory
-cpSync("dist/server", `${funcDir}/server`, { recursive: true });
-
-// 6. Function entry point — converts Node.js HTTP req/res to Web Fetch API
-//    Vercel Node.js runtime expects (req, res) handler, not Web Fetch API.
+// 5. Write the function entry point (Node.js HTTP handler)
 writeFileSync(
-  `${funcDir}/index.mjs`,
+  `${funcDir}/entry.mjs`,
   `import server from "./server/server.js";
 
 export default async function handler(req, res) {
@@ -42,7 +40,6 @@ export default async function handler(req, res) {
   const host = req.headers["x-forwarded-host"] ?? req.headers["host"] ?? "localhost";
   const url = new URL(req.url ?? "/", proto + "://" + host);
 
-  // Buffer request body for non-GET/HEAD
   let body = undefined;
   if (req.method !== "GET" && req.method !== "HEAD") {
     const chunks = [];
@@ -69,12 +66,30 @@ export default async function handler(req, res) {
 `
 );
 
-// 7. Function runtime config (Node.js 22, Web Fetch API format)
+// Copy dist/server so entry.mjs can resolve its relative imports before bundling
+cpSync("dist/server", `${funcDir}/server`, { recursive: true });
+
+// 6. Bundle entry + ALL npm dependencies (h3-v2, @tanstack/*, react, etc.)
+//    into a single self-contained file. Only Node.js built-ins stay external.
+console.log("Bundling server function with esbuild...");
+await esbuild({
+  entryPoints: [`${funcDir}/entry.mjs`],
+  bundle: true,
+  platform: "node",
+  target: "node20",
+  format: "esm",
+  outfile: `${funcDir}/index.mjs`,
+  external: ["node:*"],
+  allowOverwrite: true,
+  logLevel: "warning",
+});
+
+// 7. Function runtime config
 writeFileSync(
   `${funcDir}/.vc-config.json`,
   JSON.stringify(
     {
-      runtime: "nodejs22.x",
+      runtime: "nodejs20.x",
       handler: "index.mjs",
       launcherType: "Nodejs",
       shouldAddHelpers: false,
@@ -84,9 +99,7 @@ writeFileSync(
   )
 );
 
-// 8. Routing config:
-//    - First try to serve static files (filesystem)
-//    - Everything else goes to the SSR function
+// 8. Routing config: static files first, then SSR catch-all
 writeFileSync(
   ".vercel/output/config.json",
   JSON.stringify(
