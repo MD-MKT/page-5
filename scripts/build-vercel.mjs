@@ -105,14 +105,39 @@ writeFileSync(
   )
 );
 
-// 8. Routing config: static files first, then SSR catch-all
+// 8. Routing config:
+//    - Explicitly serve video/media with correct MIME + accept-ranges before filesystem check
+//      (prevents the SSR catch-all from intercepting video requests)
+//    - Serve all other static assets via filesystem handler
+//    - Only then fall through to the SSR function
 writeFileSync(
   ".vercel/output/config.json",
   JSON.stringify(
     {
       version: 3,
       routes: [
+        // Explicit video route: set correct headers and let filesystem serve the file
+        {
+          src: "/(.+\\.mp4)",
+          headers: {
+            "content-type": "video/mp4",
+            "accept-ranges": "bytes",
+            "cache-control": "public, max-age=31536000, immutable",
+          },
+          continue: true,
+        },
+        {
+          src: "/(.+\\.webm)",
+          headers: {
+            "content-type": "video/webm",
+            "accept-ranges": "bytes",
+            "cache-control": "public, max-age=31536000, immutable",
+          },
+          continue: true,
+        },
+        // Serve all other static files (JS, CSS, images, etc.)
         { handle: "filesystem" },
+        // Everything else → SSR function
         { src: "/(.*)", dest: "/" },
       ],
     },
