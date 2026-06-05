@@ -6,18 +6,11 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-// This app is deployed exclusively on Vercel.
-// NITRO_PRESET must also be set as a Build Environment Variable in the Vercel dashboard
-// (Settings → Environment Variables → Build) to guarantee Nitro picks it up before any
-// subprocess spawns. The assignments below act as an in-process fallback.
-process.env.SERVER_PRESET = "vercel";
-process.env.NITRO_PRESET = "vercel";
-
 // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-// Cloudflare plugin is disabled — this project targets Vercel only.
+// Cloudflare build is left enabled (default) so the Lovable-published Worker bundle
+// inlines all dependencies (h3-v2, @tanstack/*, etc.).
 export default defineConfig({
-  cloudflare: false,
   tanstackStart: {
-    server: { preset: "vercel", entry: "server" },
+    server: { entry: "server" },
   },
 });
