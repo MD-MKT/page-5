@@ -1,8 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, useRef } from "react";
 import { z } from "zod";
-import { X } from "lucide-react";
+import { Check, Lock, X } from "lucide-react";
 import logoImg from "@/assets/logo-topo.png";
+import amexLogo from "@/assets/payment/american-express-logo.png";
+import mastercardLogo from "@/assets/payment/mastercard-logo.png";
+import visaLogo from "@/assets/payment/visa-logo.png";
+import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+
+const CHECKOUT_LEAD_STORAGE_KEY = "smashCheckoutLead";
 
 const SOCIAL_PROOFS = [
   {
@@ -38,15 +44,46 @@ const SOCIAL_PROOFS = [
 ];
 
 const EMBED_BASE_URL =
-  "https://app.acuityscheduling.com/schedule.php?owner=35143956&ref=page_3";
+  "https://app.acuityscheduling.com/schedule.php?owner=35143956&ref=page_4";
 
 const TIMER_SECONDS = 10 * 60;
+
+const VALUE_ITEMS = [
+  "60-minute session with a certified coach",
+  "Racket included",
+  "Small beginner group",
+];
+
+const TESTIMONIALS = [
+  {
+    quote:
+      "I've never played a racket sport in my life and the coach made it so easy. Within 30 minutes I was playing doubles and laughing with three other beginners.",
+    attribution: "Jessica Brown",
+  },
+  {
+    quote:
+      "It was only $10 so I figured worst case I waste an hour. I was so wrong — I've been back three times already.",
+    attribution: "John Anderson",
+  },
+  {
+    quote: "The staff made the first visit feel simple and fun.",
+    attribution: "Emily Johnson",
+  },
+];
 
 const searchSchema = z.object({
   name: z.string().optional().catch(""),
   email: z.string().optional().catch(""),
   phone: z.string().optional().catch(""),
 });
+
+function PaymentLogo({ src, alt }: { src: string; alt: string }) {
+  return (
+    <span className="inline-flex h-5 items-center justify-center rounded border border-border bg-white px-1.5 opacity-75">
+      <img src={src} alt={alt} className="h-3.5 w-auto max-w-12 object-contain" />
+    </span>
+  );
+}
 
 export const Route = createFileRoute("/checkout")({
   validateSearch: searchSchema,
@@ -60,7 +97,12 @@ export const Route = createFileRoute("/checkout")({
 });
 
 function CheckoutPage() {
-  const { name, email, phone } = Route.useSearch();
+  const search = Route.useSearch();
+  const [lead, setLead] = useState({
+    name: search.name ?? "",
+    email: search.email ?? "",
+    phone: search.phone ?? "",
+  });
 
   // Track InitiateCheckout via Facebook Pixel
   useEffect(() => {
@@ -76,6 +118,29 @@ function CheckoutPage() {
   const [popup, setPopup] = useState<(typeof SOCIAL_PROOFS)[0] | null>(null);
   const [popupVisible, setPopupVisible] = useState(false);
   const proofIndexRef = useRef(Math.floor(Math.random() * SOCIAL_PROOFS.length));
+
+  useEffect(() => {
+    try {
+      const storedLead = window.sessionStorage.getItem(CHECKOUT_LEAD_STORAGE_KEY);
+      if (!storedLead) return;
+
+      const parsedLead = z
+        .object({
+          name: z.string().optional().catch(""),
+          email: z.string().optional().catch(""),
+          phone: z.string().optional().catch(""),
+        })
+        .parse(JSON.parse(storedLead));
+
+      setLead({
+        name: parsedLead.name?.trim().replace(/^["']+|["']+$/g, "") ?? "",
+        email: parsedLead.email?.trim().replace(/^["']+|["']+$/g, "") ?? "",
+        phone: parsedLead.phone?.trim().replace(/^["']+|["']+$/g, "") ?? "",
+      });
+    } catch {
+      window.sessionStorage.removeItem(CHECKOUT_LEAD_STORAGE_KEY);
+    }
+  }, []);
 
   const showNextProof = () => {
     const proof = SOCIAL_PROOFS[proofIndexRef.current % SOCIAL_PROOFS.length];
@@ -146,13 +211,13 @@ function CheckoutPage() {
   const timeStr = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
   // Build pre-filled embed URL
-  const firstName = name ? name.split(" ")[0] : "";
-  const lastName = name ? name.split(" ").slice(1).join(" ") : "";
+  const firstName = lead.name ? lead.name.split(" ")[0] : "";
+  const lastName = lead.name ? lead.name.split(" ").slice(1).join(" ") : "";
   const params = new URLSearchParams();
   if (firstName) params.set("firstName", firstName);
   if (lastName) params.set("lastName", lastName);
-  if (email) params.set("email", email);
-  if (phone) params.set("phone", phone);
+  if (lead.email) params.set("email", lead.email);
+  if (lead.phone) params.set("phone", lead.phone);
   const embedUrl = `${EMBED_BASE_URL}${params.toString() ? `&${params}` : ""}`;
 
   return (
@@ -212,16 +277,29 @@ function CheckoutPage() {
           {/* ── Embed ── */}
           <div className="overflow-hidden rounded-2xl border bg-background shadow-sm">
             <div
-              className="border-b px-5 py-4 text-center"
+              className="border-b px-5 py-4"
               style={{ backgroundColor: "var(--color-soft)" }}
             >
-              <h2 className="text-lg font-extrabold leading-tight">
+              <h2 className="text-center text-lg font-extrabold leading-tight">
                 Pick your date & complete payment
               </h2>
-              <p className="mt-0.5 text-sm text-muted-foreground">
-                60-min session · Racket included · $10 only
-              </p>
+              <ul className="mx-auto mt-3 grid max-w-md gap-2 text-sm text-foreground sm:grid-cols-2">
+                {VALUE_ITEMS.map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <Check
+                      className="mt-0.5 h-4 w-4 shrink-0"
+                      strokeWidth={3}
+                      style={{ color: "var(--color-primary)" }}
+                    />
+                    <span className="leading-snug">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
+
+            <p className="px-5 py-4 text-center text-sm font-medium text-muted-foreground">
+              You've made it this far — just pick a time and you're booked.
+            </p>
 
             <div className="p-0">
               <iframe
@@ -236,11 +314,37 @@ function CheckoutPage() {
             </div>
           </div>
 
+          {/* Testimonials */}
+          <section className="mt-5 grid gap-3 md:grid-cols-3" aria-label="Player reviews">
+            {TESTIMONIALS.map((testimonial) => (
+              <article
+                key={testimonial.attribution + testimonial.quote}
+                className="rounded-lg border bg-background p-4"
+                style={{ backgroundColor: "var(--color-soft)" }}
+              >
+                <p className="text-sm leading-relaxed text-foreground">"{testimonial.quote}"</p>
+                <p className="mt-3 text-xs font-bold text-muted-foreground">
+                  — {testimonial.attribution}
+                </p>
+              </article>
+            ))}
+          </section>
+
           {/* Trust signals */}
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-            <span>🔒 Secure payment via Stripe</span>
-            <span>· No subscriptions ·</span>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-center text-sm text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5">
+              <Lock className="h-4 w-4" aria-hidden="true" />
+              🔒 Secure payment via Stripe
+            </span>
+            <span className="hidden sm:inline">·</span>
+            <span>No subscriptions</span>
+            <span className="hidden sm:inline">·</span>
             <span>One-time $10 charge only</span>
+            <span className="inline-flex items-center gap-1.5" aria-label="Accepted payment methods">
+              <PaymentLogo src={visaLogo} alt="Visa" />
+              <PaymentLogo src={mastercardLogo} alt="Mastercard" />
+              <PaymentLogo src={amexLogo} alt="American Express" />
+            </span>
           </div>
         </div>
       </main>
@@ -292,6 +396,7 @@ function CheckoutPage() {
           </div>
         </div>
       )}
+      <WhatsAppFloat href="https://wa.me/13035641103?text=Hi%21%20I%27m%20interested%20in%20the%20Intro%20to%20Padel%20and%20had%20a%20quick%20question." />
     </div>
   );
 }

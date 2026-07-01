@@ -3,6 +3,10 @@ import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { CTAButton } from "./CTAButton";
 
+const CHECKOUT_LEAD_STORAGE_KEY = "smashCheckoutLead";
+
+const sanitizeLeadValue = (value: string) => value.trim().replace(/^["']+|["']+$/g, "");
+
 export function UpsellModal({
   open,
   onOpenChange,
@@ -20,9 +24,20 @@ export function UpsellModal({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const lead = {
+      name: sanitizeLeadValue(name),
+      email: sanitizeLeadValue(email),
+      phone: sanitizeLeadValue(phone),
+    };
+
     if (typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("track", "ViewContent");
     }
+
+    if (typeof window !== "undefined") {
+      window.sessionStorage.setItem(CHECKOUT_LEAD_STORAGE_KEY, JSON.stringify(lead));
+    }
+
     // Fire-and-forget: send lead to Google Sheets (no-cors because Apps Script doesn't return CORS headers)
     fetch(SHEET_WEBHOOK, {
       method: "POST",
@@ -30,17 +45,15 @@ export function UpsellModal({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         timestamp: new Date().toLocaleString("en-US"),
-        name,
-        email,
-        phone,
-        source: "page 3",
-        page: "page 3",
-        origem: "page 3",
-        pagina: "page 3",
+        ...lead,
+        source: "page 4",
+        page: "page 4",
+        origem: "page 4",
+        pagina: "page 4",
       }),
     }).catch(() => {});
     onOpenChange(false);
-    navigate({ to: "/checkout", search: { name, email, phone } });
+    navigate({ to: "/checkout" });
   };
 
   return (

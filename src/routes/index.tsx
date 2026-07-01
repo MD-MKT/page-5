@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Check, Play, Star, Users, GraduationCap, Shirt, Trophy, Sparkles,
   Calendar, Zap, Gift, MessageCircle, Instagram,
@@ -15,11 +15,6 @@ import logoImg from "@/assets/logo-topo.png";
 
 import badgeAppStore from "@/assets/badge-appstore.png";
 import badgeGooglePlay from "@/assets/badge-googleplay.png";
-
-import starterPackCoupon from "@/assets/starter-pack-coupon-new.webp";
-import racketInclude from "@/assets/racket-include.webp";
-
-import accessCommunity from "@/assets/access-community.webp";
 
 // Why Smash Padel section images
 import whyCoach from "@/assets/why-coach.webp";
@@ -85,6 +80,40 @@ function LazyYouTube({ videoId, title }: { videoId: string; title: string }) {
 
 function Landing() {
   const [upsellOpen, setUpsellOpen] = useState(false);
+  const [courtLink, setCourtLink] = useState("https://bookings.smashpadelusa.com/f/smashpadelusa/booking_waiver");
+  const [lessonLink, setLessonLink] = useState("https://bookings.smashpadelusa.com/select-lesson/smashpadelusa");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const getLinkWithUtms = (base: string, defaultCampaign: string) => {
+        const currentParams = new URLSearchParams(window.location.search);
+
+        // Forward all current URL params
+        // Add defaults for tracking if they are not already in URL (from ads or organic)
+        if (!currentParams.has("utm_source")) {
+          currentParams.set("utm_source", "landing_page");
+        }
+        if (!currentParams.has("utm_medium")) {
+          currentParams.set("utm_medium", "referral");
+        }
+        if (!currentParams.has("utm_campaign")) {
+          currentParams.set("utm_campaign", defaultCampaign);
+        }
+        // Specific identifier for this section
+        currentParams.set("utm_content", "other_options_section");
+
+        const url = new URL(base);
+        currentParams.forEach((val, key) => {
+          url.searchParams.set(key, val);
+        });
+        return url.toString();
+      };
+
+      setCourtLink(getLinkWithUtms("https://bookings.smashpadelusa.com/f/smashpadelusa/booking_waiver", "court_reservation"));
+      setLessonLink(getLinkWithUtms("https://bookings.smashpadelusa.com/select-lesson/smashpadelusa", "private_coaching"));
+    }
+  }, []);
+
   const openUpsell = () => {
     if (typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("track", "ViewContent");
@@ -259,15 +288,14 @@ function Landing() {
           <h2 className="text-center text-4xl font-extrabold md:text-5xl">Here's everything you get for $10</h2>
           <div className="mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border bg-background shadow-sm">
             {[
-              "60-min session with certified coach",
-              "Racket & equipment rental",
-              "Full court time with a small group",
-              "Learn a fun new sport you can play every week",
-              "Access Colorado's #1 padel community",
-            ].map((l, i) => (
+              "60-minute coached session",
+              "Racket rental included (normally $15 on its own)",
+              "Small beginner group, same skill level as you",
+              "Full walkthrough of rules and basics — no experience needed",
+            ].map((item, i) => (
               <div
-                key={l}
-                className="flex items-center border-b px-6 py-5 last:border-b-0"
+                key={item}
+                className="flex items-center border-b px-6 py-5"
                 style={i % 2 === 1 ? { backgroundColor: "var(--color-soft)" } : {}}
               >
                 <span className="flex items-center gap-3 font-medium">
@@ -277,10 +305,31 @@ function Landing() {
                   >
                     <Check className="h-3 w-3" strokeWidth={3} />
                   </span>
-                  {l}
+                  {item}
                 </span>
               </div>
             ))}
+            <div className="px-6 py-5" style={{ backgroundColor: "var(--color-soft)" }}>
+              <p className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                Plus, first-timers get:
+              </p>
+              <div className="mt-4 space-y-4">
+                {[
+                  "$105 off your starter pack if you decide to keep playing",
+                  "Access to exclusive Smash Padel events",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-3 font-medium">
+                    <span
+                      className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-white"
+                      style={{ backgroundColor: "var(--color-whatsapp)" }}
+                    >
+                      <Check className="h-3 w-3" strokeWidth={3} />
+                    </span>
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* You pay callout */}
@@ -299,42 +348,6 @@ function Landing() {
             <div className="mt-8">
               <CTAButton onClick={openUpsell}>Claim Your $40 Discount</CTAButton>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── BONUSES ── */}
-      <section className="bg-background">
-        <div className="container-x py-20">
-          <p className="section-label block w-full text-center">Free bonuses</p>
-          <h2 className="text-center text-4xl font-extrabold md:text-5xl">You also get these bonuses</h2>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                img: racketInclude,
-                t: "Racket included — zero equipment needed",
-                d: "Show up in sports clothes. We handle the rest. No gear? No problem.",
-              },
-              {
-                img: starterPackCoupon,
-                t: "$105 Off Your Starter Pack",
-                d: "After your intro session, unlock an exclusive $105 discount on our Starter Pack — your gateway to regular play. Includes 1 skills clinic + 3 open play sessions.",
-              },
-              {
-                img: accessCommunity,
-                t: "Instant Access to Colorado's #1 Padel Community",
-                d: "The moment you walk through our doors, you're part of something bigger. Hundreds of active players, matches at your level, weekly events, and a social scene that keeps people coming back every single week.",
-                imgPos: "center 20%",
-              },
-            ].map((c) => (
-              <div key={c.t} className="hover-lift rounded-2xl border bg-background p-8 shadow-sm">
-                <div className="w-full aspect-video rounded-xl bg-muted relative mb-6 overflow-hidden">
-                  <img src={c.img} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" style={c.imgPos ? { objectPosition: c.imgPos } : {}} />
-                </div>
-                <h3 className="text-lg font-bold leading-tight">{c.t}</h3>
-                <p className="mt-2 text-muted-foreground">{c.d}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -455,6 +468,69 @@ function Landing() {
             <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="btn-wa">
               <MessageCircle className="h-5 w-5" /> Chat with us on WhatsApp
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── OTHER PRODUCTS / SERVICES ── */}
+      <section className="bg-background border-t">
+        <div className="container-x py-20 text-center">
+          <p className="section-label">Other options</p>
+          <h2 className="mx-auto max-w-xl text-3xl font-extrabold leading-tight md:text-4xl">
+            Looking for something else?
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground text-lg">
+            Whether you want to play a casual match with friends or accelerate your skills with a professional, we have the perfect option for you.
+          </p>
+
+          <div className="mt-12 grid gap-8 md:grid-cols-3 text-left">
+            {[
+              {
+                icon: Calendar,
+                title: "Court Reservations",
+                desc: "Rent one of our 5 world-class indoor courts. Perfect lighting, high ceilings, and climate control for the ultimate padel experience.",
+                cta: "Book a Court",
+                link: courtLink,
+              },
+              {
+                icon: GraduationCap,
+                title: "Coaching & Lessons",
+                desc: "Get personalized 1-on-1 or small group coaching. Learn the correct technique, tactical positioning, and strategy from certified coaches.",
+                cta: "Book a Lesson",
+                link: lessonLink,
+              },
+              {
+                icon: Users,
+                title: "Clinics & Open Play",
+                desc: "Join daily social open plays matched to your level, or participate in skills clinics to elevate your game and meet new players.",
+                cta: "Explore Programs",
+                link: "https://apps.apple.com/us/app/smash-padel-usa/id6740839621",
+              },
+            ].map((s) => {
+              const Icon = s.icon;
+              return (
+                <div key={s.title} className="hover-lift rounded-2xl border bg-background p-8 shadow-sm flex flex-col justify-between">
+                  <div>
+                    <div className="icon-wrap">
+                      <Icon className="h-6 w-6" style={{ color: "var(--color-primary)" }} />
+                    </div>
+                    <h3 className="text-xl font-bold">{s.title}</h3>
+                    <p className="mt-3 text-muted-foreground leading-relaxed">{s.desc}</p>
+                  </div>
+                  <div className="mt-8">
+                    <a
+                      href={s.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 font-bold text-sm uppercase tracking-wider transition-colors hover:opacity-80"
+                      style={{ color: "var(--color-primary)" }}
+                    >
+                      {s.cta} →
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
