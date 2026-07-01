@@ -22,8 +22,10 @@ if (isVercelBuild) {
 }
 
 // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
+// For Vercel we force the nitro `vercel` preset; on Lovable's publish pipeline VERCEL is
+// unset, so nitro stays undefined and defaults to Cloudflare (bundling all server deps).
 export default defineConfig({
-  cloudflare: isVercelBuild ? false : undefined,
+  nitro: isVercelBuild ? { preset: "vercel" } : undefined,
   tanstackStart: {
     server: isVercelBuild
       ? { preset: "vercel", entry: "server" }
