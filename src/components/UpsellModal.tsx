@@ -54,6 +54,11 @@ export function UpsellModal({
         first_name: firstName || cleanName,
         last_name: lastNameParts.join(" "),
         program_name: "Intro to Padel - Page 4",
+        "data[user][first_name]": firstName || cleanName,
+        "data[user][last_name]": lastNameParts.join(" "),
+        "data[user][email]": lead.email,
+        "data[user][phone]": lead.phone,
+        "data[program][name]": "Intro to Padel - Page 4",
       }),
     }).catch(() => {});
     onOpenChange(false);
