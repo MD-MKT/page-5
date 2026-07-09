@@ -19,12 +19,11 @@ export function UpsellModal({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
-  const MAKE_WEBHOOK = "https://hook.us2.make.com/pbgcx4zi99yv7zwhsh87ssts67s5gxqm";
+  const MAKE_WEBHOOK = "https://hook.us2.make.com/cotm4s3mtjcshw7lv3k5xmx8wkb3usjj";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const cleanName = sanitizeLeadValue(name);
-    const [firstName, ...lastNameParts] = cleanName.split(/\s+/).filter(Boolean);
     const lead = {
       name: cleanName,
       email: sanitizeLeadValue(email),
@@ -39,31 +38,18 @@ export function UpsellModal({
       window.sessionStorage.setItem(CHECKOUT_LEAD_STORAGE_KEY, JSON.stringify(lead));
     }
 
-    // Fire-and-forget: use a CORS-safe form body so Make receives mappable fields.
     fetch(MAKE_WEBHOOK, {
       method: "POST",
       mode: "no-cors",
       body: new URLSearchParams({
-        event: "program_signup",
-        category: "program",
-        status: "captured",
-        page: "page-4",
-        source: "page-4",
+        timestamp: new Date().toISOString(),
         name: lead.name,
         email: lead.email,
         phone: lead.phone,
-        first_name: firstName || cleanName,
-        last_name: lastNameParts.join(" "),
-        program_name: "Intro to Padel - Page 4",
-        "data[status]": "captured",
-        "data[category]": "program",
-        "data[user][first_name]": firstName || cleanName,
-        "data[user][last_name]": lastNameParts.join(" "),
-        "data[user][email]": lead.email,
-        "data[user][phone]": lead.phone,
-        "data[program][name]": "Intro to Padel - Page 4",
+        page: "page-4",
       }),
     }).catch(() => {});
+
     onOpenChange(false);
     navigate({ to: "/checkout" });
   };
