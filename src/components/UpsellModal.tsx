@@ -39,27 +39,21 @@ export function UpsellModal({
       window.sessionStorage.setItem(CHECKOUT_LEAD_STORAGE_KEY, JSON.stringify(lead));
     }
 
-    // Fire-and-forget: send the pre-checkout lead to Make, which writes to the Intro Offer Leads sheet.
+    // Fire-and-forget: use a CORS-safe form body so Make receives mappable fields.
     fetch(MAKE_WEBHOOK, {
       method: "POST",
       mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+      body: new URLSearchParams({
         event: "program_signup",
         category: "Intro Offer Lead",
         page: "page-4",
         source: "page-4",
-        data: {
-          user: {
-            first_name: firstName || cleanName,
-            last_name: lastNameParts.join(" "),
-            email: lead.email,
-            phone: lead.phone,
-          },
-          program: {
-            name: "Intro to Padel - Page 4",
-          },
-        },
+        name: lead.name,
+        email: lead.email,
+        phone: lead.phone,
+        first_name: firstName || cleanName,
+        last_name: lastNameParts.join(" "),
+        program_name: "Intro to Padel - Page 4",
       }),
     }).catch(() => {});
     onOpenChange(false);
