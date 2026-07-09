@@ -55,6 +55,8 @@ export function UpsellModal({
         first_name: firstName || cleanName,
         last_name: lastNameParts.join(" "),
         program_name: "Intro to Padel - Page 4",
+        "data[status]": "captured",
+        "data[category]": "program",
         "data[user][first_name]": firstName || cleanName,
         "data[user][last_name]": lastNameParts.join(" "),
         "data[user][email]": lead.email,
