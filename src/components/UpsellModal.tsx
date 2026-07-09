@@ -46,6 +46,7 @@ export function UpsellModal({
       body: new URLSearchParams({
         event: "program_signup",
         category: "Intro Offer Lead",
+        status: "captured",
         page: "page-4",
         source: "page-4",
         name: lead.name,
