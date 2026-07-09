@@ -19,13 +19,14 @@ export function UpsellModal({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
-  const SHEET_WEBHOOK =
-    "https://script.google.com/macros/s/AKfycbwZD5fLxjprKGddFcT6NRQFmFndiOa7sXZc64mPzNoTD9lzIkLAwE3AQaMhXHwugnkKoA/exec";
+  const MAKE_WEBHOOK = "https://hook.us2.make.com/pbgcx4zi99yv7zwhsh87ssts67s5gxqm";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const cleanName = sanitizeLeadValue(name);
+    const [firstName, ...lastNameParts] = cleanName.split(/\s+/).filter(Boolean);
     const lead = {
-      name: sanitizeLeadValue(name),
+      name: cleanName,
       email: sanitizeLeadValue(email),
       phone: sanitizeLeadValue(phone),
     };
@@ -38,18 +39,27 @@ export function UpsellModal({
       window.sessionStorage.setItem(CHECKOUT_LEAD_STORAGE_KEY, JSON.stringify(lead));
     }
 
-    // Fire-and-forget: send lead to Google Sheets (no-cors because Apps Script doesn't return CORS headers)
-    fetch(SHEET_WEBHOOK, {
+    // Fire-and-forget: send the pre-checkout lead to Make, which writes to the Intro Offer Leads sheet.
+    fetch(MAKE_WEBHOOK, {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        timestamp: new Date().toLocaleString("en-US"),
-        ...lead,
-        source: "page 4",
-        page: "page 4",
-        origem: "page 4",
-        pagina: "page 4",
+        event: "program_signup",
+        category: "Intro Offer Lead",
+        page: "page-4",
+        source: "page-4",
+        data: {
+          user: {
+            first_name: firstName || cleanName,
+            last_name: lastNameParts.join(" "),
+            email: lead.email,
+            phone: lead.phone,
+          },
+          program: {
+            name: "Intro to Padel - Page 4",
+          },
+        },
       }),
     }).catch(() => {});
     onOpenChange(false);
