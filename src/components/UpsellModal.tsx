@@ -45,7 +45,7 @@ export function UpsellModal({
       mode: "no-cors",
       body: new URLSearchParams({
         event: "program_signup",
-        category: "Intro Offer Lead",
+        category: "program",
         status: "captured",
         page: "page-4",
         source: "page-4",
