@@ -9,7 +9,7 @@ import { CTAButton } from "@/components/CTAButton";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { UpsellModal } from "@/components/UpsellModal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import courtImg from "@/assets/court-dark.webp";
+import heroPoster from "@/assets/hero-lcp-poster.webp";
 import ctaBackground from "@/assets/cta-background.webp";
 import logoImg from "@/assets/logo-topo.png";
 
@@ -36,6 +36,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Smash Padel USA - $10 Beginner Padel Session" },
       { property: "og:description", content: "60 min coached session + racket + court. $40 value for $10 in Boulder, CO." },
     ],
+    links: [{ rel: "preload", as: "image", href: heroPoster }],
   }),
 });
 
@@ -63,7 +64,7 @@ function LazyYouTube({ videoId, title }: { videoId: string; title: string }) {
       aria-label={`Play: ${title}`}
     >
       <img
-        src={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
+        src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
         alt={title}
         className="w-full h-full object-cover opacity-90"
         loading="lazy"
@@ -80,6 +81,7 @@ function LazyYouTube({ videoId, title }: { videoId: string; title: string }) {
 
 function Landing() {
   const [upsellOpen, setUpsellOpen] = useState(false);
+  const [showHeroVideo, setShowHeroVideo] = useState(false);
   const [courtLink, setCourtLink] = useState("https://bookings.smashpadelusa.com/f/smashpadelusa/booking_waiver");
   const [lessonLink, setLessonLink] = useState("https://bookings.smashpadelusa.com/select-lesson/smashpadelusa");
 
@@ -114,6 +116,24 @@ function Landing() {
     }
   }, []);
 
+  useEffect(() => {
+    let timeoutId: number | undefined;
+    const scheduleVideo = () => {
+      timeoutId = window.setTimeout(() => setShowHeroVideo(true), 1200);
+    };
+
+    if (document.readyState === "complete") {
+      scheduleVideo();
+    } else {
+      window.addEventListener("load", scheduleVideo, { once: true });
+    }
+
+    return () => {
+      window.removeEventListener("load", scheduleVideo);
+      if (timeoutId) window.clearTimeout(timeoutId);
+    };
+  }, []);
+
   const openUpsell = () => {
     if (typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("track", "ViewContent");
@@ -133,32 +153,40 @@ function Landing() {
               Claim Your <span style={{ color: "var(--color-primary)" }}>$40 Discount</span><br />
               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl opacity-90 font-bold mt-2 block">Try Padel for Just <span style={{ color: "var(--color-primary)" }}>$10</span></span>
             </h1>
+            <div className="mt-6 md:hidden">
+              <CTAButton onClick={openUpsell} className="w-full max-w-xs px-6 text-base">
+                Claim Your $40 Discount
+              </CTAButton>
+              <p className="mt-2 text-sm italic text-muted-foreground">
+                Limited spots available each week.
+              </p>
+            </div>
         </div>
 
         {/* Video Full-Bleed Container (Sem fade e acima do checklist) */}
         <div className="w-full mt-10 overflow-hidden relative aspect-video md:max-h-[500px]">
-          <video
-            className="w-full h-full object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            poster={courtImg}
-          >
-            <source src="/hero-loop.mp4" type="video/mp4" />
-            {/* Caso prefira usar iframe (YouTube/Vimeo/etc), descomente o código abaixo e comente a tag <video>: */}
-            {/* 
-            <iframe
-              src="https://www.youtube.com/embed/SEU_VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=SEU_VIDEO_ID"
-              title="Smash Padel Video"
-              className="absolute inset-0 h-full w-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-            */}
-            Seu navegador não suporta a tag de vídeo.
-          </video>
+          <img
+            src={heroPoster}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+            loading="eager"
+            decoding="sync"
+            fetchPriority="high"
+          />
+          {showHeroVideo && (
+            <video
+              className="absolute inset-0 h-full w-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="none"
+              poster={heroPoster}
+              aria-hidden="true"
+            >
+              <source src="/hero-loop.mp4" type="video/mp4" />
+            </video>
+          )}
         </div>
 
         <div className="container-x flex flex-col items-center pb-16 md:pb-20 text-center">
@@ -185,7 +213,7 @@ function Landing() {
             </p>
 
             {/* Button */}
-            <div className="mt-4">
+            <div className="mt-4 hidden md:block">
               <CTAButton onClick={openUpsell}>Claim Your $40 Discount</CTAButton>
               <p className="mt-3 text-sm italic text-muted-foreground">
                 Limited spots available each week.
