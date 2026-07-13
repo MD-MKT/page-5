@@ -134,14 +134,6 @@ function Landing() {
               Claim Your <span style={{ color: "var(--color-primary)" }}>$40 Discount</span><br />
               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl opacity-90 font-bold mt-2 block">Try Padel for Just <span style={{ color: "var(--color-primary)" }}>$10</span></span>
             </h1>
-            <div className="mt-6 md:hidden">
-              <CTAButton onClick={openUpsell} className="w-full max-w-xs px-6 text-base">
-                Claim Your $40 Discount
-              </CTAButton>
-              <p className="mt-2 text-sm italic text-muted-foreground">
-                Limited spots available each week.
-              </p>
-            </div>
         </div>
 
         {/* Video Full-Bleed Container (Sem fade e acima do checklist) */}
@@ -184,6 +176,15 @@ function Landing() {
                   </li>
                 ))}
               </ul>
+            </div>
+
+            <div className="mt-6 md:hidden">
+              <CTAButton onClick={openUpsell} className="w-full max-w-xs px-6 text-base">
+                Claim Your $40 Discount
+              </CTAButton>
+              <p className="mt-2 text-sm italic text-muted-foreground">
+                Limited spots available each week.
+              </p>
             </div>
 
             {/* Text */}
