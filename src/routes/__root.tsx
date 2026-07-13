@@ -116,42 +116,20 @@ function RootShell({ children }: { children: React.ReactNode }) {
             `,
           }}
         />
-        {/* Meta Pixel loads after the first page load to keep LCP lighter. */}
+        {/* Meta Pixel Code */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.fbq = window.fbq || function(){(window.fbq.q = window.fbq.q || []).push(arguments)};
-              window._fbq = window._fbq || window.fbq;
-
-              (function(){
-                var loaded = false;
-                function loadMarketingScripts(){
-                  if (loaded) return;
-                  loaded = true;
-
-                  if (!window.fbq.loaded) {
-                    window.fbq.version = '2.0';
-                    window.fbq.queue = window.fbq.q || [];
-                    var pixelScript = document.createElement('script');
-                    pixelScript.async = true;
-                    pixelScript.src = 'https://connect.facebook.net/en_US/fbevents.js';
-                    var firstScript = document.getElementsByTagName('script')[0];
-                    firstScript.parentNode.insertBefore(pixelScript, firstScript);
-                  }
-                  fbq('init', '1027467436504963');
-                  fbq('track', 'PageView');
-                }
-
-                if ('requestIdleCallback' in window) {
-                  window.addEventListener('load', function(){
-                    window.requestIdleCallback(loadMarketingScripts, { timeout: 2500 });
-                  }, { once: true });
-                } else {
-                  window.addEventListener('load', function(){
-                    window.setTimeout(loadMarketingScripts, 1600);
-                  }, { once: true });
-                }
-              })();
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '1027467436504963');
+              fbq('track', 'PageView');
             `,
           }}
         />
@@ -164,6 +142,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
             alt=""
           />
         </noscript>
+        {/* End Meta Pixel Code */}
       </head>
       <body>
         {children}
