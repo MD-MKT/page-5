@@ -103,13 +103,25 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
-        {/* Meta Pixel + Clarity load after the first page load to keep LCP lighter. */}
+        {/* Microsoft Clarity */}
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(c,l,a,r,i,t,y){
+                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "xlwdqju4yg");
+            `,
+          }}
+        />
+        {/* Meta Pixel loads after the first page load to keep LCP lighter. */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.fbq = window.fbq || function(){(window.fbq.q = window.fbq.q || []).push(arguments)};
               window._fbq = window._fbq || window.fbq;
-              window.clarity = window.clarity || function(){(window.clarity.q = window.clarity.q || []).push(arguments)};
 
               (function(){
                 var loaded = false;
@@ -128,11 +140,6 @@ function RootShell({ children }: { children: React.ReactNode }) {
                   }
                   fbq('init', '1027467436504963');
                   fbq('track', 'PageView');
-
-                  (function(c,l,a,r,i,t,y){
-                    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-                  })(window, document, "clarity", "script", "wyt0yeet53");
                 }
 
                 if ('requestIdleCallback' in window) {
