@@ -81,7 +81,6 @@ function LazyYouTube({ videoId, title }: { videoId: string; title: string }) {
 
 function Landing() {
   const [upsellOpen, setUpsellOpen] = useState(false);
-  const [showHeroVideo, setShowHeroVideo] = useState(false);
   const [courtLink, setCourtLink] = useState("https://bookings.smashpadelusa.com/f/smashpadelusa/booking_waiver");
   const [lessonLink, setLessonLink] = useState("https://bookings.smashpadelusa.com/select-lesson/smashpadelusa");
 
@@ -114,24 +113,6 @@ function Landing() {
       setCourtLink(getLinkWithUtms("https://bookings.smashpadelusa.com/f/smashpadelusa/booking_waiver", "court_reservation"));
       setLessonLink(getLinkWithUtms("https://bookings.smashpadelusa.com/select-lesson/smashpadelusa", "private_coaching"));
     }
-  }, []);
-
-  useEffect(() => {
-    let timeoutId: number | undefined;
-    const scheduleVideo = () => {
-      timeoutId = window.setTimeout(() => setShowHeroVideo(true), 1200);
-    };
-
-    if (document.readyState === "complete") {
-      scheduleVideo();
-    } else {
-      window.addEventListener("load", scheduleVideo, { once: true });
-    }
-
-    return () => {
-      window.removeEventListener("load", scheduleVideo);
-      if (timeoutId) window.clearTimeout(timeoutId);
-    };
   }, []);
 
   const openUpsell = () => {
@@ -173,20 +154,18 @@ function Landing() {
             decoding="sync"
             fetchPriority="high"
           />
-          {showHeroVideo && (
-            <video
-              className="absolute inset-0 h-full w-full object-cover"
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="none"
-              poster={heroPoster}
-              aria-hidden="true"
-            >
-              <source src="/hero-loop.mp4" type="video/mp4" />
-            </video>
-          )}
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster={heroPoster}
+            aria-hidden="true"
+          >
+            <source src="/hero-loop.mp4" type="video/mp4" />
+          </video>
         </div>
 
         <div className="container-x flex flex-col items-center pb-16 md:pb-20 text-center">
