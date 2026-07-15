@@ -135,16 +135,43 @@ function Landing() {
 
       {/* ── HERO ── */}
       <section className="bg-background">
-        <div className="container-x flex flex-col items-center pt-6 md:pt-10 text-center">
-            {/* Headline */}
-            <h1 className="mx-auto max-w-5xl text-3xl font-extrabold leading-[1.2] tracking-tight sm:text-4xl md:text-5xl lg:text-[54px]">
-              Claim Your <span style={{ color: "var(--color-primary)" }}>$40 Discount</span><br />
-              <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl opacity-90 font-bold mt-2 block">Try Padel for Just <span style={{ color: "var(--color-primary)" }}>$10</span></span>
-            </h1>
+        <div className="container-x flex flex-col items-center pt-6 pb-8 text-center md:pt-10 md:pb-12">
+          <h1 className="mx-auto max-w-4xl text-3xl font-extrabold leading-[1.12] tracking-tight sm:text-4xl md:text-5xl lg:text-[54px]">
+            Try Padel in Boulder for <span style={{ color: "var(--color-primary)" }}>$10</span>
+          </h1>
+
+          <p className="mx-auto mt-4 max-w-2xl text-base font-medium leading-relaxed text-muted-foreground sm:text-lg md:text-xl">
+            A beginner-friendly session with a coach, equipment included, and no experience needed.
+          </p>
+
+          <div className="mt-6 mx-auto inline-block text-left">
+            <ul className="grid gap-2.5 sm:grid-cols-2 sm:gap-x-6">
+              {[
+                "No partner needed",
+                "Rackets included",
+                "Small beginner group",
+                "Learn and play in your first session",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-2.5">
+                  <Check className="mt-0.5 h-5 w-5 shrink-0" style={{ color: "var(--color-whatsapp)" }} strokeWidth={3} />
+                  <span className="text-base font-semibold leading-snug">{t}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-6">
+            <CTAButton onClick={openUpsell} className="w-full max-w-xs px-6 text-base">
+              Book Your $10 Intro
+            </CTAButton>
+            <p className="mt-2 text-sm font-medium text-muted-foreground">
+              Coach included. Equipment included. No experience needed.
+            </p>
+          </div>
         </div>
 
-        {/* Video Full-Bleed Container (Sem fade e acima do checklist) */}
-        <div className="w-full mt-10 overflow-hidden relative aspect-video md:max-h-[500px]">
+        {/* Video Full-Bleed Container */}
+        <div className="w-full overflow-hidden relative aspect-video md:max-h-[500px]">
           <img
             src={heroPoster}
             alt=""
@@ -174,44 +201,9 @@ function Landing() {
         </div>
 
         <div className="container-x flex flex-col items-center pb-16 md:pb-20 text-center">
-            {/* Checklist */}
-            <div className="mt-10 mx-auto inline-block text-left">
-              <ul className="space-y-3">
-                {[
-                  "Professional coach included",
-                  "Racket & equipment provided",
-                  "Private court for your group",
-                  "Small beginner group - max 4 people, zero pressure",
-                ].map((t) => (
-                  <li key={t} className="flex items-center gap-3">
-                    <Check className="h-6 w-6 shrink-0" style={{ color: "var(--color-whatsapp)" }} strokeWidth={3} />
-                    <span className="font-medium text-lg">{t}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="mt-6 md:hidden">
-              <CTAButton onClick={openUpsell} className="w-full max-w-xs px-6 text-base">
-                Claim Your $40 Discount
-              </CTAButton>
-              <p className="mt-2 text-sm italic text-muted-foreground">
-                Limited spots available each week.
-              </p>
-            </div>
-
-            {/* Text */}
-            <p className="mx-auto mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
-              60-minute coached session + racket + court time. Everything included. No experience needed.
-            </p>
-
-            {/* Button */}
-            <div className="mt-4 hidden md:block">
-              <CTAButton onClick={openUpsell}>Claim Your $40 Discount</CTAButton>
-              <p className="mt-3 text-sm italic text-muted-foreground">
-                Limited spots available each week.
-              </p>
-            </div>
+          <p className="mx-auto mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
+            60-minute coached session + racket + court time. Everything included. Easy online booking.
+          </p>
         </div>
       </section>
 
