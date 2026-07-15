@@ -299,6 +299,28 @@ function Landing() {
         </div>
       </section>
 
+      {/* ── SOCIAL PROOF ── */}
+      <section id="about" className="border-t bg-background">
+        <div className="container-x py-20">
+          <p className="section-label block w-full text-center">Real players, real results</p>
+          <h2 className="text-center text-4xl font-extrabold md:text-5xl">
+            What players are saying
+          </h2>
+
+          <div className="mx-auto mt-10 w-full max-w-xs overflow-hidden rounded-2xl shadow-xl border relative aspect-[9/16]">
+            <LazyYouTube
+              videoId="9NsHGpTT0sM"
+              title="Smash Padel USA - Player Testimonial"
+            />
+          </div>
+
+          <p className="mt-10 text-center text-xl font-bold">
+            Over 2,800 players are part of our community.
+          </p>
+
+        </div>
+      </section>
+
       {/* ── POST VALUE CTA ── */}
       <section className="bg-background border-t">
         <div className="container-x mx-auto max-w-3xl py-16 text-center">
@@ -332,28 +354,6 @@ function Landing() {
           <p className="mt-6 italic text-muted-foreground">
             A quick look at the experience before you book.
           </p>
-        </div>
-      </section>
-
-      {/* ── SOCIAL PROOF ── */}
-      <section id="about" className="border-t bg-background">
-        <div className="container-x py-20">
-          <p className="section-label block w-full text-center">Real players, real results</p>
-          <h2 className="text-center text-4xl font-extrabold md:text-5xl">
-            What players are saying
-          </h2>
-
-          <div className="mx-auto mt-10 w-full max-w-xs overflow-hidden rounded-2xl shadow-xl border relative aspect-[9/16]">
-            <LazyYouTube
-              videoId="9NsHGpTT0sM"
-              title="Smash Padel USA - Player Testimonial"
-            />
-          </div>
-
-          <p className="mt-10 text-center text-xl font-bold">
-            Over 2,800 players are part of our community.
-          </p>
-
         </div>
       </section>
 
