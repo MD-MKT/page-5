@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Check, Play, Instagram,
 } from "lucide-react";
@@ -70,6 +70,8 @@ function LazyYouTube({ videoId, title }: { videoId: string; title: string }) {
 
 function Landing() {
   const [upsellOpen, setUpsellOpen] = useState(false);
+  const [showStickyCta, setShowStickyCta] = useState(false);
+  const heroVideoWrapRef = useRef<HTMLDivElement | null>(null);
 
   const keepHeroVideoMuted = (video: HTMLVideoElement | null) => {
     if (!video) return;
@@ -85,8 +87,30 @@ function Landing() {
     setUpsellOpen(true);
   };
 
+  useEffect(() => {
+    const updateStickyCta = () => {
+      const heroVideoWrap = heroVideoWrapRef.current;
+      if (!heroVideoWrap || window.matchMedia("(min-width: 768px)").matches) {
+        setShowStickyCta(false);
+        return;
+      }
+
+      const videoBottom = heroVideoWrap.getBoundingClientRect().bottom + window.scrollY;
+      setShowStickyCta(window.scrollY > videoBottom - 24);
+    };
+
+    updateStickyCta();
+    window.addEventListener("scroll", updateStickyCta, { passive: true });
+    window.addEventListener("resize", updateStickyCta);
+
+    return () => {
+      window.removeEventListener("scroll", updateStickyCta);
+      window.removeEventListener("resize", updateStickyCta);
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-background pb-28 text-foreground md:pb-0">
+    <div className={`min-h-screen bg-background text-foreground md:pb-0 ${showStickyCta ? "pb-28" : ""}`}>
       <Navbar />
 
       {/* ── HERO ── */}
@@ -127,7 +151,7 @@ function Landing() {
         </div>
 
         {/* Video Full-Bleed Container */}
-        <div className="w-full overflow-hidden relative aspect-video md:max-h-[500px]">
+        <div ref={heroVideoWrapRef} className="w-full overflow-hidden relative aspect-video md:max-h-[500px]">
           <img
             src={heroPoster}
             alt=""
@@ -501,8 +525,9 @@ function Landing() {
         <WhatsAppFloat />
       </div>
       <div
-        className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 px-4 pb-4 pt-3 shadow-[0_-12px_30px_rgba(0,0,0,0.12)] backdrop-blur md:hidden"
+        className={`fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 px-4 pb-4 pt-3 shadow-[0_-12px_30px_rgba(0,0,0,0.12)] backdrop-blur transition-transform duration-200 md:hidden ${showStickyCta ? "translate-y-0" : "translate-y-full"}`}
         style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
+        aria-hidden={!showStickyCta}
       >
         <div className="mx-auto max-w-sm text-center">
           <p className="mb-2 text-xs font-semibold text-muted-foreground">No experience needed.</p>
