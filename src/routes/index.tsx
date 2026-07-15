@@ -84,6 +84,13 @@ function Landing() {
   const [courtLink, setCourtLink] = useState("https://bookings.smashpadelusa.com/f/smashpadelusa/booking_waiver");
   const [lessonLink, setLessonLink] = useState("https://bookings.smashpadelusa.com/select-lesson/smashpadelusa");
 
+  const keepHeroVideoMuted = (video: HTMLVideoElement | null) => {
+    if (!video) return;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.volume = 0;
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const getLinkWithUtms = (base: string, defaultCampaign: string) => {
@@ -147,6 +154,7 @@ function Landing() {
             fetchPriority="high"
           />
           <video
+            ref={keepHeroVideoMuted}
             className="absolute inset-0 h-full w-full object-cover"
             autoPlay
             loop
@@ -155,6 +163,11 @@ function Landing() {
             preload="metadata"
             poster={heroPoster}
             aria-hidden="true"
+            controls={false}
+            onCanPlay={(event) => keepHeroVideoMuted(event.currentTarget)}
+            onLoadedMetadata={(event) => keepHeroVideoMuted(event.currentTarget)}
+            onPlay={(event) => keepHeroVideoMuted(event.currentTarget)}
+            onVolumeChange={(event) => keepHeroVideoMuted(event.currentTarget)}
           >
             <source src="/hero-loop.mp4" type="video/mp4" />
           </video>
