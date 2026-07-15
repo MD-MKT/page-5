@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
-  Check, Play, Star, Users, GraduationCap, Shirt, Trophy, Sparkles,
-  Calendar, Zap, Gift, MessageCircle, Instagram,
+  Check, Play, Instagram,
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { CTAButton } from "@/components/CTAButton";
@@ -15,13 +14,6 @@ import logoImg from "@/assets/logo-topo.png";
 
 import badgeAppStore from "@/assets/badge-appstore.png";
 import badgeGooglePlay from "@/assets/badge-googleplay.png";
-
-// Why Smash Padel section images
-import whyCoach from "@/assets/why-coach.webp";
-import whyProgram from "@/assets/why-program.webp";
-import whyLeagues from "@/assets/why-leagues.webp";
-import whyCommunity from "@/assets/why-community.webp";
-import whyOriginalClub from "@/assets/why-original-club.webp";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -39,9 +31,6 @@ export const Route = createFileRoute("/")({
     links: [{ rel: "preload", as: "image", href: heroPoster }],
   }),
 });
-
-const WA_LINK =
-  "https://wa.me/16463736549?text=Hi!%20I%20came%20from%20the%20website%20and%20I%20have%20a%20question%20about%20the%20Intro%20to%20Padel%20class.";
 
 // YouTube facade — loads iframe only on click, avoiding ~500KB of YouTube JS on page load
 function LazyYouTube({ videoId, title }: { videoId: string; title: string }) {
@@ -81,8 +70,6 @@ function LazyYouTube({ videoId, title }: { videoId: string; title: string }) {
 
 function Landing() {
   const [upsellOpen, setUpsellOpen] = useState(false);
-  const [courtLink, setCourtLink] = useState("https://bookings.smashpadelusa.com/f/smashpadelusa/booking_waiver");
-  const [lessonLink, setLessonLink] = useState("https://bookings.smashpadelusa.com/select-lesson/smashpadelusa");
 
   const keepHeroVideoMuted = (video: HTMLVideoElement | null) => {
     if (!video) return;
@@ -90,37 +77,6 @@ function Landing() {
     video.defaultMuted = true;
     video.volume = 0;
   };
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const getLinkWithUtms = (base: string, defaultCampaign: string) => {
-        const currentParams = new URLSearchParams(window.location.search);
-
-        // Forward all current URL params
-        // Add defaults for tracking if they are not already in URL (from ads or organic)
-        if (!currentParams.has("utm_source")) {
-          currentParams.set("utm_source", "landing_page");
-        }
-        if (!currentParams.has("utm_medium")) {
-          currentParams.set("utm_medium", "referral");
-        }
-        if (!currentParams.has("utm_campaign")) {
-          currentParams.set("utm_campaign", defaultCampaign);
-        }
-        // Specific identifier for this section
-        currentParams.set("utm_content", "other_options_section");
-
-        const url = new URL(base);
-        currentParams.forEach((val, key) => {
-          url.searchParams.set(key, val);
-        });
-        return url.toString();
-      };
-
-      setCourtLink(getLinkWithUtms("https://bookings.smashpadelusa.com/f/smashpadelusa/booking_waiver", "court_reservation"));
-      setLessonLink(getLinkWithUtms("https://bookings.smashpadelusa.com/select-lesson/smashpadelusa", "private_coaching"));
-    }
-  }, []);
 
   const openUpsell = () => {
     if (typeof window !== "undefined" && (window as any).fbq) {
@@ -130,7 +86,7 @@ function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background pb-28 text-foreground md:pb-0">
       <Navbar />
 
       {/* ── HERO ── */}
@@ -232,28 +188,6 @@ function Landing() {
         </div>
       </section>
 
-      {/* ── VIDEO ── */}
-      <section id="what" className="bg-background">
-        <div className="container-x py-20 text-center">
-          <p className="section-label">See it in action</p>
-          <h2 className="mx-auto max-w-lg text-2xl font-extrabold leading-tight md:text-3xl">
-            New to Padel? Here's Everything You Need to Know
-          </h2>
-          <div
-            className="mx-auto mt-10 aspect-video max-w-4xl overflow-hidden rounded-2xl relative"
-            style={{ boxShadow: "0 24px 64px rgba(0,0,0,0.18)" }}
-          >
-            <LazyYouTube
-              videoId="y7IO2jaqf58"
-              title="New to Padel? Here's Everything You Need to Know"
-            />
-          </div>
-          <p className="mt-6 italic text-muted-foreground">
-            The fastest growing sport in the world. Now right here in Boulder, Colorado.
-          </p>
-        </div>
-      </section>
-
       {/* ── HOW IT WORKS ── */}
       <section className="bg-background" style={{ borderTop: "1px solid var(--color-border)" }}>
         <div className="container-x py-20">
@@ -289,7 +223,7 @@ function Landing() {
             ))}
           </div>
           <div className="mt-12 text-center">
-            <CTAButton onClick={openUpsell}>Claim Your $40 Discount</CTAButton>
+            <CTAButton onClick={openUpsell}>Book Your $10 Intro</CTAButton>
           </div>
         </div>
       </section>
@@ -359,9 +293,45 @@ function Landing() {
               <p className="mt-6 text-xl font-bold rounded-full px-6 py-2 whitespace-nowrap" style={{ backgroundColor: "color-mix(in oklab, var(--color-whatsapp) 15%, transparent)", color: "var(--color-whatsapp)" }}>You save $40</p>
             </div>
             <div className="mt-8">
-              <CTAButton onClick={openUpsell}>Claim Your $40 Discount</CTAButton>
+              <CTAButton onClick={openUpsell}>Book Your $10 Intro</CTAButton>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── POST VALUE CTA ── */}
+      <section className="bg-background border-t">
+        <div className="container-x mx-auto max-w-3xl py-16 text-center">
+          <h2 className="text-3xl font-extrabold md:text-4xl">Ready to try it?</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            You don't need experience, equipment, or a partner.
+            Just book your $10 Intro and we'll walk you through the rest.
+          </p>
+          <div className="mt-8">
+            <CTAButton onClick={openUpsell}>Book Your First Session</CTAButton>
+          </div>
+        </div>
+      </section>
+
+      {/* ── VIDEO ── */}
+      <section id="what" className="bg-background border-t">
+        <div className="container-x py-20 text-center">
+          <p className="section-label">See it in action</p>
+          <h2 className="mx-auto max-w-lg text-2xl font-extrabold leading-tight md:text-3xl">
+            See what your first session feels like
+          </h2>
+          <div
+            className="mx-auto mt-10 aspect-video max-w-4xl overflow-hidden rounded-2xl relative"
+            style={{ boxShadow: "0 24px 64px rgba(0,0,0,0.18)" }}
+          >
+            <LazyYouTube
+              videoId="y7IO2jaqf58"
+              title="See what your first session feels like"
+            />
+          </div>
+          <p className="mt-6 italic text-muted-foreground">
+            A quick look at the experience before you book.
+          </p>
         </div>
       </section>
 
@@ -406,144 +376,6 @@ function Landing() {
               tabIndex={0}
               className="absolute inset-0"
             ></iframe>
-          </div>
-        </div>
-      </section>
-
-      {/* ── WHY SMASH PADEL - DARK ── */}
-      <section style={{ backgroundColor: "var(--color-dark)" }} className="text-white">
-        <div className="container-x py-20">
-          <h2 className="text-center text-4xl font-extrabold text-white md:text-5xl">
-            Why Smash Padel{" "}
-            <span style={{ color: "var(--color-primary)" }}>is not just any Padel Club</span>
-          </h2>
-          <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-2">
-            {[
-              {
-                t: "Certified Coach Included",
-                d: "Not just an open court rental. Every session comes with a certified coach who actually teaches you — from your very first point.",
-                img: whyCoach,
-              },
-              {
-                t: "A Program for Every Level",
-                d: "Intro classes, open play, clinics, private lessons, academies. Whatever your level, there's a structured next step waiting for you at Smash.",
-                img: whyProgram,
-              },
-              {
-                t: "Leagues That Keep You Coming Back",
-                d: "Weekly competitive leagues for beginners, intermediate, and advanced players. Real games, real scores, real progression — not just casual hitting.",
-                img: whyLeagues,
-              },
-              {
-                t: "Always Someone to Play With",
-                d: "We have hundreds of regular players with open play sessions running every week. You'll always be able to find a fun and competitive match.",
-                img: whyCommunity,
-              },
-            ].map((c) => (
-              <div
-                key={c.t}
-                className="hover-lift rounded-2xl border border-white/10 bg-white/5 transition duration-200 hover:border-white/20 flex flex-col overflow-hidden text-left"
-              >
-                <div className="w-full aspect-video bg-muted relative overflow-hidden">
-                  <img src={c.img} alt={c.t} className="w-full h-full object-cover" loading="lazy" decoding="async" />
-                </div>
-                <div className="p-7 flex flex-col justify-center">
-                  <h3 className="text-xl font-bold text-white">{c.t}</h3>
-                  <p className="mt-2 text-white/60">{c.d}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mx-auto mt-6 max-w-2xl">
-            <div className="hover-lift rounded-2xl border border-white/10 bg-white/5 transition duration-200 hover:border-white/20 flex flex-col overflow-hidden text-left">
-              <div className="w-full aspect-video bg-muted relative overflow-hidden">
-                <img src={whyOriginalClub} alt="The Original Padel Club in Colorado" className="w-full h-full object-cover" loading="lazy" decoding="async" />
-              </div>
-              <div className="p-7 flex flex-col justify-center">
-                <h3 className="text-xl font-bold text-white">The Original Padel Club in Colorado</h3>
-                <p className="mt-2 text-white/60">Colorado's first dedicated indoor padel facility. Five courts, year-round play, and the community that put padel on the map in Colorado.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* ── STILL ON FENCE ── */}
-      <section className="bg-background">
-        <div className="container-x mx-auto max-w-2xl py-20 text-center">
-          <h2 className="text-4xl font-extrabold md:text-5xl">Still curious? Let's talk.</h2>
-          <p className="mt-6 text-lg text-muted-foreground">
-            This is your chance to discover Colorado's fastest-growing sport — with a certified coach, all equipment, and an incredible community included. All for $10. Don't let this week's spots go to someone else.
-          </p>
-          <p className="mt-4 text-lg font-medium">We're on WhatsApp and answer in minutes.</p>
-          <div className="mt-8">
-            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="btn-wa">
-              <MessageCircle className="h-5 w-5" /> Chat with us on WhatsApp
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ── OTHER PRODUCTS / SERVICES ── */}
-      <section className="bg-background border-t">
-        <div className="container-x py-20 text-center">
-          <p className="section-label">Other options</p>
-          <h2 className="mx-auto max-w-xl text-3xl font-extrabold leading-tight md:text-4xl">
-            Looking for something else?
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground text-lg">
-            Whether you want to play a casual match with friends or accelerate your skills with a professional, we have the perfect option for you.
-          </p>
-
-          <div className="mt-12 grid gap-8 md:grid-cols-3 text-left">
-            {[
-              {
-                icon: Calendar,
-                title: "Court Reservations",
-                desc: "Rent one of our 5 world-class indoor courts. Perfect lighting, high ceilings, and climate control for the ultimate padel experience.",
-                cta: "Book a Court",
-                link: courtLink,
-              },
-              {
-                icon: GraduationCap,
-                title: "Coaching & Lessons",
-                desc: "Get personalized 1-on-1 or small group coaching. Learn the correct technique, tactical positioning, and strategy from certified coaches.",
-                cta: "Book a Lesson",
-                link: lessonLink,
-              },
-              {
-                icon: Users,
-                title: "Clinics & Open Play",
-                desc: "Join daily social open plays matched to your level, or participate in skills clinics to elevate your game and meet new players.",
-                cta: "Explore Programs",
-                link: "https://apps.apple.com/us/app/smash-padel-usa/id6740839621",
-              },
-            ].map((s) => {
-              const Icon = s.icon;
-              return (
-                <div key={s.title} className="hover-lift rounded-2xl border bg-background p-8 shadow-sm flex flex-col justify-between">
-                  <div>
-                    <div className="icon-wrap">
-                      <Icon className="h-6 w-6" style={{ color: "var(--color-primary)" }} />
-                    </div>
-                    <h3 className="text-xl font-bold">{s.title}</h3>
-                    <p className="mt-3 text-muted-foreground leading-relaxed">{s.desc}</p>
-                  </div>
-                  <div className="mt-8">
-                    <a
-                      href={s.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 font-bold text-sm uppercase tracking-wider transition-colors hover:opacity-80"
-                      style={{ color: "var(--color-primary)" }}
-                    >
-                      {s.cta} →
-                    </a>
-                  </div>
-                </div>
-              );
-            })}
           </div>
         </div>
       </section>
@@ -595,7 +427,7 @@ function Landing() {
             ))}
           </Accordion>
           <div className="mt-10 text-center">
-            <CTAButton onClick={openUpsell}>Claim Your $40 Discount</CTAButton>
+            <CTAButton onClick={openUpsell}>Book Your $10 Intro</CTAButton>
           </div>
         </div>
       </section>
@@ -615,7 +447,7 @@ function Landing() {
             You're one session away from finding your new favorite thing to do in Boulder. Coach, racket, and court — all included. Reserve your spot for $10 before this week fills up.
           </p>
           <div className="mt-8">
-            <CTAButton onClick={openUpsell}>Claim Your $40 Discount</CTAButton>
+            <CTAButton onClick={openUpsell}>Book Your $10 Intro</CTAButton>
           </div>
         </div>
       </section>
@@ -665,7 +497,20 @@ function Landing() {
         </div>
       </footer>
 
-      <WhatsAppFloat />
+      <div className="hidden md:block">
+        <WhatsAppFloat />
+      </div>
+      <div
+        className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 px-4 pb-4 pt-3 shadow-[0_-12px_30px_rgba(0,0,0,0.12)] backdrop-blur md:hidden"
+        style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
+      >
+        <div className="mx-auto max-w-sm text-center">
+          <p className="mb-2 text-xs font-semibold text-muted-foreground">No experience needed.</p>
+          <CTAButton onClick={openUpsell} className="w-full px-4 py-3 text-sm">
+            Book Your $10 Intro
+          </CTAButton>
+        </div>
+      </div>
       <UpsellModal open={upsellOpen} onOpenChange={setUpsellOpen} />
     </div>
   );
