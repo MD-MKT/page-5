@@ -101,11 +101,11 @@ export const Route = createFileRoute("/")({
         content:
           "A 60-minute beginner session with a coach. Racket included. No partner or experience needed.",
       },
-      { property: "og:url", content: "https://intro4.smashpadelusa.com/" },
+      { property: "og:url", content: "https://intro5.smashpadelusa.com/" },
     ],
     links: [
       { rel: "preload", as: "image", href: heroPoster },
-      { rel: "canonical", href: "https://intro4.smashpadelusa.com/" },
+      { rel: "canonical", href: "https://intro5.smashpadelusa.com/" },
     ],
   }),
 });
@@ -541,9 +541,7 @@ function Landing() {
         </div>
       </footer>
 
-      <div className="hidden md:block">
-        <WhatsAppFloat />
-      </div>
+      <WhatsAppFloat className={showStickyCta ? "bottom-28 sm:bottom-28 md:bottom-6" : undefined} />
 
       {showStickyCta && (
         <div

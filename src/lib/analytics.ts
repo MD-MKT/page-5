@@ -49,8 +49,8 @@ export function trackIntroCtaClick(location: IntroCtaLocation) {
   analyticsWindow.fbq?.("trackCustom", "IntroCtaClick", properties);
 
   const viewContentKey = "smashIntroViewContentTracked";
-  if (!window.sessionStorage.getItem(viewContentKey)) {
-    analyticsWindow.fbq?.("track", "ViewContent", {
+  if (!window.sessionStorage.getItem(viewContentKey) && analyticsWindow.fbq) {
+    analyticsWindow.fbq("track", "ViewContent", {
       content_name: "$10 Intro to Padel",
       content_type: "product",
       value: 10,
@@ -64,9 +64,13 @@ export function trackMetaInitiateCheckout() {
   if (typeof window === "undefined") return;
 
   const analyticsWindow = window as AnalyticsWindow;
-  analyticsWindow.fbq?.("track", "InitiateCheckout", {
+  const initiateCheckoutKey = "smashIntroInitiateCheckoutTracked";
+  if (window.sessionStorage.getItem(initiateCheckoutKey) || !analyticsWindow.fbq) return;
+
+  analyticsWindow.fbq("track", "InitiateCheckout", {
     content_name: "$10 Intro to Padel",
     value: 10,
     currency: "USD",
   });
+  window.sessionStorage.setItem(initiateCheckoutKey, "1");
 }

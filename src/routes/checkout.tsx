@@ -11,7 +11,7 @@ import { trackIntroEvent, trackMetaInitiateCheckout } from "@/lib/analytics";
 
 const CHECKOUT_LEAD_STORAGE_KEY = "smashCheckoutLead";
 
-const EMBED_BASE_URL = "https://app.acuityscheduling.com/schedule.php?owner=35143956&ref=page_4";
+const EMBED_BASE_URL = "https://app.acuityscheduling.com/schedule.php?owner=35143956&ref=page_5";
 
 const TIMER_SECONDS = 10 * 60;
 
@@ -67,6 +67,8 @@ export const Route = createFileRoute("/checkout")({
 
 function CheckoutPage() {
   const search = Route.useSearch();
+  const utmSource = search.utm_source || "direct";
+  const utmCampaign = search.utm_campaign || "not_set";
   const [lead, setLead] = useState({
     name: search.name ?? "",
     email: search.email ?? "",
@@ -75,11 +77,11 @@ function CheckoutPage() {
 
   useEffect(() => {
     trackIntroEvent("intro_checkout_loaded", {
-      utm_source: search.utm_source || "direct",
-      utm_campaign: search.utm_campaign || "not_set",
+      utm_source: utmSource,
+      utm_campaign: utmCampaign,
     });
     trackMetaInitiateCheckout();
-  }, []);
+  }, [utmCampaign, utmSource]);
   const [secondsLeft, setSecondsLeft] = useState(TIMER_SECONDS);
   const [expired, setExpired] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
