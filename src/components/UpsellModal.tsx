@@ -2,6 +2,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/compone
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { CTAButton } from "./CTAButton";
+import { INTRO_CTA_LABEL, trackIntroEvent, type IntroCtaLocation } from "@/lib/analytics";
 
 const CHECKOUT_LEAD_STORAGE_KEY = "smashCheckoutLead";
 
@@ -10,9 +11,11 @@ const sanitizeLeadValue = (value: string) => value.trim().replace(/^["']+|["']+$
 export function UpsellModal({
   open,
   onOpenChange,
+  ctaLocation,
 }: {
   open: boolean;
   onOpenChange: (o: boolean) => void;
+  ctaLocation: IntroCtaLocation;
 }) {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -30,28 +33,42 @@ export function UpsellModal({
       phone: sanitizeLeadValue(phone),
     };
 
-    if (typeof window !== "undefined" && (window as any).fbq) {
-      (window as any).fbq("track", "ViewContent");
-    }
+    const checkoutSearch =
+      typeof window === "undefined"
+        ? {}
+        : Object.fromEntries(new URLSearchParams(window.location.search));
 
     if (typeof window !== "undefined") {
       window.sessionStorage.setItem(CHECKOUT_LEAD_STORAGE_KEY, JSON.stringify(lead));
     }
 
+    const webhookBody = new URLSearchParams({
+      timestamp: new Date().toISOString(),
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone,
+      page: "page-4",
+    });
+
+    Object.entries(checkoutSearch).forEach(([key, value]) => {
+      if (key.startsWith("utm_") || ["fbclid", "campaign_id", "adset_id", "ad_id"].includes(key)) {
+        webhookBody.set(key, value);
+      }
+    });
+
     fetch(MAKE_WEBHOOK, {
       method: "POST",
       mode: "no-cors",
-      body: new URLSearchParams({
-        timestamp: new Date().toISOString(),
-        name: lead.name,
-        email: lead.email,
-        phone: lead.phone,
-        page: "page-4",
-      }),
+      body: webhookBody,
     }).catch(() => {});
 
+    trackIntroEvent("intro_lead_submitted", {
+      cta_location: ctaLocation,
+      cta_label: INTRO_CTA_LABEL,
+    });
+
     onOpenChange(false);
-    navigate({ to: "/checkout" });
+    navigate({ to: "/checkout", search: checkoutSearch });
   };
 
   return (
@@ -59,21 +76,13 @@ export function UpsellModal({
       <DialogContent className="flex max-h-[92dvh] w-[calc(100%-2rem)] max-w-lg flex-col overflow-y-auto rounded-2xl p-0 sm:w-full">
         {/* Scrollable content */}
         <div className="flex flex-col gap-0 p-6 sm:p-8">
-          {/* Badge */}
-          <div
-            className="mb-3 inline-block w-fit rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider text-white"
-            style={{ backgroundColor: "#dc2626" }}
-          >
-            ⚡ Limited spots — $10 offer
-          </div>
-
           <DialogTitle className="text-xl font-extrabold leading-tight sm:text-2xl">
-            One last step to lock in{" "}
-            <span style={{ color: "var(--color-primary)" }}>your $10 spot</span>
+            Enter your details once
           </DialogTitle>
 
           <DialogDescription className="mt-2 text-sm text-muted-foreground sm:text-base">
-            Fill in your details and we'll send your confirmation instantly.
+            We'll use them to pre-fill the booking page. Next, you'll choose your date and complete
+            payment.
           </DialogDescription>
 
           <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-3">
@@ -125,12 +134,12 @@ export function UpsellModal({
             {/* Button always visible — not inside scroll trap */}
             <div className="mt-2">
               <CTAButton type="submit" className="w-full">
-                Reserve My $10 Spot →
+                Book Your $10 Intro
               </CTAButton>
             </div>
 
             <p className="text-center text-xs text-muted-foreground">
-              🔒 Secure & private. No spam, ever.
+              Secure and private. Your details pre-fill checkout.
             </p>
           </form>
         </div>

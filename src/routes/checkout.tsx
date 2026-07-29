@@ -1,50 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, useRef } from "react";
 import { z } from "zod";
-import { Check, Lock, X } from "lucide-react";
+import { Check, Lock } from "lucide-react";
 import logoImg from "@/assets/logo-topo.png";
 import amexLogo from "@/assets/payment/american-express-logo.png";
 import mastercardLogo from "@/assets/payment/mastercard-logo.png";
 import visaLogo from "@/assets/payment/visa-logo.png";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+import { trackIntroEvent, trackMetaInitiateCheckout } from "@/lib/analytics";
 
 const CHECKOUT_LEAD_STORAGE_KEY = "smashCheckoutLead";
 
-const SOCIAL_PROOFS = [
-  {
-    name: "Chris Martinez",
-    initials: "CM",
-    action: "just secured their spot in Intro to Padel",
-    spots: 3,
-  },
-  {
-    name: "Ashley Johnson",
-    initials: "AJ",
-    action: "just grabbed the last discounted session",
-    spots: 3,
-  },
-  {
-    name: "Tyler Brooks",
-    initials: "TB",
-    action: "just reserved their $10 intro session",
-    spots: 3,
-  },
-  {
-    name: "Sarah Williams",
-    initials: "SW",
-    action: "just booked her beginner padel session",
-    spots: 3,
-  },
-  {
-    name: "Jake Thompson",
-    initials: "JT",
-    action: "just claimed the $40 discount offer",
-    spots: 3,
-  },
-];
-
-const EMBED_BASE_URL =
-  "https://app.acuityscheduling.com/schedule.php?owner=35143956&ref=page_4";
+const EMBED_BASE_URL = "https://app.acuityscheduling.com/schedule.php?owner=35143956&ref=page_4";
 
 const TIMER_SECONDS = 10 * 60;
 
@@ -71,11 +38,13 @@ const TESTIMONIALS = [
   },
 ];
 
-const searchSchema = z.object({
-  name: z.string().optional().catch(""),
-  email: z.string().optional().catch(""),
-  phone: z.string().optional().catch(""),
-});
+const searchSchema = z
+  .object({
+    name: z.string().optional().catch(""),
+    email: z.string().optional().catch(""),
+    phone: z.string().optional().catch(""),
+  })
+  .catchall(z.string().catch(""));
 
 function PaymentLogo({ src, alt }: { src: string; alt: string }) {
   return (
@@ -104,20 +73,16 @@ function CheckoutPage() {
     phone: search.phone ?? "",
   });
 
-  // Track InitiateCheckout via Facebook Pixel
   useEffect(() => {
-    if (typeof window !== "undefined" && (window as any).fbq) {
-      (window as any).fbq("track", "InitiateCheckout");
-    }
+    trackIntroEvent("intro_checkout_loaded", {
+      utm_source: search.utm_source || "direct",
+      utm_campaign: search.utm_campaign || "not_set",
+    });
+    trackMetaInitiateCheckout();
   }, []);
   const [secondsLeft, setSecondsLeft] = useState(TIMER_SECONDS);
   const [expired, setExpired] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  // Social proof popup
-  const [popup, setPopup] = useState<(typeof SOCIAL_PROOFS)[0] | null>(null);
-  const [popupVisible, setPopupVisible] = useState(false);
-  const proofIndexRef = useRef(Math.floor(Math.random() * SOCIAL_PROOFS.length));
 
   useEffect(() => {
     try {
@@ -140,33 +105,6 @@ function CheckoutPage() {
     } catch {
       window.sessionStorage.removeItem(CHECKOUT_LEAD_STORAGE_KEY);
     }
-  }, []);
-
-  const showNextProof = () => {
-    const proof = SOCIAL_PROOFS[proofIndexRef.current % SOCIAL_PROOFS.length];
-    proofIndexRef.current += 1;
-    setPopup(proof);
-    setPopupVisible(true);
-    setTimeout(() => setPopupVisible(false), 5000);
-  };
-
-  const intervalProofRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const secondTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    // First popup at 8s, second at 22s, then every 30s
-    const first = setTimeout(() => {
-      showNextProof();
-      secondTimeoutRef.current = setTimeout(() => {
-        showNextProof();
-        intervalProofRef.current = setInterval(showNextProof, 30000);
-      }, 14000);
-    }, 8000);
-    return () => {
-      clearTimeout(first);
-      if (secondTimeoutRef.current) clearTimeout(secondTimeoutRef.current);
-      if (intervalProofRef.current) clearInterval(intervalProofRef.current);
-    };
   }, []);
 
   // Countdown
@@ -236,7 +174,7 @@ function CheckoutPage() {
         ) : (
           <div className="container-x flex flex-col items-center justify-center py-3 text-center text-white sm:flex-row sm:gap-3">
             {/* Mobile: stacked. Desktop: inline */}
-            <span className="text-xs font-bold uppercase tracking-widest text-red-200 sm:text-sm">
+            <span className="text-xs font-bold uppercase text-red-200 sm:text-sm">
               ⚠️ OFFER EXPIRES IN
             </span>
             <span
@@ -269,17 +207,13 @@ function CheckoutPage() {
           <div className="mb-6 text-center">
             <p className="section-label">Almost there!</p>
             <h1 className="text-2xl font-extrabold leading-tight md:text-4xl">
-              Claim Your{" "}
-              <span style={{ color: "var(--color-primary)" }}>$40 Discount</span>
+              Claim Your <span style={{ color: "var(--color-primary)" }}>$40 Discount</span>
             </h1>
           </div>
 
           {/* ── Embed ── */}
           <div className="overflow-hidden rounded-2xl border bg-background shadow-sm">
-            <div
-              className="border-b px-5 py-4"
-              style={{ backgroundColor: "var(--color-soft)" }}
-            >
+            <div className="border-b px-5 py-4" style={{ backgroundColor: "var(--color-soft)" }}>
               <h2 className="text-center text-lg font-extrabold leading-tight">
                 Pick your date & complete payment
               </h2>
@@ -334,13 +268,16 @@ function CheckoutPage() {
           <div className="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-center text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-1.5">
               <Lock className="h-4 w-4" aria-hidden="true" />
-              🔒 Secure payment via Stripe
+              Secure payment via Stripe
             </span>
             <span className="hidden sm:inline">·</span>
             <span>No subscriptions</span>
             <span className="hidden sm:inline">·</span>
             <span>One-time $10 charge only</span>
-            <span className="inline-flex items-center gap-1.5" aria-label="Accepted payment methods">
+            <span
+              className="inline-flex items-center gap-1.5"
+              aria-label="Accepted payment methods"
+            >
               <PaymentLogo src={visaLogo} alt="Visa" />
               <PaymentLogo src={mastercardLogo} alt="Mastercard" />
               <PaymentLogo src={amexLogo} alt="American Express" />
@@ -357,45 +294,6 @@ function CheckoutPage() {
         </a>
       </footer>
 
-      {/* ── Social proof popup ── */}
-      {popup && (
-        <div
-          className="fixed bottom-6 left-4 right-4 z-50 sm:left-6 sm:right-auto sm:w-80 transition-all duration-500"
-          style={{
-            opacity: popupVisible ? 1 : 0,
-            transform: popupVisible ? "translateY(0)" : "translateY(16px)",
-            pointerEvents: popupVisible ? "auto" : "none",
-          }}
-        >
-          <div className="flex items-start gap-3 rounded-2xl border border-border bg-background p-4 shadow-2xl">
-            {/* Avatar */}
-            <div
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-black text-white"
-              style={{ backgroundColor: "var(--color-primary)" }}
-            >
-              {popup.initials}
-            </div>
-
-            {/* Text */}
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-foreground leading-snug">
-                <span style={{ color: "var(--color-primary)" }}>{popup.name}</span>{" "}
-                {popup.action}
-              </p>
-              <p className="mt-0.5 text-[10px] text-muted-foreground">Just now · Boulder, CO</p>
-            </div>
-
-            {/* Close */}
-            <button
-              onClick={() => setPopupVisible(false)}
-              className="shrink-0 text-muted-foreground hover:text-foreground transition-colors"
-              aria-label="Dismiss"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          </div>
-        </div>
-      )}
       <WhatsAppFloat href="https://wa.me/13035641103?text=Hi%21%20I%27m%20interested%20in%20the%20Intro%20to%20Padel%20and%20had%20a%20quick%20question." />
     </div>
   );

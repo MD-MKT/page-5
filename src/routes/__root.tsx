@@ -72,18 +72,37 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Build a high-converting landing page for Smash Padel USA, promoting a $10 intro offer for a 60-minute beginner session." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Build a high-converting landing page for Smash Padel USA, promoting a $10 intro offer for a 60-minute beginner session." },
+      { title: "Try Padel in Boulder for $10 | Smash Padel" },
+      {
+        name: "description",
+        content:
+          "Book a 60-minute beginner Padel session in Boulder for $10. Coach and racket included. No partner or experience needed.",
+      },
+      { name: "author", content: "Smash Padel USA" },
+      { property: "og:title", content: "Try Padel in Boulder for $10 | Smash Padel" },
+      {
+        property: "og:description",
+        content:
+          "A 60-minute beginner session with a coach. Racket included. No partner or experience needed.",
+      },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "twitter:description", content: "Build a high-converting landing page for Smash Padel USA, promoting a $10 intro offer for a 60-minute beginner session." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/SkYqRBylH6fPXPX8zvN4RgArkPh1/social-images/social-1778963719085-Screenshot_2026-05-16_at_10.35.03_pm.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/SkYqRBylH6fPXPX8zvN4RgArkPh1/social-images/social-1778963719085-Screenshot_2026-05-16_at_10.35.03_pm.webp" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Try Padel in Boulder for $10 | Smash Padel" },
+      {
+        name: "twitter:description",
+        content:
+          "A 60-minute beginner session with a coach. Racket included. No partner or experience needed.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/SkYqRBylH6fPXPX8zvN4RgArkPh1/social-images/social-1778963719085-Screenshot_2026-05-16_at_10.35.03_pm.webp",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/SkYqRBylH6fPXPX8zvN4RgArkPh1/social-images/social-1778963719085-Screenshot_2026-05-16_at_10.35.03_pm.webp",
+      },
     ],
     links: [
       {

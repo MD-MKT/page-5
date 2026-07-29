@@ -58,20 +58,29 @@
   --ring: oklch(0.66 0.18 38);
   /* Custom */
   --soft: oklch(0.98 0.012 55); /* #FFF8F4 */
-  --dark: oklch(0.21 0 0);      /* #1A1A1A */
+  --dark: oklch(0.21 0 0); /* #1A1A1A */
   --whatsapp: oklch(0.74 0.17 152); /* #25D366 */
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; }
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1,h2,h3,h4 { letter-spacing: -0.02em; }
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: 0;
+  }
 }
 
 @layer components {
@@ -86,11 +95,14 @@
     font-weight: 700;
     text-transform: uppercase;
     font-size: 18px;
-    letter-spacing: 0.03em;
+    letter-spacing: 0;
     padding: 16px 40px;
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    transition:
+      transform 0.15s ease,
+      background-color 0.15s ease,
+      box-shadow 0.15s ease;
     box-shadow:
       0 4px 16px -4px color-mix(in oklab, var(--color-primary) 55%, transparent),
       0 1px 3px rgba(0, 0, 0, 0.08);
@@ -102,7 +114,9 @@
       0 10px 28px -4px color-mix(in oklab, var(--color-primary) 60%, transparent),
       0 2px 8px rgba(0, 0, 0, 0.12);
   }
-  .btn-cta:active { transform: translateY(0); }
+  .btn-cta:active {
+    transform: translateY(0);
+  }
   .btn-cta:focus-visible {
     outline: 3px solid color-mix(in oklab, var(--color-primary) 50%, transparent);
     outline-offset: 3px;
@@ -118,11 +132,14 @@
     font-weight: 700;
     text-transform: uppercase;
     font-size: 18px;
-    letter-spacing: 0.03em;
+    letter-spacing: 0;
     padding: 16px 40px;
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    transition:
+      transform 0.15s ease,
+      background-color 0.15s ease,
+      box-shadow 0.15s ease;
     box-shadow:
       0 4px 16px -4px color-mix(in oklab, var(--color-whatsapp) 50%, transparent),
       0 1px 3px rgba(0, 0, 0, 0.08);
@@ -134,10 +151,16 @@
       0 10px 28px -4px color-mix(in oklab, var(--color-whatsapp) 55%, transparent),
       0 2px 8px rgba(0, 0, 0, 0.12);
   }
-  .btn-wa:active { transform: translateY(0); }
+  .btn-wa:active {
+    transform: translateY(0);
+  }
 
   /* ── Layout ── */
-  .container-x { max-width: 1200px; margin-inline: auto; padding-inline: 1.25rem; }
+  .container-x {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
 
   /* ── Section label ── */
   .section-label {
@@ -145,18 +168,22 @@
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0;
     color: var(--color-primary);
     margin-bottom: 10px;
   }
 
   /* ── Card hover lift ── */
   .hover-lift {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
   }
   .hover-lift:hover {
     transform: translateY(-4px);
-    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.11), 0 2px 6px rgba(0, 0, 0, 0.05);
+    box-shadow:
+      0 20px 48px rgba(0, 0, 0, 0.11),
+      0 2px 6px rgba(0, 0, 0, 0.05);
   }
 
   /* ── Icon container ── */
@@ -174,8 +201,12 @@
 
   /* ── Marquee / Carousel ── */
   @keyframes marquee {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
   .animate-marquee {
     animation: marquee 35s linear infinite;
@@ -188,8 +219,15 @@
 
   /* ── Pulsing dot for urgency ── */
   @keyframes pulse-dot {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.5); opacity: 0.4; }
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 0.4;
+    }
   }
   .pulse-dot {
     display: inline-block;
