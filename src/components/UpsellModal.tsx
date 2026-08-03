@@ -1,10 +1,18 @@
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CTAButton } from "./CTAButton";
 import { INTRO_CTA_LABEL, trackIntroEvent, type IntroCtaLocation } from "@/lib/analytics";
+import {
+  createSmsConsentFields,
+  createWebhookBody,
+  normalizePhoneToE164,
+} from "@/lib/checkout-lead";
 
 const CHECKOUT_LEAD_STORAGE_KEY = "smashCheckoutLead";
+const SMS_TERMS_URL = "https://www.playbypoint.com/terms-of-use/";
+const PRIVACY_POLICY_URL =
+  "https://bookings.smashpadelusa.com/f/smashpadelusa/pages/privacy-policy-6d0e884a-f7cc-48a9-9aee-3200b0499b59";
 
 const sanitizeLeadValue = (value: string) => value.trim().replace(/^["']+|["']+$/g, "");
 
@@ -21,16 +29,33 @@ export function UpsellModal({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [smsOptIn, setSmsOptIn] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const submissionInFlightRef = useRef(false);
 
   const MAKE_WEBHOOK = "https://hook.us2.make.com/cotm4s3mtjcshw7lv3k5xmx8wkb3usjj";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (submissionInFlightRef.current) return;
+
+    const normalizedPhone = normalizePhoneToE164(phone);
+    if (!normalizedPhone) {
+      setPhoneError("Enter a valid phone number, including country code if outside the U.S.");
+      return;
+    }
+
+    submissionInFlightRef.current = true;
+    setIsSubmitting(true);
+
     const cleanName = sanitizeLeadValue(name);
+    const submittedAt = new Date().toISOString();
+    const smsConsentFields = createSmsConsentFields(smsOptIn, submittedAt);
     const lead = {
       name: cleanName,
       email: sanitizeLeadValue(email),
-      phone: sanitizeLeadValue(phone),
+      phone: normalizedPhone,
     };
 
     const checkoutSearch =
@@ -42,12 +67,14 @@ export function UpsellModal({
       window.sessionStorage.setItem(CHECKOUT_LEAD_STORAGE_KEY, JSON.stringify(lead));
     }
 
-    const webhookBody = new URLSearchParams({
-      timestamp: new Date().toISOString(),
+    const webhookBody = createWebhookBody({
+      timestamp: submittedAt,
       name: lead.name,
       email: lead.email,
       phone: lead.phone,
       page: "page-5",
+      source: "page-5",
+      ...smsConsentFields,
     });
 
     Object.entries(checkoutSearch).forEach(([key, value]) => {
@@ -60,6 +87,7 @@ export function UpsellModal({
       method: "POST",
       mode: "no-cors",
       body: webhookBody,
+      keepalive: true,
     }).catch(() => {});
 
     trackIntroEvent("intro_lead_submitted", {
@@ -126,15 +154,62 @@ export function UpsellModal({
                 required
                 placeholder="+1 (720) 000-0000"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => {
+                  setPhone(e.target.value);
+                  if (phoneError) setPhoneError("");
+                }}
+                aria-invalid={Boolean(phoneError)}
+                aria-describedby={phoneError ? "modal-phone-error" : undefined}
                 className="rounded-lg border border-input bg-background px-4 py-3 text-base outline-none transition focus:ring-2 focus:ring-ring"
               />
+              {phoneError && (
+                <p
+                  id="modal-phone-error"
+                  role="alert"
+                  className="text-xs font-medium text-destructive"
+                >
+                  {phoneError}
+                </p>
+              )}
+            </div>
+
+            <div className="flex items-start gap-3 rounded-lg border border-input bg-muted/30 p-3">
+              <input
+                id="sms_opt_in"
+                name="sms_opt_in"
+                type="checkbox"
+                checked={smsOptIn}
+                onChange={(e) => setSmsOptIn(e.target.checked)}
+                className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-primary)]"
+              />
+              <label htmlFor="sms_opt_in" className="text-xs leading-relaxed text-muted-foreground">
+                By checking this box, I agree to receive recurring automated promotional texts from
+                Smash Padel. Consent isn’t required to purchase. Msg &amp; data rates may apply.
+                Reply STOP to opt out or HELP for help.{" "}
+                <a
+                  href={SMS_TERMS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-foreground underline underline-offset-2"
+                >
+                  Terms
+                </a>{" "}
+                |{" "}
+                <a
+                  href={PRIVACY_POLICY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-foreground underline underline-offset-2"
+                >
+                  Privacy
+                </a>
+              </label>
             </div>
 
             {/* Button always visible — not inside scroll trap */}
             <div className="mt-2">
-              <CTAButton type="submit" className="w-full">
-                Book Your $10 Intro
+              <CTAButton type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? "Opening checkout..." : "Book Your $10 Intro"}
               </CTAButton>
             </div>
 
