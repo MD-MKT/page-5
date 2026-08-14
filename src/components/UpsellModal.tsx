@@ -3,11 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { CTAButton } from "./CTAButton";
 import { INTRO_CTA_LABEL, trackIntroEvent, type IntroCtaLocation } from "@/lib/analytics";
-import {
-  createSmsConsentFields,
-  createWebhookBody,
-  normalizePhoneToE164,
-} from "@/lib/checkout-lead";
+import { createSmsConsentFields, normalizePhoneToE164 } from "@/lib/checkout-lead";
 
 const CHECKOUT_LEAD_STORAGE_KEY = "smashCheckoutLead";
 const SMS_TERMS_URL = "https://www.playbypoint.com/terms-of-use/";
@@ -30,13 +26,13 @@ export function UpsellModal({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
+  const [submissionError, setSubmissionError] = useState("");
   const [smsOptIn, setSmsOptIn] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submissionInFlightRef = useRef(false);
+  const submissionIdRef = useRef<string | null>(null);
 
-  const MAKE_WEBHOOK = "https://hook.us2.make.com/cotm4s3mtjcshw7lv3k5xmx8wkb3usjj";
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (submissionInFlightRef.current) return;
 
@@ -48,10 +44,17 @@ export function UpsellModal({
 
     submissionInFlightRef.current = true;
     setIsSubmitting(true);
+    setSubmissionError("");
 
     const cleanName = sanitizeLeadValue(name);
     const submittedAt = new Date().toISOString();
     const smsConsentFields = createSmsConsentFields(smsOptIn, submittedAt);
+    const submissionId =
+      submissionIdRef.current ??
+      (typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+    submissionIdRef.current = submissionId;
     const lead = {
       name: cleanName,
       email: sanitizeLeadValue(email),
@@ -67,28 +70,40 @@ export function UpsellModal({
       window.sessionStorage.setItem(CHECKOUT_LEAD_STORAGE_KEY, JSON.stringify(lead));
     }
 
-    const webhookBody = createWebhookBody({
+    const checkoutLead: Record<string, string | boolean | null> = {
       timestamp: submittedAt,
       name: lead.name,
       email: lead.email,
       phone: lead.phone,
       page: "page-5",
       source: "page-5",
+      submission_id: submissionId,
       ...smsConsentFields,
-    });
+    };
 
     Object.entries(checkoutSearch).forEach(([key, value]) => {
       if (key.startsWith("utm_") || ["fbclid", "campaign_id", "adset_id", "ad_id"].includes(key)) {
-        webhookBody.set(key, value);
+        checkoutLead[key] = value;
       }
     });
 
-    fetch(MAKE_WEBHOOK, {
-      method: "POST",
-      mode: "no-cors",
-      body: webhookBody,
-      keepalive: true,
-    }).catch(() => {});
+    try {
+      const response = await fetch("/api/checkout-lead", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(checkoutLead),
+        keepalive: true,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Lead capture failed with status ${response.status}`);
+      }
+    } catch {
+      submissionInFlightRef.current = false;
+      setIsSubmitting(false);
+      setSubmissionError("We couldn't save your details. Check your connection and try again.");
+      return;
+    }
 
     trackIntroEvent("intro_lead_submitted", {
       cta_location: ctaLocation,
@@ -212,6 +227,12 @@ export function UpsellModal({
                 {isSubmitting ? "Opening checkout..." : "Book Your $10 Intro"}
               </CTAButton>
             </div>
+
+            {submissionError && (
+              <p role="alert" className="text-center text-xs font-medium text-destructive">
+                {submissionError}
+              </p>
+            )}
 
             <p className="text-center text-xs text-muted-foreground">
               Secure and private. Your details pre-fill checkout.
